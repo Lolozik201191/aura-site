@@ -11,8 +11,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 HERE = os.path.dirname(os.path.abspath(__file__))
 DB = os.environ.get('SITE_DB', os.path.join(HERE, 'data', 'site_catalog.db'))
-# Сайт = копия дизайн-макетов AURA (вёрстка/стили не меняются), в неё встраиваются данные
-PUBLIC = os.environ.get('SITE_PUBLIC', os.path.normpath(os.path.join(HERE, '..', 'site')))
+# Корневая папка репозитория — единый «сайт» (Pages отдаёт её же); в страницы встроен live.js
+PUBLIC = os.environ.get('SITE_PUBLIC', os.path.normpath(os.path.join(HERE, '..')))
 ORDERS = os.environ.get('ORDERS_FILE', os.path.join(HERE, 'data', 'orders.json'))
 PORT = int(os.environ.get('AURA_API_PORT', '8138'))
 ADMIN_TOKEN = os.environ.get('AURA_ORDERS_TOKEN', 'aura2026')
