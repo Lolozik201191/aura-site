@@ -1204,3 +1204,35 @@ main p,section p,main .sub,main .txt,main .note{max-width:min(100%,62ch)}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .crl-view{outline:none}
 .crl-view:focus-visible{outline:2px solid var(--emerald);outline-offset:2px;border-radius:6px}
+
+/* ============================================================
+   ФИКСЫ ПО СКРИНАМ ПОЛЬЗОВАТЕЛЯ (красные обводки)
+   ============================================================ */
+/* бейджи плиток («Хит», «Для невесты»): в углу карточки, не в потоке текста */
+.hub-tile .tg-badge{position:absolute;top:14px;left:14px;right:auto;width:auto;z-index:2}
+/* чипы-галочки в промо-баннерах: столбик с воздухом */
+.promo .chklist{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+/* карточки «Услуги и акции сети»: раздельный заголовок/описание, вид карточки */
+.svcgrid a{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--border-l);border-radius:var(--r);padding:20px 22px;box-shadow:0 1px 2px rgba(42,38,34,.04);transition:border-color .2s,box-shadow .2s,transform .2s}
+.svcgrid a:hover{border-color:var(--gold-2);box-shadow:var(--shadow-sm);transform:translateY(-3px)}
+.svcgrid a .s-ic{flex:none;width:48px;height:48px;border-radius:12px;background:var(--gold-soft);color:var(--gold-d);display:grid;place-items:center}
+.svcgrid a div{flex:1;min-width:0}
+.svcgrid a b{display:block;font-family:var(--head);font-size:15px;font-weight:700;color:var(--ink);margin:2px 0 5px}
+.svcgrid a div span{display:block;font-size:13px;color:var(--ink-2);line-height:1.55}
+@media (max-width:768px){.svcgrid a{gap:12px;padding:16px 18px}}
+
+/* ============================================================
+   ДОРАБОТКИ ПО ОБВОДКАМ ПОЛЬЗОВАТЕЛЯ (v2)
+   ============================================================ */
+/* плашки преимуществ в промо: «золотое стекло», панель-подложка, воздух */
+.promo .chklist{max-width:330px;background:rgba(14,11,8,.42);border:1px solid rgba(232,201,143,.26);border-radius:20px;padding:14px 16px 16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.promo .chklist .chk{width:100%;justify-content:flex-start;background:rgba(232,201,143,.12)!important;border:1px solid rgba(232,201,143,.5)!important;color:#F6EFDF!important;gap:9px;padding:9px 15px;border-radius:999px;font-size:13px;letter-spacing:.1px;min-height:38px}
+.promo .chklist .chk svg{color:#E8C98F!important;flex:none}
+/* плитки каталога пар: выше, текст не задевает бейдж и не вылезает */
+.hub-tile{min-height:220px}
+.hub-tile b,.hub-tile span:not(.scrim):not(.tg-badge){max-width:100%}
+/* чипы акций под услугами салона: сетка по колонкам карточек */
+.svcgrid + .chipsline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.svcgrid + .chipsline > *{width:max-content;max-width:100%;white-space:normal;text-align:left}
+@media (max-width:980px){.svcgrid + .chipsline{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.svcgrid + .chipsline{grid-template-columns:1fr}}
