@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AURA — обзор готовых страниц</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/aura.css">
+<style>
+  .sm-hero{background:linear-gradient(115deg,#2A2622,#3A342C 55%,#5A4D30);color:#fff;border-radius:var(--r-lg);padding:clamp(28px,4vw,46px);margin-top:18px}
+  .sm-hero h1{font-size:clamp(30px,4vw,48px);font-weight:700;letter-spacing:-1px}
+  .sm-hero p{color:#DDD3C2;margin-top:8px;max-width:640px}
+  .sm-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:8px}
+  .sm-item{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;display:block;transition:all .25s var(--ease)}
+  .sm-item:hover{transform:translateY(-4px);border-color:var(--gold-2);box-shadow:var(--shadow)}
+  .sm-item b{font-family:var(--head);font-size:18px;font-weight:700}
+  .sm-item span{display:block;font-size:13px;color:var(--ink-2);margin-top:4px}
+  .sm-item code{font-size:11px;color:var(--gold-d);margin-top:8px;display:block}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="sm-hero">
+    <span class="kicker" style="color:#E8C98F">Ювелирный дом AURA · сборка</span>
+    <h1>Готовые страницы сайта</h1>
+    <p>Все рабочие макеты в единой дизайн-системе «Тёплое сияние» (айвори / изумруд / золото-шампань / терракота), адаптивны, с микроанимациями. Откройте любую страницу ниже.</p>
+  </section>
+
+  <section class="sec">
+    <div class="sm-list">
+      <a class="sm-item" href="index.html"><b>Главная</b><span>Hero-слайдер, категории, хиты/новинки, «Свой салон рядом», ИИ-консьерж, «AURA в жизни», отзывы</span><code>index.html</code></a>
+      <a class="sm-item" href="catalog.html"><b>Каталог «Кольца»</b><span>Фильтры, сортировка, карточки с ценами, пагинация, баннеры-фишки</span><code>catalog.html</code></a>
+      <a class="sm-item" href="product.html"><b>Карточка товара</b><span>Галерея+zoom, размер, «В корзину»/«В 1 клик», блок «Паспорт украшения», «Забрать в салоне», отзывы</span><code>product.html</code></a>
+      <a class="sm-item" href="promotions.html"><b>Акции</b><span>Hero «−80%», текущие и постоянные акции, товары по акциям с ценами</span><code>promotions.html</code></a>
+      <a class="sm-item" href="wedding.html"><b>Свадьба</b><span>Хаб: обручальные/помолвочные, чек-лист подготовки, скидка молодожёнам</span><code>wedding.html</code></a>
+      <a class="sm-item" href="passport.html"><b>Паспорт украшения</b><span>Инфо-страница фишки доверия: что входит, пример, как получить</span><code>passport.html</code></a>
+      <a class="sm-item" href="salon.html"><b>Свой салон рядом</b><span>Салон в Раменском: адрес, часы, консультант на связи, услуги, примерка</span><code>salon.html</code></a>
+      <a class="sm-item" href="cart.html"><b>Корзина</b><span>Позиции, промокод, бонусы, итог → переход в оформление</span><code>cart.html</code></a>
+      <a class="sm-item" href="checkout.html"><b>Оформление заказа</b><span>4 шага с индикатором: контакты → доставка → оплата → подтверждение</span><code>checkout.html</code></a>
+      <a class="sm-item" href="account.html"><b>Личный кабинет</b><span>Вход по СМС, заказы, избранное, паспорта, бонусы, резервы</span><code>account.html</code></a>
+      <a class="sm-item" href="delivery.html"><b>Доставка и оплата</b><span>Способы получения, оплата, рассрочка 0%</span><code>delivery.html</code></a>
+      <a class="sm-item" href="return.html"><b>Возврат и обмен</b><span>по закону: брак, дистанционные заказы, обмен старого золота</span><code>return.html</code></a>
+      <a class="sm-item" href="service.html"><b>Гарантия и уход</b><span>Сервис по паспорту, чистка, ремонт</span><code>service.html</code></a>
+      <a class="sm-item" href="about.html"><b>О компании</b><span>Философия AURA, преимущества, журнал «как выбрать»</span><code>about.html</code></a>
+      <a class="sm-item" href="faq.html"><b>Вопросы и ответы</b><span>Размер, паспорт, доставка, возврат, рассрочка</span><code>faq.html</code></a>
+      <a class="sm-item" href="contacts.html"><b>Контакты</b><span>Офис, поддержка, форма обратной связи, города</span><code>contacts.html</code></a>
+      <a class="sm-item" href="soon.html"><b>Заглушка раздела</b><span>Служебные «в разработке» (по параметру ?s=…)</span><code>soon.html</code></a>
+    </div>
+  </section>
+</main>
+</body>
+</html>

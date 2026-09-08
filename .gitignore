@@ -1,0 +1,32 @@
+# Базы и данные (не храним в git)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+server/data/products.json
+server/data/orders.json
+server/data/site_catalog.db
+server/data/*.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Логи и временное
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Служебные/рабочие папки (не для публичного репо)
+_qa/
+.dsh-vision-toolkit/
+jewelry-site_backup/
+node_modules/
+
+# Секреты (на всякий случай)
+*.secret
+.env
+secrets.toml

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AURA — раздел в разработке</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/aura.css">
+<style>
+  body{min-height:100vh;display:flex;flex-direction:column}
+  .mini-head{background:var(--bg-2);border-bottom:1px solid var(--line-2);position:sticky;top:0;z-index:60}
+  .mini-head .wrap{display:flex;align-items:center;justify-content:space-between;height:70px;gap:16px}
+  .mini-head .right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  main{flex:1}
+</style>
+</head>
+<body>
+<div class="mini-head">
+  <div class="wrap">
+    <a class="logo" href="index.html">
+      <img src="assets/logo-au-ra.png" alt="Ювелирный дом AURA" style="height:38px;width:auto">
+    </a>
+    <nav class="right" aria-label="Основное меню">
+      <a class="btn btn-g" href="catalog.html">Каталог</a>
+      <a class="btn btn-p" href="salon.html">Свой салон рядом</a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a><span>›</span><b id="crumbName">Раздел</b></nav>
+  <section class="soon" id="root">
+    <div class="s-ic"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l7 2.6v5.4c0 5-3.2 8.6-7 10.4-3.8-1.8-7-5.4-7-10.4V5.4l7-2.6z"/><path d="M8.8 12l2.3 2.3 4.2-4.6"/></svg></div>
+    <span class="kicker" style="justify-content:center">Раздел в разработке</span>
+    <h1 id="title" style="font-family:var(--head);font-size:30px;font-weight:600;margin-bottom:10px">Раздел AURA</h1>
+    <p id="desc" style="color:var(--ink-2);max-width:460px;margin:0 auto 24px">Сейчас в проекте готовы макеты главной, каталога, карточки товара, «Свой салон рядом» и корзины. Этот раздел появится на следующем шаге разработки.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-p" href="index.html">На главную</a>
+      <a class="btn btn-gold" href="catalog.html">Смотреть готовые макеты</a>
+    </div>
+    <div id="links" style="margin-top:26px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <div style="margin-bottom:6px"><a href="index.html"><img src="assets/logo-au-ra.png" alt="Ювелирный дом AURA" style="height:46px;width:auto"></a></div>
+      <p style="font-size:13.5px;color:#C7C7C7;margin:14px 0">Ювелирный дом AURA — салоны в городах Московской области. Честные украшения, живой сервис.</p>
+      <a class="fbtn" href="tel:+74964640307">+7 (496) 464-03-07 · офис</a>
+      <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+        <a class="fbtn" href="http://vk.com/jewelry_aura">VK</a>
+        <a class="fbtn" href="https://www.instagram.com/juvelirnyiaura/">Instagram</a>
+        <a class="fbtn" href="https://www.facebook.com/juvelirnyiaura">Facebook</a>
+      </div>
+    </div>
+    <div><p class="fh">Каталог</p><ul>
+      <li><a href="catalog.html">Кольца</a></li>
+      <li><a href="catalog.html">Серьги</a></li>
+      <li><a href="catalog.html">Браслеты</a></li>
+      <li><a href="catalog.html">Колье и подвески</a></li>
+      <li><a href="wedding.html">Обручальные</a></li>
+    </ul></div>
+    <div><p class="fh">Покупателям</p><ul>
+      <li><a href="passport.html">Паспорт украшения</a></li>
+      <li><a href="delivery.html">Доставка и оплата</a></li>
+      <li><a href="return.html">Возврат и обмен</a></li>
+      <li><a href="service.html">Гарантия и уход</a></li>
+      <li><a href="promotions.html">Обмен старого золота</a></li>
+      <li><a href="soon.html?s=credit">Рассрочка</a></li>
+    </ul></div>
+    <div><p class="fh">Салоны</p><ul>
+      <li><a href="salon.html">Раменское · 2 салона</a></li>
+      <li><a href="salon.html">Ногинск · Воскресенск</a></li>
+      <li><a href="salon.html">Егорьевск · Луховицы</a></li>
+      <li><a href="salon.html">Озёры · Электрогорск</a></li>
+    </ul></div>
+    <div><p class="fh">AURA</p><ul>
+      <li><a href="account.html">Личный кабинет</a></li>
+      <li><a href="about.html">О компании</a></li>
+      <li><a href="about.html#guide">Журнал: как выбрать</a></li>
+      <li><a href="soon.html?s=certs">Подарочные сертификаты</a></li>
+      <li><a href="faq.html">Вопросы и ответы</a></li>
+      <li><a href="contacts.html">Контакты</a></li>
+    </ul></div>
+    <div class="bottom">
+      <span>© 2010–2026 AURA. Ювелирный дом · Московская область</span>
+      <span>Политика конфиденциальности · Публичная оферта</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var T = {
+    wedding: ['Свадьба', 'Обручальные и помолвочные кольца, украшения для невесты, парные комплекты и чек-лист подготовки — скоро в макетах.'],
+    collections: ['Коллекции AURA', 'Собственные коллекции ювелирного дома — скоро в макетах.'],
+    passport: ['Паспорт украшения', 'Проба, вес, камень, сертификат и правила ухода — у каждого изделия. Цифровая версия появится в личном кабинете.'],
+    delivery: ['Доставка и оплата', 'Курьер, пункты выдачи и получение в салоне; оплата картой, по СБП, при получении и «Долями».'],
+    return: ['Возврат и обмен', 'Брак — вернём или заменим; правила возврата ювелирных изделий — скоро появятся здесь.'],
+    service: ['Гарантия, сервис и уход', 'Сервис украшений AURA по паспорту изделия: чистка, проверка, ремонт.'],
+    trade: ['Старое на новое', 'Обменяйте старое украшение с доплатой на новое — условия акции действуют в салонах сети.'],
+    credit: ['Рассрочка и кредит', 'Рассрочка 0% и оплата «Долями» — условия скоро появятся здесь.'],
+    certs: ['Подарочные сертификаты', 'Подарочные сертификаты AURA — скоро в макетах.'],
+    faq: ['Вопросы и ответы', 'Частые вопросы о размерах, уходе, доставке и гарантии — скоро здесь.'],
+    about: ['О компании', 'Ювелирный дом AURA: сеть салонов в Московской области, украшения от ведущих российских производителей.'],
+    journal: ['Журнал AURA', 'Гиды по выбору украшений, размерам, камням и уходу.'],
+    contacts: ['Контакты', 'Телефон офиса +7 (496) 464-03-07, салоны в 7 городах — полный список на странице «Свой салон рядом».'],
+    favorites: ['Избранное', 'Сохранённые украшения будут доступны после входа по номеру телефона.'],
+    login: ['Личный кабинет', 'Вход по номеру телефона: заказы, избранное, «Мои украшения» с паспортами и записи на примерку.'],
+    reviews: ['Отзывы', 'Отзывы покупателей AURA — скоро в макетах.'],
+    sizeguide: ['Как узнать размер', 'Инструкция: как определить размер кольца по существующему украшению или шаблону.'],
+    buy1: ['Покупка в 1 клик', 'Оставьте телефон — консультант салона свяжется, подтвердит заказ и подготовит украшение.'],
+    checkout: ['Оформление заказа', '4 шага: телефон, способ получения (включая салон), оплата, подтверждение.'],
+    cartop: ['Корзина · управление', 'Изменение количества, промокоды и бонусы — в рабочем прототипе.'],
+    ai: ['ИИ-консьерж', 'Помощь с выбором: опишите случай и бюджет — подберём украшения и передадим консультанту салона.'],
+    dev: ['Раздел', 'Раздел появится на следующем шаге разработки.']
+  };
+  var slug = (location.search.match(/[?&]s=([a-z0-9]+)/i) || [])[1] || 'dev';
+  var conf = T[slug] || T.dev;
+  document.getElementById('title').textContent = conf[0];
+  var crumb = document.getElementById('crumbName'); if (crumb) crumb.textContent = conf[0];
+  document.getElementById('desc').textContent = conf[1];
+  document.title = 'AURA — ' + conf[0];
+})();
+</script>
+<script src="assets/fx.js"></script>
+</body>
+</html>
