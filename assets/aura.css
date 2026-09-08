@@ -1148,3 +1148,43 @@ body.has-buybar .callback-btn{bottom:92px}
 @media (max-width:768px) and (min-width:481px){.mcat{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:768px){.catlayout .card{flex-wrap:wrap}.catlayout .card .price-wrap{min-width:0}}
 .salonhero .cta2 a{min-height:48px}
+
+/* ============================================================
+   ФИКСЫ ПО АУДИТУ IMPECCABLE (живые страницы GitHub Pages)
+   ============================================================ */
+/* футер: названия колонок — не уровни заголовков документа */
+.footer .fh{display:block;margin:0 0 14px;font-family:var(--sans);font-size:13px;font-weight:800;letter-spacing:2.4px;text-transform:uppercase;color:#C4A06A}
+/* hover ссылок футера — без анимации layout-свойств (только transform) */
+.footer a{transition:color .2s,transform .25s var(--ease)}
+.footer li a{display:inline-block}
+.footer li a:hover{padding-left:0;transform:translateX(4px)}
+/* панельные заголовки: зеркало прежних h3 после повышения уровня */
+.panel h2{font-family:var(--head);font-size:22px;letter-spacing:-.4px;line-height:1.25;margin-bottom:6px}
+.infocard h3{font-family:var(--head);font-size:20px;font-weight:800;letter-spacing:-.4px;margin:0 0 14px;display:flex;gap:10px;align-items:center}
+.infocard h3 svg{color:var(--gold-d);flex:none}
+/* заголовок «Фильтры» каталога: h6→h2, прежний вид */
+.filters h2.fhead{display:flex;justify-content:space-between;align-items:center;font-family:var(--sans);font-size:15px;font-weight:800;letter-spacing:0;line-height:1.3;color:var(--ink);margin:0;padding:12px 0 2px}
+/* эм-акценты слайдера главной: контраст на светлых и тёмном слайдах */
+.hs-s1 h2 em,.hs-s3 h2 em{color:#7A5B24}
+.hs-s2 h2 em{color:#D6B77C}
+/* лейблы «сторис» — не меньше 11px */
+.live .lv-tag{font-size:11px}
+/* длина строк: примечания, шаги, условия */
+.note{max-width:520px}
+.plan-step p{max-width:70ch}
+/* карточки акций: условия не заезжают под фото; контраст */
+.actcard .a-terms{max-width:52%;min-width:0}
+.grad-g .a-terms{color:#0B0602}
+.grad-g .a-terms b{color:#000}
+.grad-g .a-terms,.grad-g .a-terms b{text-shadow:none}
+.grad-br .a-terms{color:#fff}
+.grad-br .a-terms b{color:#fff}
+/* длинный кикер hero акций — обычный регистр (не all-caps тело) */
+.act-hero .kicker{text-transform:none;letter-spacing:.5px;font-size:13.5px}
+/* лёгкий воздух по краям каруселей */
+.crl-view{padding:10px 8px 14px}
+@media (max-width:768px){
+  .actcard .a-terms{max-width:60%}
+}
+/* поп-ап «Заказать звонок»: заголовок h2 (зеркало прежнего h4) */
+.callback-pop h2{font-family:var(--head);font-size:18px;letter-spacing:-.2px;margin:0 0 4px}

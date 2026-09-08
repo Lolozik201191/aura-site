@@ -148,7 +148,7 @@
     pop.setAttribute('aria-label', 'Заказать звонок');
     pop.innerHTML =
       '<button class="cb-close" aria-label="Закрыть">×</button>' +
-      '<h4>Заказать звонок</h4>' +
+      '<h2>Заказать звонок</h2>' +
       '<p class="cb-sub">Оставьте номер — перезвоним в течение 15 минут в рабочее время.</p>' +
       '<input type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" aria-label="Телефон">' +
       '<button class="btn btn-p" type="button">Жду звонка</button>' +
