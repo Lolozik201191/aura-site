@@ -30,3 +30,6 @@ node_modules/
 *.secret
 .env
 secrets.toml
+
+# локальный эталон макетов (в репо макеты уже в корне и в site/)
+mockups/

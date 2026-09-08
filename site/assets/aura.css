@@ -139,7 +139,8 @@ button{cursor:pointer;border:0;background:none}
 .topline .spacer{flex:1}
 .tl-link{display:inline-flex;align-items:center;gap:6px;min-height:38px}
 .phone{font-weight:700;color:#fff!important}
-.header{background:#fff;position:sticky;top:0;z-index:60;border-bottom:1px solid var(--border-l);box-shadow:0 1px 8px rgba(0,0,0,.03)}
+.sitehead{position:sticky;top:-38px;z-index:60}
+.header{background:#fff;z-index:60;border-bottom:1px solid var(--border-l);box-shadow:0 1px 8px rgba(0,0,0,.03)}
 .header .wrap{display:flex;align-items:center;gap:18px;height:76px}
 .logo{flex:none;display:inline-flex}
 .logo img{height:46px;width:auto}
@@ -845,7 +846,8 @@ table.tbl a{color:var(--emerald);font-weight:700}
   --hairline:linear-gradient(90deg,transparent,rgba(196,160,106,.6),transparent);
 }
 html{background:var(--bg)}
-html,body{overflow-x:clip}
+html{overflow-x:clip}
+
 body{font-size:15.5px;line-height:1.62}
 
 /* ---- живое свечение фона («свет драгоценного камня») ---- */
