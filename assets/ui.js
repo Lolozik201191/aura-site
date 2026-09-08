@@ -498,4 +498,21 @@
   } else {
     init();
   }
+  /* Десктопный поиск в шапке: Enter/кнопка → каталог с ?q= */
+  function bindDesktopSearch() {
+    document.querySelectorAll('.header .search input').forEach(function (inp) {
+      inp.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); var v = inp.value.trim(); window.location = v ? 'catalog.html?q=' + encodeURIComponent(v) : 'catalog.html'; }
+      });
+    });
+    document.querySelectorAll('.header .search .s-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var inp = document.querySelector('.header .search input');
+        var v = inp ? inp.value.trim() : '';
+        window.location = v ? 'catalog.html?q=' + encodeURIComponent(v) : 'catalog.html';
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindDesktopSearch);
+  else bindDesktopSearch();
 })();

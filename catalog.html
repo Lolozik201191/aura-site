@@ -128,7 +128,7 @@
     <!-- Товары -->
     <div>
       <div class="toolbar">
-        <span>Найдено: 1 240 · показаны 1–9</span>
+        <span id="foundInfo">Найдено: 1 240 · показаны 1–9</span>
         <label class="sort">Сортировка
           <select><option>Сначала популярные</option><option>Сначала недорогие</option><option>Сначала дорогие</option><option>Сначала новинки</option><option>По размеру скидки</option></select>
         </label>
@@ -255,5 +255,50 @@ window.__iconsApply && window.__iconsApply();
 })();
 </script>
 <script src="assets/fx.js"></script>
+<script>
+/* ===== Рабочие фильтры и поиск (демо-прототип) ===== */
+(function () {
+  var grid = document.getElementById('grid');
+  var info = document.getElementById('foundInfo');
+  var TOTAL = 1240;
+  var CAT = ['diamond', 'plain', 'pave', 'solit', 'emerald', 'sapph', 'signet', 'topaz', 'halo'];
+  var TYPE_MAP = [
+    ['Кольца с бриллиантами', ['diamond', 'pave', 'solit', 'halo']],
+    ['Обручальные', ['plain']],
+    ['Помолвочные', ['solit', 'halo']],
+    ['На каждый день', ['pave', 'emerald', 'topaz']],
+    ['С кольцами-печатками', ['signet']]
+  ];
+  function labelOf(chk) {
+    var lbl = chk.closest('label');
+    return lbl ? (lbl.textContent || '').trim() : '';
+  }
+  function apply() {
+    var q = (new URLSearchParams(location.search).get('q') || '').trim().toLowerCase();
+    var stock = false, sale = false, typeCats = null;
+    document.querySelectorAll('.filters .fopt input').forEach(function (chk) {
+      var t = labelOf(chk);
+      if (/Только в наличии/.test(t) && chk.checked) stock = true;
+      if (/^Скидки$/.test(t) && chk.checked) sale = true;
+      TYPE_MAP.forEach(function (m) { if (t.indexOf(m[0]) === 0 && chk.checked) typeCats = typeCats ? typeCats.concat(m[1]) : m[1].slice(); });
+    });
+    var keep = 0;
+    Array.prototype.forEach.call(grid.children, function (card, i) {
+      var g = G[i]; if (!g) return;
+      var ok = true;
+      if (q && g.n.toLowerCase().indexOf(q) === -1) ok = false;
+      if (ok && stock && !g.av) ok = false;
+      if (ok && sale && !g.s) ok = false;
+      if (ok && typeCats && typeCats.indexOf(CAT[i]) === -1) ok = false;
+      card.style.display = ok ? '' : 'none';
+      if (ok) keep++;
+    });
+    if (info) info.textContent = 'Найдено: ' + keep + ' из ' + TOTAL;
+  }
+  document.querySelectorAll('.filters .fopt input').forEach(function (chk) { chk.addEventListener('change', apply); });
+  document.querySelectorAll('.chipghost, .filters-reset').forEach(function (el) { el.addEventListener('click', function () { setTimeout(apply, 30); }); });
+  apply();
+})();
+</script>
 </body>
 </html>
