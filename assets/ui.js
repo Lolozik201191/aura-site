@@ -77,7 +77,7 @@
       drawer.innerHTML =
         '<div class="d-head"><span class="logo" style="opacity:.85">' + (wrap.querySelector('.logo') ? wrap.querySelector('.logo').innerHTML : 'AURA') + '</span>' +
         '<button class="d-close" aria-label="Закрыть меню">' + IC.close + '</button></div>' +
-        '<nav class="d-nav">' + navLinks + '</nav>' +
+        '<nav class="d-nav" aria-label="Меню (мобильная версия)">' + navLinks + '</nav>' +
         '<div class="d-sub"><b>Салоны</b>' +
         '<a href="salon.html">Раменское · 2 салона</a><a href="salon.html">Ногинск · Воскресенск · Егорьевск</a><a href="salon.html">Луховицы · Озёры · Электрогорск</a>' +
         '<b>Покупателям</b>' +
@@ -226,6 +226,9 @@
       crl.classList.add('crl-built');
       var view = document.createElement('div');
       view.className = 'crl-view';
+      view.setAttribute('tabindex', '0');
+      view.setAttribute('role', 'group');
+      view.setAttribute('aria-label', 'Карусель: листайте стрелками или клавишами ← →');
       var track = document.createElement('div');
       track.className = 'crl-track';
       while (crl.firstChild) track.appendChild(crl.firstChild);

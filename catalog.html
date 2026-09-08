@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="assets/aura.css">
 </head>
 <body>
-
+<header class="sitehead">
 <div class="topline">
   <div class="wrap">
     <span class="city"><span data-ic="pin"></span>Ваш салон: <b>Раменское</b></span>
@@ -25,10 +25,10 @@
   </div>
 </div>
 
-<header class="header">
+<div class="header">
   <div class="wrap">
     <a class="logo" href="index.html"><img src="assets/logo-au-ra.png" alt="Ювелирный дом AURA" style="height:44px;width:auto"></a>
-    <nav class="nav">
+    <nav class="nav" aria-label="Основное меню">
       <a href="catalog.html">Каталог</a>
       <a href="wedding.html">Свадьба</a>
       <a href="promotions.html">Акции</a>
@@ -37,18 +37,18 @@
     </nav>
     <div class="search">
       <input placeholder="Поиск: кольцо с бриллиантом, серьги…">
-      <button class="s-btn" data-ic="search" aria-label="Найти"></button>
+      <button class="s-btn" data-ic="search" aria-label="Найти"><span class="sr-only">Найти</span></button>
     </div>
     <div class="icons">
-      <a class="ic" data-ic="user" href="account.html" aria-label="Войти в кабинет"></a>
-      <button class="ic" data-ic="heart" aria-label="Избранное"></button>
-      <a class="ic" data-ic="bag" href="cart.html" aria-label="Корзина"><span class="cnt">2</span></a>
+      <a class="ic" data-ic="user" href="account.html" aria-label="Войти в кабинет"><span class="sr-only">Войти в кабинет</span></a>
+      <button class="ic" data-ic="heart" aria-label="Избранное"><span class="sr-only">Избранное</span></button>
+      <a class="ic" data-ic="bag" href="cart.html" aria-label="Корзина"><span class="sr-only">Корзина</span><span class="cnt">2</span></a>
     </div>
   </div>
-</header>
+</div>
 
-<main class="wrap">
-  <nav class="breadcrumbs">
+</header><main class="wrap">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки">
     <a href="index.html">Главная</a><span>›</span><a href="catalog.html">Каталог</a><span>›</span><b>Кольца</b>
   </nav>
   <h1 class="pagetitle">Кольца <span>1 240 изделий</span></h1>
@@ -155,12 +155,12 @@
       </div>
     </div>
   </div>
-</main>
 
   <section class="sec hidden" id="recentSec">
     <div class="sec-head"><div><span class="kicker">История просмотров</span><h2>Вы недавно смотрели</h2></div></div>
     <div class="pgrid c3" id="recentGrid"></div>
   </section>
+</main>
 
 <footer class="footer">
   <div class="wrap">
@@ -234,7 +234,7 @@ var G = [
 function card(g,i){
   return '<div class="card"><div class="ph '+g.ph+(IMG[i]?' pimg':'')+'">'+(IMG[i]?'<img class="pimg" src="assets/pics/'+IMG[i]+'" alt="'+g.n+'" loading="lazy">':PICS[g.p])+
     '<div class="b1">'+(g.s?'<span class="tg sale">'+g.s+'</span>':'')+(g.t&&!g.s?'<span class="tg new">'+g.t+'</span>':'')+(g.t&&g.s?'<span class="tg">'+g.t+'</span>':'')+'</div>'+
-    '<button class="fav" data-ic="heart" aria-label="В избранное"></button>'+
+    '<button class="fav" data-ic="heart" aria-label="В избранное"><span class="sr-only">В избранное</span></button>'+
     '<div class="buy"><a class="btn btn-p" href="product.html">В корзину</a></div></div>'+
     '<div class="body">'+(g.av?'<span class="avail">В салоне Раменского · сегодня</span>':'<span class="avail no">Привезём в салон за 2 дня</span>')+
     '<h3><a href="product.html">'+g.n+'</a></h3><span class="meta">'+g.m+'</span>'+

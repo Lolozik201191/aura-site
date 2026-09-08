@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="assets/aura.css">
 </head>
 <body>
-
+<header class="sitehead">
 <div class="topline"><div class="wrap">
   <span class="city" data-ic="pin"><span>Ваш салон: <b>Раменское</b></span></span>
   <span class="spacer"></span>
@@ -18,25 +18,25 @@
   <a class="tl-link" data-ic="phone" href="tel:+74964640307">+7 (496) 464-03-07</a>
 </div></div>
 
-<header class="header"><div class="wrap">
+<div class="header"><div class="wrap">
   <a class="logo" href="index.html"><img src="assets/logo-au-ra.png" alt="Ювелирный дом AURA"></a>
-  <nav class="nav">
+  <nav class="nav" aria-label="Основное меню">
       <a href="catalog.html">Каталог</a>
       <a href="wedding.html">Свадьба</a>
       <a href="promotions.html">Акции</a>
       <a href="salon.html">Свой салон рядом</a>
       <a href="passport.html">Паспорт украшения</a>
     </nav>
-  <div class="search"><input placeholder="Поиск: кольцо с бриллиантом, серьги…" aria-label="Поиск"><button class="s-btn" data-ic="search" aria-label="Найти"></button></div>
+  <div class="search"><input placeholder="Поиск: кольцо с бриллиантом, серьги…" aria-label="Поиск"><button class="s-btn" data-ic="search" aria-label="Найти"><span class="sr-only">Найти</span></button></div>
   <div class="icons">
-    <a class="ic" data-ic="user" href="account.html" aria-label="Войти в кабинет"></a>
-    <button class="ic" data-ic="heart" aria-label="Избранное"></button>
-    <a class="ic" data-ic="bag" href="cart.html" aria-label="Корзина"><span class="cnt">2</span></a>
+    <a class="ic" data-ic="user" href="account.html" aria-label="Войти в кабинет"><span class="sr-only">Войти в кабинет</span></a>
+    <button class="ic" data-ic="heart" aria-label="Избранное"><span class="sr-only">Избранное</span></button>
+    <a class="ic" data-ic="bag" href="cart.html" aria-label="Корзина"><span class="sr-only">Корзина</span><span class="cnt">2</span></a>
   </div>
-</div></header>
+</div></div>
 
-<main class="wrap">
-  <nav class="breadcrumbs"><a href="index.html">Главная</a><span>›</span><b>О компании</b></nav>
+</header><main class="wrap">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a><span>›</span><b>О компании</b></nav>
 
   <section class="legend">
     <span class="kicker" style="color:#E8C98F">Ювелирный дом AURA</span>

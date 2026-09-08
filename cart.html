@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="assets/aura.css">
 </head>
 <body>
-
+<header class="sitehead">
 <div class="topline">
   <div class="wrap">
     <span class="city"><span data-ic="pin"></span>Ваш салон: <b>Раменское</b></span>
@@ -24,10 +24,10 @@
   </div>
 </div>
 
-<header class="header">
+<div class="header">
   <div class="wrap">
     <a class="logo" href="index.html"><img src="assets/logo-au-ra.png" alt="Ювелирный дом AURA" style="height:44px;width:auto"></a>
-    <nav class="nav">
+    <nav class="nav" aria-label="Основное меню">
       <a href="catalog.html">Каталог</a>
       <a href="wedding.html">Свадьба</a>
       <a href="promotions.html">Акции</a>
@@ -36,18 +36,18 @@
     </nav>
     <div class="search">
       <input placeholder="Поиск: кольцо с бриллиантом, серьги…">
-      <button class="s-btn" data-ic="search" aria-label="Найти"></button>
+      <button class="s-btn" data-ic="search" aria-label="Найти"><span class="sr-only">Найти</span></button>
     </div>
     <div class="icons">
-      <a class="ic" data-ic="user" href="account.html" aria-label="Войти в кабинет"></a>
-      <button class="ic" data-ic="heart" aria-label="Избранное"></button>
-      <a class="ic" data-ic="bag" href="cart.html" aria-label="Корзина"><span class="cnt">2</span></a>
+      <a class="ic" data-ic="user" href="account.html" aria-label="Войти в кабинет"><span class="sr-only">Войти в кабинет</span></a>
+      <button class="ic" data-ic="heart" aria-label="Избранное"><span class="sr-only">Избранное</span></button>
+      <a class="ic" data-ic="bag" href="cart.html" aria-label="Корзина"><span class="sr-only">Корзина</span><span class="cnt">2</span></a>
     </div>
   </div>
-</header>
+</div>
 
-<main class="wrap" style="min-height:56vh">
-  <nav class="breadcrumbs"><a href="index.html">Главная</a><span>›</span><b>Корзина</b></nav>
+</header><main class="wrap" style="min-height:56vh">
+  <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a><span>›</span><b>Корзина</b></nav>
   <h1 class="pagetitle">Корзина <span>2 изделия</span></h1>
 
   <div class="catlayout" style="grid-template-columns:1fr 360px">
