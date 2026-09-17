@@ -638,3 +638,70 @@ input:focus,select:focus,textarea:focus{border-color:#000!important;outline:none
 .hub-tile .tg-badge,.mcat .m-badge{background:#fff!important;color:#000!important}
 /* лёгкая подсветка при наведении — вместо старых теней */
 .hub-tile:hover,.mcat a:hover{border-color:#000!important}
+/* ============================================================
+   БАННЕРЫ БЕЗ ФОТО ВНУТРИ (только типографика)
+   ============================================================ */
+/* главный слайдер: одна колонка, крупный текст, без картинки */
+.hs-art{display:none!important}
+.hslide .wrap{grid-template-columns:1fr!important;max-width:900px;margin:0 auto;gap:0}
+.hslide h2{max-width:820px}
+.hslide p{max-width:640px}
+.hs-price{font-size:clamp(26px,2.6vw,34px)!important}
+/* свадьба: hero в одну колонку */
+.hub-hero{grid-template-columns:1fr!important;max-width:900px}
+.hub-hero h1{max-width:760px}
+.hub-hero p{max-width:620px}
+/* акции: крупная цифра вместо фото */
+.act-hero{grid-template-columns:1.25fr .75fr!important}
+.act-big{display:grid;justify-items:center;align-content:center;gap:6px;text-align:center;padding:10px}
+.act-big-pct{font-family:var(--head);font-weight:600;font-size:clamp(72px,9vw,150px);line-height:.88;letter-spacing:-.03em;color:#fff}
+.act-big-note{font-size:14px;color:#C9C9C9}
+.act-big-sub{font-size:12.5px;color:#9A9A9A;letter-spacing:.04em;text-transform:uppercase}
+/* кнопки-контуры на светлых баннерах — тёмные (были белые на белом) */
+.hub-hero .btn-o,.legend .btn-o,.mini-banner--light .btn-o{color:#000!important;border-color:#000!important;background:#fff!important}
+.hub-hero .btn-o:hover,.legend .btn-o:hover{background:#000!important;color:#fff!important}
+.hub-hero .btn-gold,.legend .btn-gold,.mini-banner--light .btn-gold{background:#000!important;color:#fff!important;border-color:#000!important}
+.hub-hero .btn-gold:hover{background:#333!important;border-color:#333!important}
+/* в hero каталога ряды кнопок — одинаковая высота */
+.hslide .cta{display:flex;gap:12px;flex-wrap:wrap}
+@media (max-width:900px){
+  .act-hero{grid-template-columns:1fr!important}
+  .act-big{justify-items:start;text-align:left;padding:0;margin-top:18px}
+  .act-big-pct{font-size:clamp(52px,14vw,92px)}
+}
+
+/* ============================================================
+   ТИПОГРАФИЧЕСКИЙ АКЦЕНТ В БАННЕРАХ (вместо фото)
+   ============================================================ */
+/* главный слайдер: текст слева, крупная марка-«водяной знак» справа */
+.hslider{overflow:hidden}
+.hslide .wrap{position:relative;z-index:1}
+.hslide .wrap::after{
+  content:"AURA";position:absolute;right:-10px;top:50%;transform:translateY(-50%);
+  font-family:var(--head);font-weight:500;font-size:clamp(110px,15vw,260px);line-height:.8;
+  color:#F1F1F1;letter-spacing:.02em;z-index:-1;pointer-events:none;user-select:none}
+.hslide h2{font-size:clamp(32px,4.2vw,62px)!important;max-width:780px}
+.hs-price{margin-top:6px}
+.hslide .cta{margin-top:22px}
+/* марку прячем на узких экранах, чтобы не мешала тексту */
+@media (max-width:900px){.hslide .wrap::after{display:none}.hslide h2{font-size:clamp(26px,7vw,34px)!important}}
+/* баннер свадьбы — на всю ширину контейнера */
+.hub-hero{max-width:none!important;padding:clamp(28px,3.4vw,52px)}
+.hub-hero h1{max-width:820px}
+/* баннер салона: карточка консультанта — с ровными кнопками */
+.salonhero .btn-w{background:rgba(255,255,255,.12)!important;border:1px solid rgba(255,255,255,.4)!important;color:#fff!important}
+.salonhero .btn-w:hover{background:#fff!important;color:#000!important}
+
+/* ============================================================
+   HERO: крупная типографика справа (вместо фото и водяного знака)
+   ============================================================ */
+.hslide .wrap::after{display:none!important}
+.hslide .wrap{grid-template-columns:1.12fr .88fr!important;gap:32px;align-items:center;max-width:1280px}
+.hs-type{display:grid;gap:8px;justify-items:end;text-align:right;align-self:center}
+.hs-type b{font-family:var(--head);font-weight:500;font-size:clamp(84px,9.5vw,164px);line-height:.82;letter-spacing:-.02em;color:#111}
+.hs-type span{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#8A8A8A;max-width:220px}
+@media (max-width:900px){
+  .hslide .wrap{grid-template-columns:1fr!important;gap:18px}
+  .hs-type{justify-items:start;text-align:left}
+  .hs-type b{font-size:clamp(52px,14vw,84px)}
+}
