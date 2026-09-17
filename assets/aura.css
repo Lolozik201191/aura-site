@@ -30,8 +30,8 @@
   --r:12px;               /* 8–12px как в требованиях */
   --r-sm:8px;
   --r-lg:16px;
-  --head:"Montserrat","Inter",Arial,sans-serif;
-  --sans:"Inter","Roboto",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --head:"Cormorant Garamond",Georgia,serif;
+  --sans:"Manrope","Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   --ease:cubic-bezier(.22,.61,.36,1);
   --dur:.22s;
   /* алиасы (совместимость разметки) */
@@ -839,8 +839,8 @@ table.tbl a{color:var(--emerald);font-weight:700}
    Плейфэр-дисплей + интер, свечение камней, воздух, микроанимации
    ============================================================ */
 :root{
-  --head:"Playfair Display","Georgia",serif;   /* заголовки — сериф */
-  --sans:"Inter","Segoe UI",system-ui,Arial,sans-serif;
+  --head:"Cormorant Garamond","Georgia",serif;   /* заголовки — сериф */
+  --sans:"Manrope","Inter","Segoe UI",system-ui,Arial,sans-serif;
   --ease:cubic-bezier(.22,.61,.36,1);
   --dur:.3s;
   --hairline:linear-gradient(90deg,transparent,rgba(196,160,106,.6),transparent);

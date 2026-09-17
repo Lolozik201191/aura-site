@@ -560,6 +560,8 @@
       set('[data-sum-bonus]', Math.round(total * 0.02));
       var cnt = document.querySelector('.icons .cnt');
       if (cnt) cnt.textContent = count;
+      var mcnt = document.querySelector('.mobbar .mb-cnt');
+      if (mcnt) mcnt.textContent = count;
       var empty = document.getElementById('cartEmpty');
       var layout = document.querySelector('.catlayout');
       if (empty && layout) { if (!live.length) { empty.hidden = false; layout.style.display = 'none'; } else { empty.hidden = true; layout.style.display = ''; } }
@@ -644,6 +646,98 @@
     initResend();
   }
 
+
+  /* ---------- 13. Мега-меню «Каталог» ---------- */
+  function initMegaMenu() {
+    var trigger = document.querySelector('.nav a');           /* первая ссылка — «Каталог» */
+    var header = document.querySelector('.header');
+    if (!trigger || !header) return;
+    var cols = [
+      ['Украшения', [['Кольца', 'catalog.html'], ['Серьги', 'catalog.html'], ['Браслеты', 'catalog.html'], ['Колье и подвески', 'catalog.html'], ['Цепочки', 'catalog.html']]],
+      ['Поводы', [['Свадьба и обручальные', 'wedding.html'], ['Помолвка', 'catalog.html'], ['Подарки', 'giftcards.html'], ['Акции и скидки', 'promotions.html'], ['Мужские печатки', 'catalog.html']]],
+      ['Металл и камни', [['Золото 585', 'catalog.html'], ['Золото 750', 'catalog.html'], ['Серебро 925', 'catalog.html'], ['Бриллианты', 'catalog.html'], ['Изумруды и сапфиры', 'catalog.html']]],
+      ['Помощь', [['Как узнать размер', 'catalog.html#sizeguide'], ['Паспорт изделия', 'passport.html'], ['Доставка и оплата', 'delivery.html'], ['Возврат и обмен', 'return.html'], ['Гарантия и уход', 'service.html']]]
+    ];
+    var menu = document.createElement('div');
+    menu.className = 'megamenu';
+    menu.id = 'megaMenu';
+    menu.setAttribute('role', 'region');
+    menu.setAttribute('aria-label', 'Каталог: категории');
+    var html = '<div class="mega-inner">';
+    cols.forEach(function (c) {
+      html += '<div class="mega-col"><p class="mega-t">' + c[0] + '</p><ul>';
+      c[1].forEach(function (l) { html += '<li><a href="' + l[1] + '">' + l[0] + '</a></li>'; });
+      html += '</ul></div>';
+    });
+    html += '<a class="mega-promo" href="promotions.html"><span class="mega-promo-t">Скидки до 80%</span>' +
+      '<span class="mega-promo-s">По карте AURA и на выделенный ассортимент</span><span class="mega-promo-b">Смотреть акции →</span></a>' +
+      '<a class="mega-promo mega-promo-2" href="wedding.html"><span class="mega-promo-t">Обручальные пары −42%</span>' +
+      '<span class="mega-promo-s">Примерка в салоне рядом и гравировка имён</span><span class="mega-promo-b">Выбрать пару →</span></a>';
+    html += '</div>';
+    menu.innerHTML = html;
+    header.appendChild(menu);
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.setAttribute('aria-controls', 'megaMenu');
+    var timer;
+    function open(state) {
+      menu.classList.toggle('open', state);
+      trigger.setAttribute('aria-expanded', state ? 'true' : 'false');
+    }
+    var canHover = window.matchMedia('(hover:hover) and (min-width:1081px)').matches;
+    if (canHover) {
+      var zone = function (el) {
+        el.addEventListener('mouseenter', function () { clearTimeout(timer); open(true); });
+        el.addEventListener('mouseleave', function () { timer = setTimeout(function () { open(false); }, 220); });
+      };
+      zone(trigger); zone(menu);
+    }
+    trigger.addEventListener('click', function (e) {
+      if (window.matchMedia('(min-width:1081px)').matches) { e.preventDefault(); open(!menu.classList.contains('open')); }
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') open(false); });
+    document.addEventListener('click', function (e) {
+      if (!menu.contains(e.target) && e.target !== trigger) open(false);
+    });
+  }
+
+  /* ---------- 14. Мобильная нижняя навигация ---------- */
+  function initMobileBar() {
+    if (document.querySelector('.mobbar')) return;
+    var items = [
+      ['catalog.html', 'gem', 'Каталог'],
+      ['account.html', 'heart', 'Избранное'],
+      ['cart.html', 'bag', 'Корзина'],
+      ['account.html', 'user', 'Профиль']
+    ];
+    var bar = document.createElement('nav');
+    bar.className = 'mobbar';
+    bar.setAttribute('aria-label', 'Мобильная навигация');
+    bar.innerHTML = items.map(function (it) {
+      return '<a href="' + it[0] + '" data-ic="' + it[1] + '">' + it[2] + '</a>';
+    }).join('');
+    document.body.appendChild(bar);
+    var here = (location.pathname.split('/').pop() || 'index.html');
+    [].forEach.call(bar.querySelectorAll('a'), function (a) {
+      if (a.getAttribute('href') === here && !(a.textContent === 'Избранное')) a.classList.add('on');
+    });
+    if (here === 'cart.html') bar.querySelectorAll('a')[2].classList.add('on');
+    if (here === 'account.html') bar.querySelectorAll('a')[3].classList.add('on');
+    var cnt = document.querySelector('.icons .cnt');
+    var cartLink = bar.querySelectorAll('a')[2];
+    if (cnt && cartLink) {
+      var b = document.createElement('i');
+      b.className = 'mb-cnt';
+      b.textContent = cnt.textContent.trim();
+      cartLink.appendChild(b);
+    }
+    if (window.__iconsApply) window.__iconsApply();
+  }
+
+  function initPolish() {
+    initMegaMenu();
+    initMobileBar();
+  }
+
   /* ---------- 11. Init ---------- */
   function init() {
     buildHeaderUI();
@@ -656,6 +750,7 @@
     renderRecent();
     watchInstallments();
     initLanding();
+    initPolish();
     // снятие hash-ссылок-заглушек заменяется soon.html при вёрстке
   }
   if (document.readyState === 'loading') {

@@ -418,3 +418,155 @@ input:focus,select:focus,textarea:focus{border-color:#000!important;outline:none
   color:#6E6E6E!important}
 .plan-step b,.drow .k,.mapbox b{color:#000!important}
 .st,.vbuy{color:#4A4A4A!important}
+/* ============================================================
+   ПОИСК В ШАПКЕ — аккуратная строка без «красного квадрата»
+   ============================================================ */
+/* MEGAMENU */
+.search{flex:1;max-width:560px;margin:0 auto;height:46px;background:#fff!important;border:1px solid #E0E0E0!important;
+  border-radius:0;padding:0 2px 0 16px;gap:4px;transition:border-color .18s,background .18s}
+.search:hover{border-color:#C9C9C9!important}
+.search:focus-within{border-color:#000!important;background:#fff!important}
+.search input{font-size:15px;font-weight:400;color:#000;height:44px}
+.search input::placeholder{color:#9A9A9A!important;font-weight:400}
+.search .s-btn{background:transparent!important;color:#000!important;width:44px;height:44px;min-width:44px;border-radius:0;opacity:.75;transition:opacity .18s,background .18s}
+.search .s-btn:hover{background:#F2F2F2!important;color:#000!important;opacity:1}
+.search .s-btn svg{width:18px;height:18px}
+
+/* ============================================================
+   МЕГА-МЕНЮ ПОД КНОПКОЙ «КАТАЛОГ»
+   ============================================================ */
+.megamenu{position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid var(--border);
+  box-shadow:0 24px 48px rgba(0,0,0,.10);z-index:58;opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity .18s ease,transform .18s ease,visibility .18s}
+.megamenu.open{opacity:1;visibility:visible;transform:none}
+.mega-inner{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) 1.15fr 1.15fr;gap:26px;padding:28px 24px 32px;align-items:start}
+.mega-t{margin:0 0 12px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8A8A8A}
+.mega-col ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.mega-col a{font-size:14.5px;color:#000;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .16s,color .16s}
+.mega-col a:hover{border-color:#000}
+.mega-promo{display:grid;gap:6px;align-content:start;padding:20px;background:#111;color:#fff;text-decoration:none;min-height:150px}
+.mega-promo-2{background:#F2F2F2;color:#000}
+.mega-promo-t{font-family:var(--head);font-size:26px;line-height:1.05;font-weight:500}
+.mega-promo-s{font-size:13px;color:#C9C9C9}
+.mega-promo-2 .mega-promo-s{color:#6E6E6E}
+.mega-promo-b{margin-top:auto;font-size:13px;font-weight:600;text-decoration:underline}
+@media (max-width:1080px){.megamenu{display:none!important}}
+
+/* ============================================================
+   МОБИЛЬНАЯ НИЖНЯЯ НАВИГАЦИЯ
+   ============================================================ */
+.mobbar{display:none}
+@media (max-width:768px){
+  .mobbar{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:70;
+    background:#fff;border-top:1px solid var(--border);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+  .mobbar a{display:grid;justify-items:center;gap:3px;padding:6px 2px;color:#000;text-decoration:none;font-size:11px;font-weight:500;position:relative}
+  .mobbar a.on{color:#000}
+  .mobbar a.on::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:26px;height:2px;background:#000}
+  .mobbar svg{width:22px;height:22px}
+  .mobbar .mb-cnt{position:absolute;top:0;right:calc(50% - 22px);background:#D90000;color:#fff;border-radius:999px;
+    font-size:10px;font-weight:600;min-width:16px;height:16px;display:grid;place-items:center;padding:0 4px}
+  body{padding-bottom:70px}
+  body.has-buybar{padding-bottom:150px}
+  body.has-buybar .mobbar{bottom:78px}
+  .callback-btn{bottom:78px!important}
+  body.has-buybar .callback-btn{bottom:158px!important}
+}
+
+/* ============================================================
+   ГАРНИТУРЫ: сериф — только крупные заголовки, интерфейс — гротеск
+   ============================================================ */
+.nav a,.drawer .d-nav a,.nav a:first-child{font-family:var(--sans)}
+.panel h2,.panel h3,.infocard h3,.revcard b,.svcgrid a b,.svc b,.step b,.plan-step b,.stat b,
+.callback-pop h2,.ordersum .os-h,.acc-menu a,.promo h3{font-family:var(--sans)}
+.sec-head h2,.promo h2,.ai h2,.legend h1,.hub-hero h1,.salonhero h1,.act-hero h1,.hslide h2,
+.sm-hero h1,.mega-promo-t{font-family:var(--head)}
+
+/* ---------- 21. Поиск: спокойнее и шире ---------- */
+.header .wrap{gap:16px}
+.nav{gap:0}
+.nav a{padding:10px 10px;font-size:14.5px}
+.nav a:first-child{padding:12px 16px 12px 14px}
+.search{flex:1 1 420px;max-width:620px;min-width:280px;gap:0;background:#FAFAFA!important;border-color:#E6E6E6!important;padding:0 0 0 16px}
+.search input{background:none;border:0;padding-right:8px}
+.search .s-btn{width:46px;height:46px;min-width:46px;border-left:0!important;background:transparent!important;opacity:.6}
+.search:hover .s-btn,.search:focus-within .s-btn{opacity:1}
+.search:hover{background:#F7F7F7!important}
+.search:focus-within{background:#fff!important;border-color:#000!important}
+
+/* ---------- 22. Мега-меню: гарантированно непрозрачное ---------- */
+.megamenu,.mega-inner{background:#fff!important}
+.megamenu{border-top:1px solid var(--border-l);box-shadow:0 24px 48px rgba(0,0,0,.14);z-index:59}
+.mega-col a{display:inline-block;padding:1px 0}
+
+/* ---------- 23. Мобильная панель: воздух снизу и FAB ---------- */
+@media (max-width:768px){
+  body{padding-bottom:92px}
+  body.has-buybar{padding-bottom:172px}
+  .callback-btn{bottom:88px!important;width:50px;height:50px}
+  body.has-buybar .callback-btn{bottom:170px!important}
+  .mobbar a{padding:8px 2px}
+}
+/* ============================================================
+   ПРОМО-БАННЕРЫ: крупная типографика (как у Sunlight)
+   ============================================================ */
+.bnr-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.bnr{position:relative;display:block;min-height:300px;overflow:hidden;text-decoration:none;border:1px solid var(--border-l)}
+.bnr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.bnr-in{position:relative;z-index:2;display:grid;align-content:center;gap:8px;min-height:300px;padding:clamp(22px,2.6vw,38px);max-width:560px}
+.bnr-k{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.bnr-t{font-family:var(--head);font-weight:500;font-size:clamp(30px,3.6vw,54px);line-height:1.02;letter-spacing:.005em}
+.bnr-s{font-size:14.5px;line-height:1.45;max-width:420px}
+.bnr-b{margin-top:8px;font-size:14px;font-weight:600;text-decoration:underline}
+.bnr-dark{background:#111}
+.bnr-dark::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(8,8,8,.96) 0%,rgba(8,8,8,.88) 42%,rgba(8,8,8,.5) 72%,rgba(8,8,8,.3) 100%)}
+.bnr-dark .bnr-in{color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.55)}
+.bnr-dark .bnr-k{color:#D6D6D6}
+.bnr-dark .bnr-s{color:#CFCFCF}
+.bnr-light{background:#F2F2F2}
+.bnr-light::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(255,255,255,.96) 0%,rgba(255,255,255,.82) 48%,rgba(255,255,255,.25) 100%)}
+.bnr-light .bnr-in{color:#000}
+.bnr-light .bnr-k{color:#6E6E6E}
+.bnr-light .bnr-s{color:#4A4A4A}
+.bnr-wide{grid-column:1/-1;min-height:190px;background:#000!important}
+.bnr-wide::after{background:linear-gradient(90deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.72) 55%,rgba(0,0,0,.35) 100%)}
+.bnr-wide .bnr-in{grid-template-columns:1fr auto;align-items:center;max-width:none;align-content:center;column-gap:24px;min-height:190px}
+.bnr-wide .bnr-txts{display:grid;gap:6px}
+.bnr-wide .btn{justify-self:end}
+@media (max-width:900px){
+  .bnr-grid{grid-template-columns:1fr}
+  .bnr-wide{grid-column:auto}
+  .bnr-wide .bnr-in{grid-template-columns:1fr;align-content:center;row-gap:14px}
+  .bnr-wide .btn{justify-self:start}
+}
+
+/* ---------- 24. Баннеры: контраст текста и крупная цифра рассрочки ---------- */
+.bnr-dark .bnr-s,.bnr-dark .bnr-k{text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.bnr-wide{background:#0B0B0B!important;background-image:radial-gradient(120% 160% at 88% 20%,rgba(196,160,106,.22),transparent 62%),radial-gradient(80% 120% at 8% 110%,rgba(255,255,255,.06),transparent 60%)!important;min-height:210px}
+.bnr-wide::after{display:none}
+.bnr-wide .bnr-in{grid-template-columns:1fr auto;align-items:center;gap:26px;min-height:210px;max-width:none}
+.bnr-wide .bnr-txts{gap:7px;max-width:760px}
+.bnr-wide .bnr-t{font-size:clamp(26px,2.5vw,40px)}
+.bnr-big{font-family:var(--head);font-weight:600;font-size:clamp(64px,8vw,132px);line-height:.85;letter-spacing:-.02em;color:#fff;justify-self:end;white-space:nowrap}
+@media (max-width:900px){
+  .bnr-big{justify-self:start;font-size:clamp(56px,16vw,96px)}
+  .bnr-wide .bnr-in{grid-template-columns:1fr;row-gap:14px}
+}
+
+/* ---------- 25. Широкий баннер: белый текст на тёмном ---------- */
+.bnr-wide .bnr-in{color:#fff}
+.bnr-wide .bnr-k{color:#C9C9C9}
+.bnr-wide .bnr-s{color:#BDBDBD}
+.bnr-wide .bnr-t{color:#fff}
+.bnr-wide .btn-gold{color:#000!important}
+
+/* ---------- 26. Баннеры: единый CTA и читаемость светлого ---------- */
+.bnr-b{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;margin-top:10px;font-size:14px;font-weight:600;
+  text-decoration:none;border:1px solid currentColor;width:max-content;transition:background .18s,color .18s}
+.bnr-dark .bnr-b{color:#fff}
+.bnr-dark .bnr-b:hover{background:#fff;color:#000;border-color:#fff}
+.bnr-light .bnr-b{color:#000}
+.bnr-light .bnr-b:hover{background:#000;color:#fff;border-color:#000}
+.bnr-light::after{background:linear-gradient(90deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.93) 46%,rgba(255,255,255,.42) 100%)}
+.bnr-light .bnr-s{color:#3A3A3A}
+.bnr-light .bnr-k{color:#5C5C5C}
+.bnr-t{text-wrap:balance}
