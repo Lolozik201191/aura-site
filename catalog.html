@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://lolozik201191.github.io/aura-site/catalog.html">
 <meta property="og:image" content="https://lolozik201191.github.io/aura-site/assets/pics/catalog/ring-diamond.webp">
 <meta name="twitter:card" content="summary_large_image">
-<title>AURA — Каталог «Кольца» · дизайн-макет</title>
+<title>Кольца — каталог AURA: золото 585, бриллианты, размеры 15–21</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/aura.css">
@@ -150,7 +150,7 @@
       <div class="banner-row">
         <div class="mini-banner">
           <b>Нет вашего размера?</b>
-          <span>Привезём кольцо в салон Раменского за 2 дня — бесплатно. Зарезервируйте сейчас, примерите и решите.</span>
+          <span>Привезём кольцо в салон в Раменском за 2 дня — бесплатно. Зарезервируйте сейчас, примерите и решите.</span>
           <a class="btn btn-gold" href="salon.html" style="align-self:flex-start;margin-top:6px">Зарезервировать</a>
         </div>
         <div class="mini-banner mini-banner--light">
@@ -267,22 +267,22 @@ var PICS = {
 };
 var IMG = ['catalog/ring-diamond.webp','catalog/band-plain.webp','catalog/ring-pave.webp','catalog/ring-engagement.webp','catalog/ring-emerald.webp','catalog/ring-sapphire.webp','catalog/ring-signet.webp','catalog/ring-topaz.webp','catalog/ring-halo.webp'];
 var G = [
-  {p:'ring',n:'Кольцо с бриллиантом «Аврора»',m:'золото 585 · бриллиант 0,15 ct',pr:'18 900',s:'',av:1,t:'',ph:'ph'},
+  {p:'ring',n:'Кольцо с бриллиантом «Аврора»',m:'золото 585 · бриллиант 0,15 карата',pr:'18 900',s:'',av:1,t:'',ph:'ph'},
   {p:'ring2',n:'Обручальное кольцо «Классика»',m:'золото 585 · без вставок',pr:'7 400',s:'',av:1,t:'',ph:'ph-v2'},
   {p:'ring3',n:'Кольцо «Миллениум», дорожка',m:'золото 585 · 24 бриллианта',pr:'48 600',s:'−15%',av:1,t:'',ph:'ph-v3'},
-  {p:'sol',n:'Помолвочное «Одно сердце»',m:'золото 585 · бриллиант 0,30 ct',pr:'64 900',s:'',av:1,t:'Хит',ph:'ph'},
-  {p:'ring',n:'Кольцо с изумрудом «Капля»',m:'золото 585 · изумруд 0,9 ct',pr:'38 200',s:'−10%',av:0,t:'',ph:'ph-v2'},
+  {p:'sol',n:'Помолвочное «Одно сердце»',m:'золото 585 · бриллиант 0,30 карата',pr:'64 900',s:'',av:1,t:'Хит',ph:'ph'},
+  {p:'ring',n:'Кольцо с изумрудом «Капля»',m:'золото 585 · изумруд 0,9 карата',pr:'38 200',s:'−10%',av:0,t:'',ph:'ph-v2'},
   {p:'ring3',n:'Кольцо «Венский вальс»',m:'золото 585 · сапфиры',pr:'29 800',s:'',av:1,t:'Новинка',ph:'ph'},
   {p:'ring2',n:'Печатка «Династия»',m:'золото 585 · мужское',pr:'12 300',s:'',av:1,t:'',ph:'ph-v3'},
   {p:'ring',n:'Кольцо «Рассвет» с топазом',m:'золото 585 · топаз Swiss',pr:'9 950',s:'−20%',av:1,t:'',ph:'ph-v2'},
-  {p:'sol',n:'Помолвочное «Аврора» 0,5 ct',m:'золото 585 · бриллиант, сертификат',pr:'112 000',s:'',av:0,t:'Премиум',ph:'ph-v3'}
+  {p:'sol',n:'Помолвочное «Аврора» 0,5 карата',m:'золото 585 · бриллиант, сертификат',pr:'112 000',s:'',av:0,t:'Премиум',ph:'ph-v3'}
 ];
 function card(g,i){
   return '<div class="card"><div class="ph '+g.ph+(IMG[i]?' pimg':'')+'">'+(IMG[i]?'<img class="pimg" src="assets/pics/'+IMG[i]+'" alt="'+g.n+'" loading="lazy">':PICS[g.p])+
     '<div class="b1">'+(g.s?'<span class="tg sale">'+g.s+'</span>':'')+(g.t&&!g.s?'<span class="tg new">'+g.t+'</span>':'')+(g.t&&g.s?'<span class="tg">'+g.t+'</span>':'')+'</div>'+
     '<button class="fav" data-ic="heart" aria-label="В избранное"><span class="sr-only">В избранное</span></button>'+
     '<div class="buy"><a class="btn btn-p" href="product.html">В корзину</a></div></div>'+
-    '<div class="body">'+(g.av?'<span class="avail">В салоне Раменского · сегодня</span>':'<span class="avail no">Привезём в салон за 2 дня</span>')+
+    '<div class="body">'+(g.av?'<span class="avail">В Раменском · сегодня</span>':'<span class="avail no">Привезём в салон за 2 дня</span>')+
     '<h3><a href="product.html">'+g.n+'</a></h3><span class="meta">'+g.m+'</span>'+
     '<div class="price-row"><span class="price">'+g.pr+' ₽</span></div></div></div>';
 }
@@ -306,10 +306,10 @@ window.__iconsApply && window.__iconsApply();
   var extra = [
     {p:'ring2',n:'Кольцо «Тёплый вечер», дорожка',m:'золото 585 · 18 бриллиантов',pr:'42 300',s:'−12%',av:1,t:'',ph:'ph'},
     {p:'sol',n:'Обручальное «Свет», 4 мм',m:'золото 585 · гладкое',pr:'8 900',s:'',av:1,t:'',ph:'ph-v2'},
-    {p:'ring3',n:'Кольцо «Роса» с изумрудом',m:'золото 585 · изумруд 0,45 ct',pr:'33 700',s:'',av:1,t:'Новинка',ph:'ph-v3'},
-    {p:'ring',n:'Кольцо «Полночь» с сапфиром',m:'золото 585 · сапфир 0,8 ct',pr:'56 400',s:'−8%',av:0,t:'',ph:'ph'},
+    {p:'ring3',n:'Кольцо «Роса» с изумрудом',m:'золото 585 · изумруд 0,45 карата',pr:'33 700',s:'',av:1,t:'Новинка',ph:'ph-v3'},
+    {p:'ring',n:'Кольцо «Полночь» с сапфиром',m:'золото 585 · сапфир 0,8 карата',pr:'56 400',s:'−8%',av:0,t:'',ph:'ph'},
     {p:'ring2',n:'Печатка «Родос», массивная',m:'золото 585 · мужское',pr:'24 100',s:'',av:1,t:'',ph:'ph-v2'},
-    {p:'ring',n:'Кольцо «Аврора мини» 0,10 ct',m:'золото 585 · бриллиант',pr:'15 700',s:'',av:1,t:'Хит',ph:'ph-v3'}
+    {p:'ring',n:'Кольцо «Аврора мини» 0,10 карата',m:'золото 585 · бриллиант',pr:'15 700',s:'',av:1,t:'Хит',ph:'ph-v3'}
   ];
   var btn = document.getElementById('loadMore');
   var grid = document.getElementById('grid');

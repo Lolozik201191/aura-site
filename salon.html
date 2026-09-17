@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://lolozik201191.github.io/aura-site/salon.html">
 <meta property="og:image" content="https://lolozik201191.github.io/aura-site/assets/pics/catalog/ring-diamond.webp">
 <meta name="twitter:card" content="summary_large_image">
-<title>AURA — Салон в Раменском · дизайн-макет (данные с au-ra.ru)</title>
+<title>Салоны AURA в Московской области: адреса, телефоны, примерка</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/aura.css">
@@ -297,7 +297,7 @@ var PICS = {
 var IMG = ['categories/earrings-pusety.webp','catalog/ring-diamond.webp','categories/pendant-emerald.webp','categories/bracelet-gold.webp'];
 var T = [
   {p:'ear',n:'Серьги-пусеты «Искра»',m:'золото 585 · 12 бриллиантов',pr:'14 700',ph:'ph-v3'},
-  {p:'ring',n:'Кольцо с бриллиантом «Аврора»',m:'золото 585 · 0,15 ct',pr:'18 900',ph:''},
+  {p:'ring',n:'Кольцо с бриллиантом «Аврора»',m:'золото 585 · 0,15 карата',pr:'18 900',ph:''},
   {p:'pend',n:'Подвеска «Капля»',m:'золото 585 · изумруд',pr:'22 400',ph:'ph-v2'},
   {p:'bangle',n:'Браслет «Грация»',m:'золото 585 · без вставок',pr:'9 900',ph:''}
 ];
@@ -305,7 +305,7 @@ function card(g,i){
   return '<div class="card"><div class="ph '+g.ph+(IMG[i]?' pimg':'')+'">'+(IMG[i]?'<img class="pimg" src="assets/pics/'+IMG[i]+'" alt="'+g.n+'" loading="lazy">':PICS[g.p])+
     '<button class="fav" data-ic="heart" aria-label="В избранное"><span class="sr-only">В избранное</span></button>'+
     '<div class="buy"><a class="btn btn-p" href="product.html">Забрать в салоне</a></div></div>'+
-    '<div class="body"><span class="avail">В салоне Раменского · сегодня</span>'+
+    '<div class="body"><span class="avail">В Раменском · сегодня</span>'+
     '<h3><a href="product.html">'+g.n+'</a></h3><span class="meta">'+g.m+'</span>'+
     '<div class="price-row"><span class="price">'+g.pr+' ₽</span></div></div></div>';
 }

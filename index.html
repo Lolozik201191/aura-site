@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://lolozik201191.github.io/aura-site/index.html">
 <meta property="og:image" content="https://lolozik201191.github.io/aura-site/assets/pics/catalog/ring-diamond.webp">
 <meta name="twitter:card" content="summary_large_image">
-<title>AURA — ювелирный дом · Главная</title>
+<title>AURA — ювелирный дом: кольца, серьги и украшения с примеркой в салоне</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/aura.css">
 <link rel="stylesheet" href="assets/theme-sun.css">
@@ -289,7 +289,7 @@
         </div>
         <div class="chat-demo">
           <div class="row me">Бюджет до 20 000 ₽, ей 30 лет, годовщина</div>
-          <div class="row"><div class="bot">Посмотрите серьги «Искра» — золото 585, 12 бриллиантов, <b>14 700 ₽</b>. <b>В наличии в салоне Раменского.</b></div></div>
+          <div class="row"><div class="bot">Посмотрите серьги «Искра» — золото 585, 12 бриллиантов, <b>14 700 ₽</b>. <b>В наличии в салоне в Раменском.</b></div></div>
           <div class="row"><div class="bot">Хотите, спрошу консультанта — пришлёт фото на руке?</div></div>
           <div class="row" style="justify-content:flex-end"><a class="btn btn-gold" style="padding:9px 16px;font-size:13.5px" href="https://vk.com/jewelry_aura"><span data-ic="chat"></span> Передать консультанту</a></div>
         </div>
@@ -440,12 +440,12 @@ var PICS = {
 };
 var IMG = ['catalog/ring-diamond.webp','categories/earrings-pusety.webp','categories/pendant-emerald.webp','categories/bracelet-gold.webp','categories/chain-venezia.webp','catalog/ring-engagement.webp','catalog/ring-topaz.webp','categories/bracelet-silver.webp'];
 var GOODS = [
-  {p:'ring', n:'Кольцо с бриллиантом «Аврора»', m:'золото 585 · бриллиант 0,15 ct', pr:'18 900', old:'', sale:0, tag:'hit', avail:1, ph:''},
+  {p:'ring', n:'Кольцо с бриллиантом «Аврора»', m:'золото 585 · бриллиант 0,15 карата', pr:'18 900', old:'', sale:0, tag:'hit', avail:1, ph:''},
   {p:'ear', n:'Серьги-пусеты «Искра»', m:'золото 585 · 12 бриллиантов', pr:'14 700', old:'18 200', sale:19, tag:'sale', avail:1, ph:'ph-v3'},
-  {p:'pend', n:'Подвеска «Капля» с изумрудом', m:'золото 585 · изумруд 0,9 ct', pr:'22 400', old:'', sale:0, tag:'new', avail:1, ph:'ph-v2'},
+  {p:'pend', n:'Подвеска «Капля» с изумрудом', m:'золото 585 · изумруд 0,9 карата', pr:'22 400', old:'', sale:0, tag:'new', avail:1, ph:'ph-v2'},
   {p:'bangle', n:'Браслет «Грация»', m:'золото 585 · без вставок', pr:'9 900', old:'12 400', sale:20, tag:'sale', avail:1, ph:''},
   {p:'chain', n:'Цепь «Венеция», 45 см', m:'золото 585 · полновесная', pr:'16 800', old:'', sale:0, tag:'', avail:0, ph:''},
-  {p:'sol', n:'Помолвочное «Аврора» 0,3 ct', m:'золото 585 · бриллиант', pr:'64 900', old:'', sale:0, tag:'hit', avail:1, ph:''},
+  {p:'sol', n:'Помолвочное «Аврора» 0,3 карата', m:'золото 585 · бриллиант', pr:'64 900', old:'', sale:0, tag:'hit', avail:1, ph:''},
   {p:'ring', n:'Кольцо «Рассвет» с топазом', m:'золото 585 · топаз Swiss', pr:'9 950', old:'11 700', sale:15, tag:'sale', avail:1, ph:'ph-v2'},
   {p:'bangle', n:'Браслет «Лагуна» из серебра', m:'серебро 925 · фианиты', pr:'4 200', old:'', sale:0, tag:'', avail:1, ph:'ph-v3'}
 ];
@@ -459,7 +459,7 @@ function card(g,i){
     '<div class="b1">' + tg + '</div>' +
     '<button class="fav" data-ic="heart" aria-label="В избранное"><span class="sr-only">В избранное</span></button>' +
     '<div class="buy"><a class="btn btn-p" href="product.html">В корзину</a></div></div>' +
-    '<div class="body">' + (g.avail ? '<span class="avail">В салоне Раменского · сегодня</span>' : '<span class="avail no">Привезём в салон за 2 дня</span>') +
+    '<div class="body">' + (g.avail ? '<span class="avail">В Раменском · сегодня</span>' : '<span class="avail no">Привезём в салон за 2 дня</span>') +
     '<h3><a href="product.html">' + g.n + '</a></h3><span class="meta">' + g.m + '</span>' +
     stars() +
     '<div class="price-row"><span class="price">' + g.pr + ' ₽</span>' + (g.old ? '<small>' + g.old + ' ₽</small>' : '') + '</div></div></div>';
