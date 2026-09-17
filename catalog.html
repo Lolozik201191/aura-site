@@ -2,8 +2,19 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" href="data:,">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/favicon.svg">
+<meta name="theme-color" content="#000000">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Кольца из золота 585 с бриллиантами, изумрудами и топазами: фильтры по цене, металлу и размеру, наличие в салоне сегодня, рассрочка 0%.">
+<link rel="canonical" href="https://lolozik201191.github.io/aura-site/catalog.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ювелирный дом AURA">
+<meta property="og:title" content="Каталог колец — AURA">
+<meta property="og:description" content="Кольца из золота 585 с бриллиантами, изумрудами и топазами: фильтры по цене, металлу и размеру, наличие в салоне сегодня, рассрочка 0%.">
+<meta property="og:url" content="https://lolozik201191.github.io/aura-site/catalog.html">
+<meta property="og:image" content="https://lolozik201191.github.io/aura-site/assets/pics/catalog/ring-diamond.webp">
+<meta name="twitter:card" content="summary_large_image">
 <title>AURA — Каталог «Кольца» · дизайн-макет</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,7 +30,7 @@
     <span class="spacer"></span>
     <a class="tl-link" data-ic="bag" href="catalog.html">Каталог</a>
     <a href="promotions.html">Обмен золота</a>
-    <a href="soon.html?s=certs">Сертификаты</a>
+    <a href="giftcards.html">Сертификаты</a>
     <span class="spacer"></span>
     <a class="tl-link" data-ic="pin" href="salon.html">Свой салон рядом</a>
     <a href="tel:+74964640307">+7 (496) 464-03-07</a>
@@ -64,7 +75,7 @@
   <div class="catlayout">
     <!-- Фильтры -->
     <aside class="filters">
-      <h2 class="fhead">Фильтры <a  href="javascript:void(0)" style="font-size:12px;font-weight:600;color:var(--emerald)">сбросить</a></h2>
+      <h2 class="fhead">Фильтры <button type="button" class="filters-reset" style="font-size:12px;font-weight:600;color:var(--emerald);background:none;border:0;padding:0;cursor:pointer">сбросить</button></h2>
 
       <div class="fgroup">
         <div class="fh">Цена, ₽</div>
@@ -110,7 +121,7 @@
           <button class="sz" style="min-width:40px;height:34px">17,5</button>
           <button class="sz" style="min-width:40px;height:34px">18</button>
         </div>
-        <a  href="soon.html?s=sizeguide" style="font-size:12px;color:var(--emerald);margin-top:6px;display:inline-block">Как узнать размер?</a>
+        <a  href="catalog.html#sizeguide" style="font-size:12px;color:var(--emerald);margin-top:6px;display:inline-block">Как узнать размер?</a>
       </div>
 
       <div class="fgroup">
@@ -149,7 +160,7 @@
         </div>
       </div>
 
-      <div style="text-align:center;margin:26px 0 8px"><a href="soon.html?s=catalog">Показать ещё 60</a></div>
+      <div style="text-align:center;margin:26px 0 8px"><button type="button" class="btn btn-gold" id="loadMore">Показать ещё</button></div>
       <div class="pagination">
         <span class="pg on">1</span><a  href="catalog.html">2</a><a  href="catalog.html">3</a>
         <a  href="catalog.html">4</a><a  href="catalog.html">…</a><a  href="catalog.html">21</a>
@@ -160,6 +171,40 @@
   <section class="sec hidden" id="recentSec">
     <div class="sec-head"><div><span class="kicker">История просмотров</span><h2>Вы недавно смотрели</h2></div></div>
     <div class="pgrid c3" id="recentGrid"></div>
+  </section>
+
+  <section class="sec" id="sizeguide">
+    <div class="sec-head"><div><span class="kicker">Размеры</span><h2>Как узнать размер кольца</h2>
+      <div class="sub">Замерьте палец ниткой или возьмите кольцо, которое подходит — таблица переведёт обхват в размер. На планшете и телефоне примерка в салоне бесплатна.</div></div></div>
+    <div class="act-row2">
+      <div class="panel"><h3>Способ 1: нитка или полоска бумаги</h3>
+        <div class="step-list">
+          <div class="plan-step"><span class="pn">1</span><div><b>Оберните палец</b><p>Плотно, но без сдавливания — по самой широкой части пальца.</p></div></div>
+          <div class="plan-step"><span class="pn">2</span><div><b>Отметьте длину</b><p>Разверните нитку и измерьте длину в миллиметрах — это обхват пальца.</p></div></div>
+          <div class="plan-step"><span class="pn">3</span><div><b>Найдите размер</b><p>Сопоставьте обхват с таблицей. Если значение между строками — берите больший размер.</p></div></div>
+        </div>
+      </div>
+      <div class="panel"><h3>Способ 2: таблица размеров</h3>
+        <table class="tbl">
+          <thead><tr><th>Обхват, мм</th><th>Размер RU</th><th>Размер EU/D</th></tr></thead>
+          <tbody>
+            <tr><td>47,1</td><td>15</td><td>47</td></tr>
+            <tr><td>48,1</td><td>15,5</td><td>48</td></tr>
+            <tr><td>49,2</td><td>16</td><td>49</td></tr>
+            <tr><td>50,2</td><td>16,5</td><td>50</td></tr>
+            <tr><td>51,3</td><td>17</td><td>51</td></tr>
+            <tr><td>52,3</td><td>17,5</td><td>52</td></tr>
+            <tr><td>53,4</td><td>18</td><td>53</td></tr>
+            <tr><td>54,4</td><td>18,5</td><td>54</td></tr>
+            <tr><td>55,5</td><td>19</td><td>55</td></tr>
+            <tr><td>56,5</td><td>19,5</td><td>56</td></tr>
+            <tr><td>57,6</td><td>20</td><td>57</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Узкое кольцо садится свободнее широкого: для ширины от 6 мм прибавляйте полразмера.</p>
+        <a class="btn btn-p" href="salon.html#book" style="margin-top:10px">Записаться на примерку</a>
+      </div>
+    </div>
   </section>
 </main>
 
@@ -188,7 +233,7 @@
       <li><a href="return.html">Возврат и обмен</a></li>
       <li><a href="service.html">Гарантия и уход</a></li>
       <li><a href="promotions.html">Обмен старого золота</a></li>
-      <li><a href="soon.html?s=credit">Рассрочка</a></li>
+      <li><a href="delivery.html#credit">Рассрочка</a></li>
     </ul></div>
     <div><p class="fh">Салоны</p><ul>
       <li><a href="salon.html">Раменское · 2 салона</a></li>
@@ -200,13 +245,13 @@
       <li><a href="account.html">Личный кабинет</a></li>
       <li><a href="about.html">О компании</a></li>
       <li><a href="about.html#guide">Журнал: как выбрать</a></li>
-      <li><a href="soon.html?s=certs">Подарочные сертификаты</a></li>
+      <li><a href="giftcards.html">Подарочные сертификаты</a></li>
       <li><a href="faq.html">Вопросы и ответы</a></li>
       <li><a href="contacts.html">Контакты</a></li>
     </ul></div>
     <div class="bottom">
       <span>© 2010–2026 AURA. Ювелирный дом · Московская область</span>
-      <span>Политика конфиденциальности · Публичная оферта</span>
+      <span><a href="legal.html#privacy">Политика конфиденциальности</a> · <a href="legal.html#oferta">Публичная оферта</a></span>
     </div>
   </div>
 </footer>
@@ -253,6 +298,37 @@ window.__iconsApply && window.__iconsApply();
     document.querySelectorAll('.fav').forEach(function(b,i){ b.dataset.i=i; });
   }
   if (document.readyState !== 'loading') setTimeout(repaint, 50); else document.addEventListener('DOMContentLoaded', function(){ setTimeout(repaint,50); });
+})();
+</script>
+<script>
+/* догрузка товаров: каталог «готового» лендинга */
+(function(){
+  var extra = [
+    {p:'ring2',n:'Кольцо «Тёплый вечер», дорожка',m:'золото 585 · 18 бриллиантов',pr:'42 300',s:'−12%',av:1,t:'',ph:'ph'},
+    {p:'sol',n:'Обручальное «Свет», 4 мм',m:'золото 585 · гладкое',pr:'8 900',s:'',av:1,t:'',ph:'ph-v2'},
+    {p:'ring3',n:'Кольцо «Роса» с изумрудом',m:'золото 585 · изумруд 0,45 ct',pr:'33 700',s:'',av:1,t:'Новинка',ph:'ph-v3'},
+    {p:'ring',n:'Кольцо «Полночь» с сапфиром',m:'золото 585 · сапфир 0,8 ct',pr:'56 400',s:'−8%',av:0,t:'',ph:'ph'},
+    {p:'ring2',n:'Печатка «Родос», массивная',m:'золото 585 · мужское',pr:'24 100',s:'',av:1,t:'',ph:'ph-v2'},
+    {p:'ring',n:'Кольцо «Аврора мини» 0,10 ct',m:'золото 585 · бриллиант',pr:'15 700',s:'',av:1,t:'Хит',ph:'ph-v3'}
+  ];
+  var btn = document.getElementById('loadMore');
+  var grid = document.getElementById('grid');
+  if (!btn || !grid) return;
+  var shown = 0;
+  btn.addEventListener('click', function(){
+    var part = extra.slice(shown, shown + 3);
+    part.forEach(function(g, k){
+      var html = card(g, (shown + k) % IMG.length);
+      var wrap = document.createElement('div');
+      wrap.innerHTML = html;
+      grid.appendChild(wrap.firstChild);
+    });
+    shown += part.length;
+    if (window.__iconsApply) window.__iconsApply();
+    if (shown >= extra.length) { btn.disabled = true; btn.textContent = 'Показаны все 15 моделей'; btn.classList.add('disabled'); }
+    var info = document.getElementById('foundInfo');
+    if (info) info.textContent = 'Найдено: 1 240 · показаны 1–' + (9 + shown);
+  });
 })();
 </script>
 <script src="assets/fx.js"></script>

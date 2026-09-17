@@ -165,9 +165,10 @@
   function buildFiltersUI() {
     var filters = document.querySelector('.filters');
     if (!filters) return;
-    // заголовок фильтров, чтобы работала кнопка
-    var h6 = filters.querySelector('h6');
-    var reset = h6 ? h6.querySelector('a') : null;
+    // заголовок фильтров: h6 (старая разметка) или .fhead (текущая)
+    var h6 = filters.querySelector('.fhead') || filters.querySelector('h6');
+    var reset = filters.querySelector('.filters-reset') || (h6 ? h6.querySelector('a') : null);
+    if (reset && !reset.classList.contains('filters-reset')) reset.classList.add('filters-reset');
     // кнопка «Фильтры» в тулбаре
     var toolbar = document.querySelector('.toolbar');
     if (toolbar && !document.querySelector('.btn-filters')) {
@@ -185,7 +186,9 @@
     if (h6) {
       var row = document.createElement('div');
       row.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:8px 0 2px;position:sticky;top:0;background:var(--bg-2);z-index:2';
-      var title = document.createElement('h6');
+      var title = document.createElement('div');
+      title.className = 'fhead-m';
+      title.style.cssText = 'font-weight:700;font-size:15px';
       title.textContent = 'Фильтры';
       var close = document.createElement('button');
       close.className = 'd-close';
@@ -527,6 +530,120 @@
     mo.observe(document.body, { childList: true, subtree: true });
   }
 
+
+  /* ---------- 12. Лендинг: корзина, формы, «в 1 клик», отзыв ---------- */
+  function money(n) { return Math.round(n).toLocaleString('ru-RU').replace(/,/g, ' ') + ' ₽'; }
+  function toNumber(txt) { var n = parseFloat((txt || '').replace(/[^\d.,]/g, '').replace(/\s/g, '').replace(',', '.')); return isNaN(n) ? 0 : n; }
+  function showToast(msg) {
+    var el = document.querySelector('.toast');
+    if (!el) { el = document.createElement('div'); el.className = 'toast'; el.setAttribute('role', 'status'); document.body.appendChild(el); }
+    el.textContent = msg; el.classList.add('show'); el.style.opacity = '1'; el.style.visibility = 'visible';
+    clearTimeout(el._t); el._t = setTimeout(function () { el.classList.remove('show'); el.style.opacity = ''; el.style.visibility = ''; }, 2600);
+  }
+  function initCart() {
+    var rows = [].slice.call(document.querySelectorAll('[data-cart-row]'));
+    if (!rows.length) return;
+    var root = document.querySelector('.cart-sum');
+    function recount() {
+      var live = [].slice.call(document.querySelectorAll('[data-cart-row]'));
+      var sub = 0, count = 0;
+      live.forEach(function (r) {
+        var q = r.querySelector('.qty-n');
+        var n = q ? Math.max(1, parseInt(q.textContent, 10) || 1) : 1;
+        sub += toNumber(r.getAttribute('data-price')) * n; count += n;
+      });
+      var disc = Math.round(sub * 0.1);
+      var total = sub - disc;
+      var set = function (sel, val) { var el = root && root.querySelector(sel); if (el) el.textContent = val; };
+      set('[data-sum-count]', count); set('[data-sum-sub]', money(sub));
+      set('[data-sum-disc]', '− ' + money(disc)); set('[data-sum-total]', money(total));
+      set('[data-sum-bonus]', Math.round(total * 0.02));
+      var cnt = document.querySelector('.icons .cnt');
+      if (cnt) cnt.textContent = count;
+      var empty = document.getElementById('cartEmpty');
+      var layout = document.querySelector('.catlayout');
+      if (empty && layout) { if (!live.length) { empty.hidden = false; layout.style.display = 'none'; } else { empty.hidden = true; layout.style.display = ''; } }
+    }
+    document.addEventListener('click', function (e) {
+      var q = e.target.closest('.js-qty');
+      if (q) {
+        var row = q.closest('[data-cart-row]');
+        var span = row && row.querySelector('.qty-n');
+        if (span) {
+          var v = Math.max(1, (parseInt(span.textContent, 10) || 1) + (parseInt(q.getAttribute('data-d'), 10) || 0));
+          span.textContent = v; recount();
+        }
+        return;
+      }
+      var rm = e.target.closest('.js-remove');
+      if (rm) {
+        var r2 = rm.closest('[data-cart-row]');
+        if (r2) { r2.remove(); recount(); showToast('Товар удалён из корзины'); }
+      }
+    });
+    recount();
+  }
+  function initContactsForm() {
+    var btn = document.getElementById('ctSend');
+    if (!btn) return;
+    var name = document.getElementById('ctName'), phone = document.getElementById('ctPhone'), msg = document.getElementById('ctMsg');
+    var err = document.getElementById('ctErr'), ok = document.getElementById('ctOk');
+    btn.addEventListener('click', function () {
+      var bad = !name || name.value.trim().length < 2 || !phone || phone.value.replace(/\D/g, '').length < 10;
+      if (err) err.hidden = !bad;
+      if (ok) ok.hidden = bad;
+      if (bad) { (name && name.value.trim().length < 2 ? name : phone).focus(); return; }
+      btn.textContent = 'Заявка отправлена ✓';
+      btn.disabled = true; btn.classList.add('disabled');
+      if (msg) msg.value = '';
+      showToast('Спасибо! Перезвоним в течение 15 минут');
+    });
+  }
+  function initReviewForm() {
+    var form = document.getElementById('reviewForm');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('rvName'), text = document.getElementById('rvText');
+      var err = document.getElementById('rvErr'), ok = document.getElementById('rvOk');
+      var bad = !name || name.value.trim().length < 2 || !text || text.value.trim().length < 15;
+      if (err) err.hidden = !bad;
+      if (ok) ok.hidden = bad;
+      if (bad) { (name && name.value.trim().length < 2 ? name : text).focus(); return; }
+      form.reset(); if (ok) ok.hidden = false;
+      showToast('Отзыв отправлен на проверку');
+    });
+  }
+  function initOneClick() {
+    var links = document.querySelectorAll('a[href="#buy1"]');
+    [].forEach.call(links, function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var btn = document.getElementById('callback-btn');
+        if (btn && !document.querySelector('.callback-pop.show')) btn.click();
+        var pop = document.querySelector('.callback-pop');
+        if (pop) {
+          var h = pop.querySelector('h2, h4');
+          if (h) h.textContent = 'Купить в один клик';
+          var i = pop.querySelector('input');
+          if (i) { i.focus(); showToast('Оставьте телефон — оформим заказ за вас'); }
+        }
+      });
+    });
+  }
+  function initResend() {
+    var l = document.querySelector('.js-resend');
+    if (l) l.addEventListener('click', function (e) { e.preventDefault(); showToast('Код отправлен повторно'); });
+  }
+
+  function initLanding() {
+    initCart();
+    initContactsForm();
+    initReviewForm();
+    initOneClick();
+    initResend();
+  }
+
   /* ---------- 11. Init ---------- */
   function init() {
     buildHeaderUI();
@@ -538,6 +655,7 @@
     initFade();
     renderRecent();
     watchInstallments();
+    initLanding();
     // снятие hash-ссылок-заглушек заменяется soon.html при вёрстке
   }
   if (document.readyState === 'loading') {

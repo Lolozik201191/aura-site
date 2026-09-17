@@ -2,8 +2,19 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" href="data:,">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/favicon.svg">
+<meta name="theme-color" content="#000000">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Ваш заказ: украшения с примеркой в салоне, бесплатная доставка в салон, начисление бонусов AURA на следующую покупку.">
+<link rel="canonical" href="https://lolozik201191.github.io/aura-site/cart.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ювелирный дом AURA">
+<meta property="og:title" content="Корзина — AURA">
+<meta property="og:description" content="Ваш заказ: украшения с примеркой в салоне, бесплатная доставка в салон, начисление бонусов AURA на следующую покупку.">
+<meta property="og:url" content="https://lolozik201191.github.io/aura-site/cart.html">
+<meta property="og:image" content="https://lolozik201191.github.io/aura-site/assets/pics/catalog/ring-diamond.webp">
+<meta name="twitter:card" content="summary_large_image">
 <title>AURA — Корзина · дизайн-макет</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -53,7 +64,7 @@
 
   <div class="catlayout" style="grid-template-columns:1fr 360px">
     <div style="display:grid;gap:14px">
-      <div class="card" style="flex-direction:row;align-items:center;padding:14px">
+      <div class="card" data-cart-row data-price="18900" style="flex-direction:row;align-items:center;padding:14px">
         <div class="ph" style="width:110px;aspect-ratio:1;flex:none;border-radius:12px;overflow:hidden">
           <img src="assets/pics/catalog/ring-diamond.webp" alt="Кольцо с бриллиантом «Аврора»" style="width:100%;height:100%;object-fit:cover">
         </div>
@@ -63,16 +74,16 @@
           <div class="avail" style="margin-top:6px">В салоне Раменского — заберёте сегодня</div>
         </div>
         <div style="display:flex;align-items:center;gap:6px">
-          <button class="sz" style="min-width:34px;height:34px">−</button>
-          <span style="font-weight:700;min-width:22px;text-align:center">1</span>
-          <button class="sz" style="min-width:34px;height:34px">+</button>
+          <button class="sz js-qty" data-d="-1" type="button" aria-label="Уменьшить количество" style="min-width:34px;height:34px">−</button>
+          <span class="qty-n" style="font-weight:700;min-width:22px;text-align:center">1</span>
+          <button class="sz js-qty" data-d="1" type="button" aria-label="Увеличить количество" style="min-width:34px;height:34px">+</button>
         </div>
         <div style="min-width:120px;text-align:right">
           <div class="price" style="font-size:18px">18 900 ₽</div>
-          <a href="soon.html?s=cartop" style="font-size:12px;color:var(--ink-soft)">Удалить</a>
+          <button type="button" class="js-remove" style="font-size:12px;color:var(--ink-soft);background:none;border:0;padding:0;text-decoration:underline">Удалить</button>
         </div>
       </div>
-      <div class="card" style="flex-direction:row;align-items:center;padding:14px">
+      <div class="card" data-cart-row data-price="14700" style="flex-direction:row;align-items:center;padding:14px">
         <div class="ph ph-v3" style="width:110px;aspect-ratio:1;flex:none;border-radius:12px;overflow:hidden">
           <img src="assets/pics/categories/earrings-pusety.webp" alt="Серьги-пусеты «Искра»" style="width:100%;height:100%;object-fit:cover">
         </div>
@@ -82,30 +93,36 @@
           <div class="avail" style="margin-top:6px">В салоне Раменского — заберёте сегодня</div>
         </div>
         <div style="display:flex;align-items:center;gap:6px">
-          <button class="sz" style="min-width:34px;height:34px">−</button>
-          <span style="font-weight:700;min-width:22px;text-align:center">1</span>
-          <button class="sz" style="min-width:34px;height:34px">+</button>
+          <button class="sz js-qty" data-d="-1" type="button" aria-label="Уменьшить количество" style="min-width:34px;height:34px">−</button>
+          <span class="qty-n" style="font-weight:700;min-width:22px;text-align:center">1</span>
+          <button class="sz js-qty" data-d="1" type="button" aria-label="Увеличить количество" style="min-width:34px;height:34px">+</button>
         </div>
         <div style="min-width:120px;text-align:right">
           <div class="price" style="font-size:18px">14 700 ₽</div>
-          <a href="soon.html?s=cartop" style="font-size:12px;color:var(--ink-soft)">Удалить</a>
+          <button type="button" class="js-remove" style="font-size:12px;color:var(--ink-soft);background:none;border:0;padding:0;text-decoration:underline">Удалить</button>
         </div>
       </div>
+    </div>
+
+    <div id="cartEmpty" hidden class="panel" style="text-align:center;padding:40px 24px;margin-top:8px">
+      <div style="font-family:var(--head);font-size:24px;margin-bottom:8px">В корзине пока пусто</div>
+      <p class="note" style="margin-bottom:16px">Посмотрите хиты продаж и подберите украшение — его можно примерить в салоне перед оплатой.</p>
+      <a class="btn btn-p" href="catalog.html">Перейти в каталог</a>
     </div>
 
     <aside class="filters cart-sum" style="position:static;padding:20px">
       <div style="font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:14px">Ваш заказ</div>
       <div style="display:grid;gap:8px;font-size:14px">
-        <div style="display:flex;justify-content:space-between"><span>Товары (2)</span><b>33 600 ₽</b></div>
-        <div style="display:flex;justify-content:space-between"><span>Скидка</span><b style="color:var(--terra)">− 3 300 ₽</b></div>
+        <div style="display:flex;justify-content:space-between"><span>Товары (<span data-sum-count>2</span>)</span><b data-sum-sub>33 600 ₽</b></div>
+        <div style="display:flex;justify-content:space-between"><span>Скидка</span><b data-sum-disc style="color:var(--terra)">− 3 300 ₽</b></div>
         <div style="display:flex;justify-content:space-between"><span>Доставка в салон</span><b style="color:var(--emerald)">0 ₽</b></div>
       </div>
       <input class="fsearch" style="margin:12px 0" placeholder="Промокод">
       <hr class="sep" style="margin:6px 0 12px">
       <div style="display:flex;justify-content:space-between;align-items:baseline">
-        <span style="font-weight:700">Итого</span><span style="font-size:24px;font-weight:800">30 300 ₽</span>
+        <span style="font-weight:700">Итого</span><span data-sum-total style="font-size:24px;font-weight:800">30 300 ₽</span>
       </div>
-      <div style="font-size:12px;color:var(--ink-soft);margin:4px 0 12px">Начислим 606 бонусов AURA</div>
+      <div style="font-size:12px;color:var(--ink-soft);margin:4px 0 12px">Начислим <span data-sum-bonus>606</span> бонусов AURA</div>
       <a class="btn btn-p btn-l" href="checkout.html">К оформлению</a>
       <div class="chklist" style="margin-top:12px">
         <span class="chk" data-ic="check">Заберёте в салоне Раменского</span>
@@ -140,7 +157,7 @@
       <li><a href="return.html">Возврат и обмен</a></li>
       <li><a href="service.html">Гарантия и уход</a></li>
       <li><a href="promotions.html">Обмен старого золота</a></li>
-      <li><a href="soon.html?s=credit">Рассрочка</a></li>
+      <li><a href="delivery.html#credit">Рассрочка</a></li>
     </ul></div>
     <div><p class="fh">Салоны</p><ul>
       <li><a href="salon.html">Раменское · 2 салона</a></li>
@@ -152,13 +169,13 @@
       <li><a href="account.html">Личный кабинет</a></li>
       <li><a href="about.html">О компании</a></li>
       <li><a href="about.html#guide">Журнал: как выбрать</a></li>
-      <li><a href="soon.html?s=certs">Подарочные сертификаты</a></li>
+      <li><a href="giftcards.html">Подарочные сертификаты</a></li>
       <li><a href="faq.html">Вопросы и ответы</a></li>
       <li><a href="contacts.html">Контакты</a></li>
     </ul></div>
     <div class="bottom">
       <span>© 2010–2026 AURA. Ювелирный дом · Московская область</span>
-      <span>Политика конфиденциальности · Публичная оферта</span>
+      <span><a href="legal.html#privacy">Политика конфиденциальности</a> · <a href="legal.html#oferta">Публичная оферта</a></span>
     </div>
   </div>
 </footer>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lolozik201191.github.io/aura-site/sitemap.xml
