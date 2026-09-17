@@ -1,0 +1,420 @@
+/* ============================================================
+   AURA · тема «Sunlight-like» (v5)
+   Референс: sunlight.net — белый фон, светлая геометрия, квадратные
+   углы, чёрные кнопки, красный акцент, серые подложки #F2F2F2,
+   серифные заголовки (Cormorant Garamond) + гротеск (Manrope).
+   Слой подключается ПОСЛЕ aura.css и переопределяет визуал.
+   ============================================================ */
+
+/* ---------- 1. Токены ---------- */
+:root{
+  --bg:#FFFFFF;
+  --bg-2:#F2F2F2;          /* подложки, полосы, фото-области */
+  --bg-soft:#FAFAFA;
+  --card:#FFFFFF;
+  --ink:#000000;
+  --ink-2:#4A4A4A;
+  --ink-3:#8A8A8A;
+  --ink-soft:#4A4A4A;
+  --border:#E6E6E6;
+  --border-l:#EFEFEF;
+  --line:#E6E6E6;
+  --line2:#EFEFEF;
+  --red:#E00000;           /* для текста (AA) */
+  --red-bg:#FF0000;        /* для плашек/заливок */
+  --sale:#E00000;
+  --ok:#1F8A4C;
+  --emerald:#000000;       /* первичные действия — чёрные (как «Каталог» у Sunlight) */
+  --emerald-d:#333333;
+  --emerald-soft:#F2F2F2;
+  --mint:#F2F2F2;
+  --gold:#000000;
+  --gold-2:#000000;
+  --gold-d:#4A4A4A;
+  --gold-soft:#F2F2F2;
+  --grey:#8A8A8A;
+  --r:0px; --r-sm:0px; --r-lg:0px;
+  --head:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Manrope","Inter",Arial,Helvetica,sans-serif;
+  --shadow-sm:none; --shadow:none; --shadow-lg:0 12px 32px rgba(0,0,0,.12);
+}
+
+/* ---------- 2. Базовая типографика ---------- */
+html{background:#fff}
+body{background:#fff!important;color:#000;font-family:var(--sans);font-weight:400;font-size:16px;line-height:1.5}
+h1,h2,h3,h4,h5,h6,.pagetitle{color:#000}
+h1,h2,.sec-head h2,.sec2 h2,.promo h2,.ai h2,.legend h1,.hub-hero h1,.salonhero h1,.act-hero h1{
+  font-family:var(--head);font-weight:500;letter-spacing:.01em}
+h3,h4,h5,.card h3,.plan-step b,.step b,.svc b,.ck b,.infocard h3,.footer .fh,.callback-pop h2{font-family:var(--sans)}
+p,li,span,div{font-weight:400}
+a{color:inherit}
+.pagetitle,.h1{font-family:var(--sans)!important;font-size:clamp(24px,2.3vw,32px)!important;font-weight:300!important;
+  letter-spacing:.02em;text-transform:uppercase;color:#4A4A4A}
+.kicker{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#8A8A8A}
+.kicker::before{display:none}
+.note{color:#8A8A8A;font-size:13px}
+
+/* ---------- 3. Шапка ---------- */
+.topline{background:#F2F2F2!important;color:#8A8A8A;border-bottom:1px solid var(--border-l)}
+.topline a,.topline .tl-link,.topline span{color:#8A8A8A;font-size:13px}
+.topline a:hover{color:#000}
+.topline .city b{color:#000;font-weight:600}
+.header{background:#fff!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  border-bottom:1px solid var(--border)!important;box-shadow:none!important}
+.header .wrap{height:72px;gap:22px}
+.logo img{height:36px;width:auto}
+.nav{gap:2px;overflow:visible}
+.nav a{font-size:15px;font-weight:400;color:#000;padding:10px 12px;letter-spacing:.01em}
+.nav a::after{display:none}
+.nav a:hover,.nav a.on{color:#000}
+.nav a.on{font-weight:600}
+.nav a:first-child{background:#000;color:#fff;padding:13px 18px 13px 16px;font-weight:500;display:inline-flex;align-items:center;gap:10px}
+.nav a:first-child::before{content:"";width:16px;height:10px;flex:none;
+  background:linear-gradient(#fff,#fff) center/16px 1.5px no-repeat,
+             linear-gradient(#fff,#fff) center top/16px 1.5px no-repeat,
+             linear-gradient(#fff,#fff) center bottom/16px 1.5px no-repeat}
+.nav a:first-child:hover{background:#333;color:#fff}
+.search{background:#fff;border:1px solid #CDCDCD!important;border-radius:0;height:48px;max-width:none}
+.search input{font-size:15px;color:#000}
+.search input::placeholder{color:#8A8A8A}
+.search .s-btn{background:var(--red-bg);color:#fff;width:50px;height:100%;border-radius:0}
+.search .s-btn:hover{background:#D90000}
+.icons{gap:18px}
+.icons .ic{border-radius:0;color:#000;width:auto;min-width:44px;height:44px}
+.icons .ic:hover{color:var(--red)}
+.ic .cnt{background:var(--red-bg);color:#fff;border-radius:999px;font-size:11px;font-weight:600;min-width:18px;height:18px;top:0;right:-4px}
+.burger{border-radius:0;border:1px solid var(--border)}
+.burger span{background:#000}
+
+/* ---------- 4. Кнопки ---------- */
+.btn{border-radius:0!important;font-family:var(--sans);font-weight:500;font-size:15px;letter-spacing:.01em;
+  min-height:50px;padding:13px 24px;box-shadow:none!important;text-transform:none}
+.btn:hover{transform:none!important}
+.btn-p{background:#000!important;color:#fff!important;border:1px solid #000!important}
+.btn-p:hover{background:#333!important;border-color:#333!important}
+.btn-gold{background:#fff!important;color:#000!important;border:1px solid #000!important}
+.btn-gold:hover{background:#F2F2F2!important}
+.btn-g{background:#fff!important;color:#000!important;border:1px solid var(--border)!important}
+.btn-g:hover{border-color:#000!important;background:#fff!important}
+.btn-o{background:transparent!important;color:#fff!important;border:1px solid rgba(255,255,255,.65)!important}
+.btn-o:hover{background:#fff!important;color:#000!important}
+.btn-p::after,.btn-gold::after,.btn-g::after,.btn-o::after{display:none!important}
+.btn-l{width:100%}
+.more{color:#8A8A8A;font-size:14px;font-weight:400}
+.more:hover{color:#000}
+
+/* ---------- 5. Секции и заголовки ---------- */
+.sec{padding:clamp(40px,5vw,72px) 0 8px}
+.sec--grey{background:#F2F2F2;margin-top:clamp(28px,4vw,48px)}
+.sec--grey .sec{padding-top:clamp(36px,4.4vw,60px);padding-bottom:clamp(36px,4.4vw,60px)}
+.sec2{margin-top:clamp(32px,4vw,52px)}
+.sec-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;margin-bottom:clamp(20px,2.4vw,32px)}
+.sec-head h2{font-size:clamp(28px,3.3vw,44px);font-weight:500;color:#000}
+.sec-head .sub{color:#8A8A8A;font-size:15.5px;max-width:660px;text-align:center;margin:0 auto}
+
+/* ---------- 6. Слайдер-герой ---------- */
+.hslider{border-radius:0!important;box-shadow:none!important;background:#fff}
+.hslide{background:#fff!important;background-image:none!important;animation:none!important}
+.hslide .wrap{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(28px,4vw,56px);align-items:center}
+.hs-tag{background:#000!important;color:#fff!important;border-radius:0!important;font-size:11px!important;
+  letter-spacing:.16em;padding:7px 12px!important;box-shadow:none!important;font-weight:600}
+.hsed,.hslide h2{color:#000!important;font-family:var(--head)!important;font-weight:500!important;
+  font-size:clamp(32px,4.6vw,58px)!important;line-height:1.06!important;letter-spacing:.005em!important;text-shadow:none!important;max-width:660px}
+.hslide h2 em{color:#000!important;font-style:italic}
+.hslide p{color:#4A4A4A!important;font-size:17px!important;max-width:520px;text-shadow:none!important}
+.hs-price{color:var(--red);font-weight:600;font-size:24px;font-family:var(--sans)}
+.hs-art{background:#F2F2F2!important;border-radius:0!important;box-shadow:none!important;min-height:420px}
+.hs-art .chip-t{background:var(--red-bg)!important;color:#fff!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;font-weight:600;backdrop-filter:none!important}
+.hs-art .chip-t b{color:#fff!important}
+.hsl-a{background:#fff;border:1px solid var(--border);border-radius:0;color:#000;box-shadow:none}
+.hsl-a:hover{background:#000;color:#fff;border-color:#000}
+.hsl-dots i{background:#CDCDCD;border-radius:999px}
+.hsl-dots i.on{background:var(--red-bg)}
+.hslide .cta .btn{min-width:190px}
+
+/* ---------- 7. Преимущества (USP-полоса) ---------- */
+.perks{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#F2F2F2;border-radius:0}
+.perk{padding:22px 22px;gap:12px;border-right:1px solid #E4E4E4;align-items:center}
+.perk:last-child{border-right:0}
+.perk .p-ic{width:44px;height:44px;border-radius:0;background:#fff;border:1px solid var(--border);color:#000}
+.perk b{font-size:14px;font-weight:600;font-family:var(--sans)}
+.perk span{font-size:12.5px;color:#8A8A8A}
+.perk:hover .p-ic{transform:none}
+
+/* ---------- 8. Плитки категорий и «жизнь» ---------- */
+.mcat a,.hub-tile,.live{border-radius:0!important;box-shadow:none!important;background:#F2F2F2!important}
+.mcat a{border:1px solid var(--border)}
+.mcat a:hover,.hub-tile:hover{transform:none!important;border-color:#000}
+.mcat .m-name,.hub-tile b{font-family:var(--head);font-weight:500;font-size:22px}
+.mcat .m-cnt,.hub-tile span{font-size:12.5px}
+.mcat .m-badge,.hub-tile .tg-badge,.live .lv-tag{border-radius:0!important;background:var(--red-bg)!important;color:#fff!important;
+  box-shadow:none!important;font-size:11px!important;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.mcat .scrim,.hub-tile .scrim{background:linear-gradient(180deg,rgba(0,0,0,.06) 0%,rgba(0,0,0,.34) 46%,rgba(0,0,0,.72) 100%)!important}
+.live{border:1px solid var(--border)}
+.live .lv-ic{border-radius:0;background:rgba(255,255,255,.9);color:#000;border:0}
+
+/* ---------- 9. Карточка товара ---------- */
+.card{border:1px solid var(--border)!important;border-radius:0!important;box-shadow:none!important;background:#fff!important;
+  transition:border-color .18s}
+.card::before{display:none!important}
+.card:hover{transform:none!important;box-shadow:none!important;border-color:#000!important}
+.card .ph{background:#F2F2F2!important;border-radius:0!important}
+.card .ph::after{display:none!important}
+.card:hover .ph svg.pic{transform:none!important;filter:none!important}
+.card:hover .ph img.pimg{transform:none!important}
+.card .body{padding:14px 14px 16px;gap:6px}
+.card h3{font-family:var(--sans)!important;font-size:14.5px!important;font-weight:400!important;line-height:1.35;color:#000}
+.card h3 a:hover{color:var(--red)}
+.card .meta{color:#8A8A8A;font-size:12.5px}
+.card .avail{color:var(--ok);font-size:11.5px;font-weight:600}
+.card .avail.no{color:#8A8A8A}
+.card .avail::before{width:6px;height:6px}
+.rate{color:#8A8A8A;font-size:12px;font-weight:400}
+.card .price-row{margin-top:auto;padding-top:8px;gap:8px;align-items:baseline}
+.card .price{font-size:19px!important;font-weight:600!important;color:#000!important;font-family:var(--sans)!important}
+.card .price-row small{color:#8A8A8A;font-size:14px;text-decoration:line-through}
+.card .inst{display:block;width:100%;font-size:12px;color:#8A8A8A;margin-top:2px}
+.tg{background:var(--red-bg)!important;color:#fff!important;border-radius:0!important;font-size:11px!important;font-weight:600;
+  letter-spacing:.06em;padding:5px 9px!important}
+.tg.hit{background:#000!important;color:#fff!important}
+.tg.new{background:#fff!important;color:#000!important;border:1px solid #000}
+.card .fav,.gallery .th,.zoom{background:#fff!important;border:1px solid var(--border)!important;border-radius:0!important;color:#000!important}
+.card .fav:hover,.card .fav.on{background:#000!important;color:#fff!important;border-color:#000!important}
+.card .buy{position:static!important;opacity:1!important;transform:none!important;padding:10px 14px 0!important;background:none!important;display:block!important}
+.card .buy .btn{width:100%!important;border-radius:0!important;padding:12px!important;font-size:14px!important;min-height:44px}
+.card .ph .b1,.card .ph .buy{z-index:3}
+
+/* ---------- 10. Карусель ---------- */
+.crl-view{padding:8px 2px 14px}
+.crl-track{gap:16px}
+.crl-a{border-radius:0;background:#fff;border:1px solid var(--border);color:#000;box-shadow:none;width:44px;height:44px}
+.crl-a:hover{background:#000;color:#fff;border-color:#000}
+.crl-a.prev{left:-10px}.crl-a.next{right:-10px}
+.crl-dots i{background:#CDCDCD;border-radius:999px}
+.crl-dots i.on{background:var(--red-bg)}
+
+/* ---------- 11. Промо-баннеры, акции ---------- */
+.promo,.legend,.hub-hero,.salonhero,.act-hero{
+  background:#111!important;background-image:none!important;border-radius:0!important;box-shadow:none!important;color:#fff!important}
+.promo::before,.promo::after,.legend::after,.hub-hero::after,.salonhero::after,.act-hero::after,.act-hero::before,
+.actcard::after,.mini-banner::after,.ai::after{display:none!important}
+.promo h2,.legend h1,.hub-hero h1,.salonhero h1,.act-hero h1{color:#fff!important;font-family:var(--head)!important;font-weight:500!important;text-shadow:none!important}
+.promo h1 em,.legend h1 em,.hub-hero h1 em,.salonhero h1 em,.act-hero h1 em,.promo h2 em{color:#fff!important;font-style:italic}
+.promo p,.legend p,.hub-hero p,.salonhero p,.act-hero p{color:#C9C9C9!important;text-shadow:none!important}
+.promo .kicker,.legend .kicker,.hub-hero .kicker,.salonhero .kicker,.act-hero .kicker{color:#8A8A8A!important;text-shadow:none!important}
+.promo .chklist{background:transparent!important;border:0!important;padding:0!important;backdrop-filter:none!important;max-width:340px}
+.promo .chklist .chk{background:transparent!important;border:1px solid rgba(255,255,255,.38)!important;color:#fff!important;
+  border-radius:0!important;font-size:13px;font-weight:400;padding:11px 15px!important;min-height:44px;gap:10px}
+.promo .chklist .chk svg{color:#fff!important}
+.actcard,.act-banner,.mini-banner{border-radius:0!important;box-shadow:none!important}
+.actcard{background:#111!important;background-image:none!important}
+.grad-g,.grad-e,.grad-t,.grad-br,.grad-d{background:#111!important;background-image:none!important;color:#fff!important}
+.grad-g .a-terms,.grad-g .a-terms b,.grad-g .a-note,.actcard .a-terms,.act-banner p{color:#D8D8D8!important;text-shadow:none!important}
+.grad-g .a-ic,.actcard .a-ic{background:rgba(255,255,255,.08)!important;color:#fff!important}
+.a-note,.actcard .a-note{border-radius:0!important;background:rgba(255,255,255,.1)!important;border:1px solid rgba(255,255,255,.25)!important;color:#fff!important}
+.act-banner.grad-g .kicker,.mini-banner p{color:#C9C9C9!important;text-shadow:none!important}
+.a-hero-media{border-radius:0!important;box-shadow:none!important}
+.a-hero-media .a-pill{border-radius:0;background:rgba(0,0,0,.72);border:0}
+.a-hero-media .a-pill .pct{color:#fff;font-family:var(--head)}
+.act-hero .a-meta span{border-radius:0!important;background:transparent!important;border:1px solid rgba(255,255,255,.3)!important;font-weight:400}
+.act-hero .a-big .pct,.actcard .a-pct,.act-banner .a-pct2{color:#fff!important;font-family:var(--head)!important}
+.ai{background:#F2F2F2!important;border-radius:0!important;color:#000}
+.ai h2{color:#000}
+.ai p{color:#4A4A4A}
+.chat-demo{border-radius:0!important;border:1px solid var(--border)!important;box-shadow:none!important;background:#fff}
+.chat-demo .me{background:#000;border-radius:0}
+.chat-demo .bot{background:#F2F2F2;border:0;border-radius:0}
+
+/* ---------- 12. Шаги, услуги, панели ---------- */
+.steps{border-top:1px solid var(--border);border-bottom:1px solid var(--border);gap:0}
+.step{padding:24px 22px;border-right:1px solid var(--border-l);gap:14px}
+.step:last-child{border-right:0}
+.step .n{width:34px;height:34px;background:#000;color:#fff;border-radius:0;font-size:13px;font-weight:600}
+.step b{font-size:15px;font-weight:600}
+.step p{color:#8A8A8A;font-size:13px}
+.svcgrid a,.svc,.panel,.infocard,.revcard,.cart-sum,.ordersum,.acc-side,.pass-feat,.disc,.review,.bonuscard{
+  border:1px solid var(--border)!important;border-radius:0!important;box-shadow:none!important;background:#fff!important}
+.svcgrid a:hover,.svc:hover,.panel:hover{transform:none!important;box-shadow:none!important;border-color:#000!important}
+.svcgrid a .s-ic,.svc .s-ic,.perk .p-ic,.ck .i,.infocard .pf-ic,.pass-feat .pf-ic,.disc .i,.step .n{
+  border-radius:0!important;background:#F2F2F2!important;color:#000!important;border:0!important}
+.svcgrid a b,.svc b,.plan-step b,.step b{font-weight:600;color:#000}
+.svcgrid a div span,.svc span,.plan-step p{color:#8A8A8A}
+.plan-step{border-bottom:1px solid var(--border-l);padding:16px 0}
+.plan-step .pn{width:34px;height:34px;border-radius:0;background:#F2F2F2;color:#000;font-weight:600}
+.chipsline{gap:10px}
+.chipsel,.cp,.chipghost{border-radius:0!important;border:1px solid var(--border)!important;background:#fff!important;color:#000!important;
+  font-weight:400;font-size:13.5px;min-height:44px;padding:10px 16px!important}
+.chipsel.x::after{color:#8A8A8A}
+.citypills a,.citypills button{border-radius:0!important;border:1px solid var(--border)!important;background:#fff!important;color:#000!important;min-height:44px}
+.citypills a:hover,.citypills .on{background:#000!important;color:#fff!important;border-color:#000!important}
+.st,.vbuy,.brand,.tag{border-radius:0!important;background:#F2F2F2!important;color:#4A4A4A!important;border:0!important;font-weight:600}
+.st.g,.vbuy{color:#1F8A4C!important}
+.filters{background:#fff;border:1px solid var(--border);border-radius:0;box-shadow:none}
+.filters h2.fhead,.fgroup .fh{color:#000;font-weight:600}
+.fopt .box,.fopt .sq{border-radius:0}
+.toolbar,.terms-foot{border:1px solid var(--border)!important;border-radius:0!important;background:#FAFAFA!important;box-shadow:none!important}
+.pagination .pg,.pg{border-radius:0!important;border:1px solid var(--border)!important;background:#fff!important;color:#000!important;min-height:44px;min-width:44px}
+.pg.on{background:#000!important;color:#fff!important;border-color:#000!important}
+.tbl{background:#fff}
+.tbl th{background:#F2F2F2;color:#4A4A4A;font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+.tbl td,.tbl th{border-bottom:1px solid var(--border-l)}
+input,select,textarea{border-radius:0!important;border:1px solid #CDCDCD!important;background:#fff!important;color:#000}
+input:focus,select:focus,textarea:focus{border-color:#000!important;outline:none!important}
+.breadcrumbs{color:#8A8A8A;font-size:13px}
+.breadcrumbs a{color:#8A8A8A}
+.breadcrumbs a:hover{color:#000}
+.buybar{background:#fff!important;border-top:1px solid var(--border)!important;box-shadow:0 -8px 24px rgba(0,0,0,.08)!important}
+.drawer{background:#fff!important;color:#000}
+.drawer .d-head,.drawer .d-sub{border-color:var(--border)}
+.drawer a{color:#000}
+.drawer .fbtn{border:1px solid var(--border)!important;color:#000!important}
+.drawer .btn-p{background:#000!important;color:#fff!important}
+.qbar{background:#fff;border:1px solid var(--border);border-radius:0}
+.callback-btn{background:#000!important;border-radius:0!important;color:#fff!important;box-shadow:none!important}
+.callback-pop{border-radius:0!important;border:1px solid var(--border)!important;box-shadow:0 12px 32px rgba(0,0,0,.14)!important}
+.callback-pop .cb-close{border-radius:0;background:#F2F2F2}
+.toast{border-radius:0;background:#000;font-weight:400}
+.overlay{background:rgba(0,0,0,.5)}
+
+/* ---------- 13. Футер ---------- */
+.footer{background:#fff!important;background-image:none!important;color:#000!important;border-top:1px solid var(--border);margin-top:clamp(32px,4vw,56px)}
+.footer::before{display:none!important}
+.footer .wrap{padding:52px 24px 28px;gap:32px}
+.footer .fh{margin:0 0 16px;color:#000;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.footer a,.footer li a{color:#4A4A4A;font-size:14px}
+.footer a:hover,.footer li a:hover{color:#000;transform:none;padding-left:0}
+.footer p{color:#8A8A8A!important}
+.footer .fbtn{border:1px solid var(--border)!important;border-radius:0;color:#000!important;min-height:44px;padding:11px 15px}
+.footer .fbtn:hover{border-color:#000!important}
+.footer .bottom{border-top:1px solid var(--border-l);padding-top:18px;color:#8A8A8A;font-size:12.5px}
+.footer img{filter:grayscale(1) contrast(1.05)}
+
+/* ---------- 14. Мелочи «плоскости» ---------- */
+.perk:hover .p-ic,.svc:hover .s-ic,.ck:hover .i,.step:hover .n{transform:none!important}
+.card .ph svg.pic{filter:none!important}
+.honest,.rate,.price small{color:#8A8A8A!important}
+.hl{transform:none!important}
+.gallery .big{border-radius:0!important;background:#F2F2F2!important;border:1px solid var(--border)!important}
+.gallery .th{border-radius:0!important;background:#F2F2F2!important}
+.lightbox .lb-stage img{border-radius:0}
+.lightbox .lb-a,.lightbox .lb-close{border-radius:0;background:rgba(255,255,255,.92);color:#000}
+.pricebig{color:#000}
+.pricebig .save{background:var(--red-bg);color:#fff;border-radius:0}
+.a-hero-media .a-pill .pct,.a-hero-media .a-pill span{color:#fff}
+
+/* ---------- 15. Адаптив ---------- */
+@media (max-width:1080px){
+  .perks{grid-template-columns:repeat(2,1fr)}
+  .perk:nth-child(2n){border-right:0}
+  .perk:nth-child(-n+2){border-bottom:1px solid #E4E4E4}
+  .nav a:first-child{padding:11px 14px}
+}
+@media (max-width:768px){
+  .header .wrap{height:64px;gap:12px}
+  .sec-head{text-align:left;align-items:flex-start}
+  .sec-head .sub{text-align:left;margin:0}
+  .perks{grid-template-columns:1fr}
+  .perk{border-right:0;border-bottom:1px solid #E4E4E4}
+  .perk:last-child{border-bottom:0}
+  .step{border-right:0;border-bottom:1px solid var(--border-l)}
+  .step:last-child{border-bottom:0}
+  .hs-art{min-height:280px}
+  .footer .wrap{padding:36px 16px 22px}
+}
+
+/* ---------- 16. Фиксы после дизайн-ревью темы ---------- */
+/* стрелки каруселей: базовый SVG смотрит вправо, значит «назад» зеркалим, а не «вперёд» */
+.hsl-a.next svg,.crl-a.next svg,.lightbox .lb-a.next svg{transform:none!important}
+.hsl-a.prev svg,.crl-a.prev svg,.lightbox .lb-a.prev svg{transform:rotate(180deg)!important}
+.hsl-a{border-radius:999px}
+/* фото-область героя крупнее, текст/картинка ближе к балансу */
+.hs-art{min-height:clamp(360px,42vw,520px)}
+/* «В корзину» — в теле карточки, под ценой (не перекрывает украшение) */
+.card .buy{background:none!important;padding:12px 0 0!important}
+.card .buy .btn{background:#000!important;color:#fff!important;border:1px solid #000!important}
+.card .buy .btn:hover{background:#333!important;border-color:#333!important}
+/* плитки категорий: мягче затемнение, чуть выше, аккуратнее текст */
+.mcat a{min-height:220px}
+.mcat .scrim,.hub-tile .scrim{background:linear-gradient(180deg,rgba(0,0,0,.02) 0%,rgba(0,0,0,.22) 48%,rgba(0,0,0,.62) 100%)!important}
+.mcat .m-name{font-size:21px;letter-spacing:.01em}
+.mcat .m-cnt{opacity:.9}
+/* плавающая кнопка звонка — аккуратный круг, а не «квадрат-заглушка» */
+.callback-btn{border-radius:999px!important;width:56px;height:56px;background:#000!important}
+.callback-btn:hover{background:#333!important;transform:none}
+/* скидочные плашки — единый красный, «хит» — чёрный, «новинка» — белая с рамкой */
+.tg.sale{background:var(--red-bg)!important;color:#fff!important}
+.tg.hit{background:#000!important;color:#fff!important}
+.tg.new{background:#fff!important;color:#000!important;border:1px solid #000!important}
+
+/* ---------- 17. Контраст: правки после авто-скана (WCAG AA) ---------- */
+:root{--ink-3:#6E6E6E;--ok:#14713C}
+/* серые подписи — темнее, чтобы проходить AA и на белом, и на #F2F2F2 */
+.topline,.topline a,.topline .tl-link,.topline span,.topline .city,.breadcrumbs,.breadcrumbs a,
+.sec-head .sub,.card .meta,.rate,.note,.footer p,.footer .bottom,.step p,.perk span,.svc span,.svcgrid a div span,
+.subtitle,.toolbar,.terms-foot{color:#6E6E6E}
+.topline a:hover,.breadcrumbs a:hover{color:#000}
+.avail,.st.g,.vbuy,.drow .v,.meta-ok{color:#14713C!important}
+/* белый текст на белом: btn-o по умолчанию — чёрный контур, белый только на тёмных блоках */
+.btn-o{background:#fff!important;color:#000!important;border:1px solid #000!important}
+.btn-o:hover{background:#F2F2F2!important}
+.promo .btn-o,.act-hero .btn-o,.hub-hero .btn-o,.legend .btn-o,.salonhero .btn-o{
+  background:transparent!important;color:#fff!important;border:1px solid rgba(255,255,255,.65)!important}
+.promo .btn-o:hover,.act-hero .btn-o:hover,.hub-hero .btn-o:hover,.legend .btn-o:hover,.salonhero .btn-o:hover{
+  background:#fff!important;color:#000!important}
+/* плитки с фото: тёмная база — белый текст читается всегда, даже если фото не загрузилось */
+.mcat a,.hub-tile,.live{background:#111!important}
+/* бонусная карта остаётся тёмным блоком */
+.bonuscard{background:#111!important;color:#fff!important;border-color:#111!important}
+.bonuscard .b-val,.bonuscard .b-val small,.bonuscard p{color:#fff!important}
+.bonuscard .b-val small{color:#C9C9C9!important}
+/* заголовки внутри тёмных hero-блоков: вложенные span тоже белые */
+.salonhero h1 span,.hub-hero h1 span,.promo h1 span,.promo h2 span,.legend h1 span,.act-hero h1 span,
+.salonhero h2 span,.hub-hero h2 span{color:#fff!important}
+.actcard h3,.act-banner h3,.actcard .a-pct,.act-banner .a-pct2,.actcard .a-note,.act-banner .kicker,
+.act-banner.grad-g .kicker,.grad-g .a-terms,.grad-g .a-terms b{color:#fff!important}
+.actcard .a-terms,.act-banner p{color:#D8D8D8!important}
+/* скрытый текст не участвует в проверках контраста */
+.sr-only{color:transparent!important}
+
+/* ---------- 18. Контраст, итерация 2 ---------- */
+:root{--red-bg:#D90000}
+.ic .cnt,.cnt{background:#D90000!important;color:#fff!important;font-size:12px!important;font-weight:600}
+.kicker{color:#6E6E6E!important}
+.card .inst{color:#6E6E6E!important}
+.rate{color:#6E6E6E!important}
+.footer p{color:#6E6E6E!important}
+.footer .bottom,.footer .bottom span{color:#6E6E6E!important}
+.toolbar,.toolbar span{color:#6E6E6E!important}
+.fopt .cnt{color:#6E6E6E!important}
+.terms-foot{color:#6E6E6E!important}
+.pagetitle{letter-spacing:.012em!important}
+.more{color:#6E6E6E!important}
+.more:hover{color:#000!important}
+
+/* ---------- 19. Мобильная адаптация героя ---------- */
+@media (max-width:768px){
+  .hsl-a{display:none!important}
+  .hsl-view{min-height:auto}
+  .hslide .wrap{padding-top:22px;padding-bottom:34px}
+  .hslide h2{font-size:clamp(26px,7vw,34px)!important}
+  .hslide p{font-size:15px!important}
+  .hs-price{font-size:20px}
+  .hs-art{min-height:250px;margin-top:6px}
+  .hsl-dots{margin-top:16px;gap:8px}
+  .hslide .cta{gap:8px;margin-top:18px!important}
+  .hslide .cta .btn{flex:1 1 100%}
+  .promo .chklist{max-width:none;width:100%}
+}
+
+/* ---------- 20. Контраст, итерация 3 ---------- */
+/* красный бейдж — только у иконок в шапке, счётчики в фильтрах обычные */
+.icons .cnt,.ic .cnt{background:#D90000!important;color:#fff!important;font-size:12px!important;font-weight:600}
+.fopt .cnt,.fgroup .cnt,.fh .cnt{background:none!important;color:#6E6E6E!important;font-size:12.5px!important;font-weight:400}
+.card .price-row small{color:#6E6E6E!important}
+.honest{color:#6E6E6E!important}
+.plan-step p,.p-sub,.sub,.step p,.drow,.drow span,.delivrows,.delivrows span,.mapbox span,
+.tbl td,.tbl th,.cartitem .meta,.acc-menu a,.field label,.hint,.terms-foot span{
+  color:#6E6E6E!important}
+.plan-step b,.drow .k,.mapbox b{color:#000!important}
+.st,.vbuy{color:#4A4A4A!important}

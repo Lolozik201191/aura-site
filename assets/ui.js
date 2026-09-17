@@ -484,7 +484,50 @@
     }).join('');
     window.__iconsApply && window.__iconsApply();
   }
-  /* ---------- 10. Init ---------- */
+  /* ---------- 10. Рассрочка в карточках (как у Sunlight: «от N ₽/мес») ---------- */
+  function initInstallments(root) {
+    var scope = root || document;
+    var cards = scope.querySelectorAll ? scope.querySelectorAll('.card') : [];
+    Array.prototype.forEach.call(cards, function (card) {
+      /* «В корзину» переносим из фото-области в тело карточки —
+         фото не перекрывается кнопкой (стиль Sunlight) */
+      var buy = card.querySelector('.buy');
+      var body = card.querySelector('.body');
+      if (buy && body && buy.parentElement !== body && !body.querySelector('.buy')) {
+        var priceRow = body.querySelector('.price-row');
+        if (priceRow) body.insertBefore(buy, priceRow.nextSibling); else body.appendChild(buy);
+      }
+      var price = card.querySelector('.price');
+      if (!price || card.querySelector('.inst')) return;
+      var num = parseFloat((price.textContent || '').replace(/[^\d,.]/g, '').replace(/\s/g, '').replace(',', '.'));
+      if (!num || num < 1000) return;
+      var monthly = Math.round(num / 6 / 10) * 10;
+      var span = document.createElement('span');
+      span.className = 'inst';
+      span.textContent = 'от ' + monthly.toLocaleString('ru-RU').replace(/,/g, ' ') + ' ₽/мес';
+      var row = price.parentElement;
+      if (row) row.appendChild(span); else price.insertAdjacentElement('afterend', span);
+    });
+  }
+  function watchInstallments() {
+    initInstallments(document);
+    if (!('MutationObserver' in window)) return;
+    var t;
+    var mo = new MutationObserver(function (muts) {
+      var need = false;
+      muts.forEach(function (m) {
+        Array.prototype.forEach.call(m.addedNodes || [], function (n) {
+          if (n.nodeType === 1 && (n.classList && n.classList.contains('card') || (n.querySelector && n.querySelector('.card')))) need = true;
+        });
+      });
+      if (!need) return;
+      clearTimeout(t);
+      t = setTimeout(function () { initInstallments(document); }, 120);
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+  }
+
+  /* ---------- 11. Init ---------- */
   function init() {
     buildHeaderUI();
     buildFiltersUI();
@@ -494,6 +537,7 @@
     buildBuyBar();
     initFade();
     renderRecent();
+    watchInstallments();
     // снятие hash-ссылок-заглушек заменяется soon.html при вёрстке
   }
   if (document.readyState === 'loading') {
