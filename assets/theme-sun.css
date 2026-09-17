@@ -575,3 +575,52 @@ input:focus,select:focus,textarea:focus{border-color:#000!important;outline:none
 .mega-t{color:#6E6E6E!important}
 .mega-promo-s{color:#CFCFCF!important}
 .mega-promo-2 .mega-promo-s{color:#5C5C5C!important}
+/* ============================================================
+   ЕДИНЫЙ СТИЛЬ БАННЕРОВ (все страницы)
+   ============================================================ */
+/* тёмные: шёлк с золотым светом + затемнение слева */
+.promo,.salonhero,.mini-banner{
+  background-image:linear-gradient(90deg,rgba(8,8,8,.96) 0%,rgba(8,8,8,.88) 42%,rgba(8,8,8,.56) 72%,rgba(8,8,8,.34) 100%),url(pics/banners/bnr-dark.webp)!important;
+  background-size:cover,cover!important;background-position:center,center right!important;background-repeat:no-repeat!important}
+.act-hero,.salonhero{
+  background-image:linear-gradient(90deg,rgba(8,8,8,.96) 0%,rgba(8,8,8,.86) 44%,rgba(8,8,8,.52) 74%,rgba(8,8,8,.3) 100%),url(pics/banners/bnr-gold.webp)!important;
+  background-size:cover,cover!important;background-position:center,center right!important}
+/* светлые: айвори-мрамор */
+.hub-hero,.legend,.mini-banner--light{
+  background-image:linear-gradient(90deg,rgba(255,255,255,.975) 0%,rgba(255,255,255,.93) 46%,rgba(255,255,255,.46) 100%),url(pics/banners/bnr-ivory.webp)!important;
+  background-size:cover,cover!important;background-position:center,center right!important}
+/* типографика баннеров */
+.promo h2,.salonhero h1,.act-hero h1,.legend h1,.hub-hero h1,.mini-banner b{font-family:var(--head)!important;font-weight:500!important;letter-spacing:.005em!important;text-wrap:balance}
+.salonhero h1,.act-hero h1,.hub-hero h1,.legend h1{font-size:clamp(30px,3.6vw,54px)!important;line-height:1.04!important}
+.promo h2{font-size:clamp(28px,3.2vw,46px)!important;line-height:1.06!important}
+.mini-banner b{font-size:clamp(22px,1.9vw,30px)!important;line-height:1.1!important;display:block}
+/* текст на светлых баннерах */
+.hub-hero,.legend,.mini-banner--light{color:#000!important}
+.hub-hero h1,.hub-hero h1 em,.legend h1,.hub-hero .kicker,.legend .kicker,.mini-banner--light b{color:#000!important;text-shadow:none!important}
+.hub-hero p,.legend p,.mini-banner--light span{color:#3A3A3A!important;text-shadow:none!important}
+.hub-hero .kicker,.legend .kicker,.mini-banner--light .kicker{color:#6E6E6E!important}
+.legend .hh-pills span,.hub-hero .hh-pills span{background:#fff!important;border:1px solid #E6E6E6!important;color:#000!important}
+/* текст на тёмных баннерах */
+.promo h2,.salonhero h1,.act-hero h1,.promo h2 em,.mini-banner b{color:#fff!important;text-shadow:0 2px 14px rgba(0,0,0,.5)!important}
+.salonhero h1 span{color:#fff!important}
+.salonhero .cr div,.salonhero .cr span{color:#E4E4E4!important}
+.mini-banner span{color:#D8D8D8!important;text-shadow:0 1px 10px rgba(0,0,0,.5)!important}
+/* CTA внутри баннеров */
+.promo .btn-gold,.salonhero .btn-gold,.act-hero .btn-gold,.mini-banner .btn-gold,
+.promo .btn-p,.salonhero .btn-p,.act-hero .btn-p,.mini-banner .btn-p,
+.mini-banner--light .btn-p{
+  background:#fff!important;color:#000!important;border-color:#fff!important}
+.promo .btn-p:hover,.salonhero .btn-p:hover,.act-hero .btn-p:hover,.mini-banner .btn-p:hover{background:#E9E9E9!important;border-color:#E9E9E9!important}
+.promo .btn-o,.salonhero .btn-o,.act-hero .btn-o{color:#fff!important;border-color:rgba(255,255,255,.72)!important;background:transparent!important}
+.promo .btn-o:hover,.salonhero .btn-o:hover,.act-hero .btn-o:hover{background:#fff!important;color:#000!important}
+.mini-banner--light .btn-p{background:#000!important;color:#fff!important;border-color:#000!important}
+/* карточка консультанта внутри hero салона */
+.salonhero [style*="rgba(255,255,255,.1)"]{background:rgba(0,0,0,.4)!important;border-color:rgba(255,255,255,.24)!important}
+.promo .chklist .chk{background:rgba(0,0,0,.42)!important}
+/* компактные баннеры каталога */
+.mini-banner{color:#fff!important;min-height:220px;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:clamp(22px,2.4vw,34px)}
+.mini-banner .btn{align-self:flex-start;margin-top:4px}
+@media (max-width:768px){
+  .mini-banner{min-height:190px}
+  .mini-banner b{font-size:22px!important}
+}
