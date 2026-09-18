@@ -101,10 +101,27 @@
     document.body.appendChild(ask);
   }
 
+  /* ---------- 4. кнопка «Наверх» ---------- */
+  function initToTop() {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'to-top';
+    btn.setAttribute('aria-label', 'Вернуться наверх');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>';
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+    document.body.appendChild(btn);
+    function onScroll() { btn.classList.toggle('show', (window.scrollY || 0) > 900); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   function init() {
     initCity();
     setTimeout(initCookie, 2200);   /* не перекрываем баннер в первые секунды */
     initAsk();
+    initToTop();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

@@ -1308,3 +1308,29 @@ body.head-compact .topline{display:block!important}
 .mcat a .m-name{color:#111!important}
 .mcat a .m-cnt{color:#4A4A4A!important}
 .mcat a img.m-art{opacity:1!important}
+
+/* ============================================================
+   Плавающие кнопки в правом нижнем углу выстраиваем в колонку:
+   снизу — телефон (кнопка обратного звонка), выше — «Задать вопрос»,
+   ещё выше — «Наверх». Раньше «Задать вопрос» наезжала на телефон.
+   ============================================================ */
+.ask-btn{right:24px!important;bottom:96px!important}
+.to-top{position:fixed;right:24px;bottom:160px;z-index:105;display:inline-flex;align-items:center;justify-content:center;
+  width:48px;height:48px;background:#fff;border:1px solid var(--border);color:#111;cursor:pointer;
+  box-shadow:0 16px 34px -18px rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s,transform .2s}
+.to-top.show{opacity:1;visibility:visible}
+.to-top:hover{transform:translateY(-2px);border-color:#111}
+.to-top svg{width:20px;height:20px}
+/* пока видна плашка cookie — плавающие кнопки убираем, чтобы не мешали */
+body.cookie-on .ask-btn,body.cookie-on .to-top{display:none!important}
+@media (max-width:1080px){
+  .to-top{right:14px;bottom:82px;width:44px;height:44px}
+  .ask-btn{display:none}
+}
+/* на карточке товара снизу появляется панель покупки — поднимаем кнопки */
+body.has-buybar .to-top{bottom:158px}
+@media (max-width:1080px){body.has-buybar .to-top{bottom:150px}}
+@media (prefers-reduced-motion: reduce){.to-top{transition:none}}
+
+/* кнопка телефона тоже не должна висеть поверх плашки cookie */
+body.cookie-on .callback-btn{display:none!important}

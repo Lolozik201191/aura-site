@@ -147,6 +147,7 @@
           var visible = en.isIntersecting;
           bar.classList.toggle('show', !visible);
           document.body.classList.toggle('buybar-on', !visible);
+          document.body.classList.toggle('has-buybar', !visible);
         });
       }, { rootMargin: '-80px 0px 0px 0px' });
       io.observe(cta);
