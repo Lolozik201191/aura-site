@@ -1290,3 +1290,11 @@ body.head-compact .topline{display:block!important}
 @media (min-width:1081px){.header.is-compact .logo img{height:46px}}
 @media (max-width:1080px){.header.is-compact .logo img{height:36px}}
 .header.is-compact{box-shadow:0 12px 30px -22px rgba(0,0,0,.45)}
+
+/* Плитки категорий: убираем зум фотографии внутри плитки и жёстко обрезаем
+   содержимое — на части ширин изображение выходило за границы блока и читалось
+   как наслоение блоков друг на друга. */
+.mcat a{overflow:hidden!important}
+.mcat a img.m-art{transform:none!important}
+.mcat a:hover img.m-art{transform:none!important}
+.mcat .m-art{object-fit:cover!important}
