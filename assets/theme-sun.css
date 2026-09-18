@@ -1298,3 +1298,13 @@ body.head-compact .topline{display:block!important}
 .mcat a img.m-art{transform:none!important}
 .mcat a:hover img.m-art{transform:none!important}
 .mcat .m-art{object-fit:cover!important}
+
+/* Плитки категорий: убираем тёмную градиентную подложку поверх фото.
+   Именно она читалась как наслоение: тёмная полоса внизу плитки визуально
+   «заезжала» на соседнюю плитку и на фото. Подписи и так тёмные — читаются
+   на светлом фоне, а границы плиток теперь подчёркнуты тонкой рамкой. */
+.mcat .scrim{display:none!important}
+.mcat a{background:#F7F7F7!important;border:1px solid var(--border-l)!important}
+.mcat a .m-name{color:#111!important}
+.mcat a .m-cnt{color:#4A4A4A!important}
+.mcat a img.m-art{opacity:1!important}
