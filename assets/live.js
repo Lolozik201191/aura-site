@@ -91,6 +91,10 @@
       grid.innerHTML = items.map(rcard).join('') ||
         '<p style="max-width:520px;color:var(--ink-2)">По запросу ничего не нашлось. Попробуйте другое слово ' +
         'или посмотрите <a href="catalog.html">весь каталог</a> — в наличии 14 000+ изделий.</p>';
+      /* плавное появление сетки вместо мгновенной подмены */
+      grid.classList.remove('grid-in');
+      void grid.offsetWidth;
+      grid.classList.add('grid-in');
       var n = total || items.length;
       if (info) info.textContent = q ? 'По запросу «' + q + '»: ' + n : 'Найдено: ' + items.length + ' · показаны 1–' + items.length;
       if (h1) {
@@ -109,7 +113,9 @@
       p.set('per', '60'); p.set('sort', 'popular');
       if (cur.metal) p.set('metal', cur.metal);
       if (cur.city) p.set('city', CITY);
+      grid.classList.add('is-loading');
       fetchJ('/api/products?' + p.toString()).then(function (d) {
+        grid.classList.remove('is-loading');
         if (!d) return;
         var items = d.items || [];
         var low = cur.price && cur.price[0], high = cur.price && cur.price[1];

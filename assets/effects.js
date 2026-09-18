@@ -112,11 +112,60 @@
     setTimeout(mark, 2600);
   }
 
+  /* 5. липкая панель покупки на мобильных (карточка товара) */
+  function initBuyBar() {
+    var page = location.pathname.split('/').pop() || 'index.html';
+    if (page !== 'product.html') return;
+    var price = document.querySelector('.pricebig .now');
+    var cta = document.querySelector('.ctarow');
+    if (!price || !cta) return;
+    var addBtn = null;
+    [].slice.call(cta.querySelectorAll('a')).forEach(function (a) {
+      var t = (a.textContent || '').trim();
+      if (!addBtn && /В корзину/i.test(t)) addBtn = a;
+    });
+    var bar = document.createElement('div');
+    bar.className = 'buybar';
+    bar.setAttribute('role', 'region');
+    bar.setAttribute('aria-label', 'Покупка');
+    bar.innerHTML = '<span class="bb-price"><b>' + price.textContent.trim() + '</b><span>примерка и оплата в салоне</span></span>' +
+      '<span class="bb-actions">' +
+      '<a class="btn btn-p" href="#buy1" data-bb="one">В 1 клик</a>' +
+      '<button type="button" class="btn btn-p" data-bb="cart">В корзину</button>' +
+      '</span>';
+    document.body.appendChild(bar);
+
+    /* «В корзину» повторяет основную кнопку, «В 1 клик» открывает окно заявки */
+    bar.querySelector('[data-bb="cart"]').addEventListener('click', function () {
+      if (addBtn) addBtn.click(); else location.href = 'cart.html';
+    });
+    bar.querySelector('[data-bb="one"]').addEventListener('click', function (e) {
+      e.preventDefault();
+      var link = document.querySelector('.ctarow a[href="#buy1"]');
+      if (link) link.click();
+    });
+
+    /* показываем панель, когда основная кнопка ушла из вида */
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          var visible = en.isIntersecting;
+          bar.classList.toggle('show', !visible);
+          document.body.classList.toggle('buybar-on', !visible);
+        });
+      }, { rootMargin: '-80px 0px 0px 0px' });
+      io.observe(cta);
+    } else {
+      bar.classList.add('show');
+    }
+  }
+
   function init() {
     initHeaderScroll();
     initCounters();
     initParallax();
     initStagger();
+    initBuyBar();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
