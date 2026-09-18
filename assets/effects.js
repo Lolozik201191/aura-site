@@ -88,10 +88,35 @@
     frame();
   }
 
+  /* 4. появление карточек и плиток лесенкой */
+  function initStagger() {
+    if (reduce || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e, i) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        setTimeout(function () { el.classList.add('in'); }, Math.min(i * 45, 260));
+        io.unobserve(el);
+      });
+    }, { rootMargin: '0px 0px -6% 0px' });
+    function mark() {
+      var sel = '#grid .card, #hitsGrid .card, #newGrid .card, #today .card, #sim .card, .hub-tile, .news-item, .sk-card';
+      document.querySelectorAll(sel).forEach(function (el) {
+        if (el.classList.contains('in')) return;
+        el.classList.add('stagger');
+        io.observe(el);
+      });
+    }
+    mark();
+    setTimeout(mark, 1200);
+    setTimeout(mark, 2600);
+  }
+
   function init() {
     initHeaderScroll();
     initCounters();
     initParallax();
+    initStagger();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

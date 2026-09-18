@@ -1138,3 +1138,70 @@ body.head-compact .topline{display:none}
   .hub-tile,.mega-tile,.card,.actcard,.sk-card,.header,.logo img{transition:none!important}
   .hub-tile:hover,.mega-tile:hover,.sk-card:hover{transform:none!important}
 }
+
+/* ============================================================
+   Полировка визуала по итогам двойного ревью (gpt-5.2 +
+   gemini-3.5-flash): ховеры с зумом, тактильные кнопки,
+   состояния иконок, иерархия цены, плотность на мобильном,
+   плавное появление карточек и компактная плашка cookie.
+   ============================================================ */
+
+/* 1. зум фото в карточках и баннерах при наведении */
+.card .ph img,.card .ph .noimg{transition:transform .5s var(--ease),opacity .35s}
+.card:hover .ph img{transform:scale(1.04)}
+.bnr img,.mini-banner img,.act-banner img,.news-item img{transition:transform .6s var(--ease)}
+.bnr:hover img,.mini-banner:hover img,.act-banner:hover img{transform:scale(1.03)}
+.hs-photo img{transition:transform .6s var(--ease)}
+
+/* 2. тактильные кнопки: фон, рамка, сдвиг стрелки */
+.btn{transition:background .2s,color .2s,border-color .2s,transform .12s,box-shadow .2s}
+.btn:active{transform:translateY(1px) scale(.99)}
+.btn .ic,.btn svg{transition:transform .25s var(--ease)}
+.btn:hover svg{transform:translateX(3px)}
+.more svg,.cta-plain svg{transition:transform .25s var(--ease)}
+.more:hover svg,.cta-plain:hover svg{transform:translateX(4px)}
+
+/* 3. состояния иконок шапки */
+.header .ic{transition:color .2s,background .2s,transform .15s}
+.header .ic:hover{color:#000;transform:translateY(-1px)}
+.header .ic:active{transform:scale(.94)}
+.header .ic[data-ic="heart"]:hover svg{fill:currentColor;color:var(--sale)}
+.header .ic .cnt{transition:transform .2s}
+.header .ic .cnt.bump{transform:scale(1.25)}
+
+/* 4. иерархия в карточке товара: цена и скидка заметнее, служебный текст тише */
+.card .price,.pgrid .price,.price-row .price{font-size:22px;font-weight:800;letter-spacing:-.01em}
+.card .meta,.card .avail{font-size:12px;color:var(--ink-3)}
+.card .tg{font-size:11px;font-weight:700;letter-spacing:.04em}
+
+/* 5. плотность на мобильном: больше изделий в кадре */
+@media (max-width:640px){
+  .pgrid,.pgrid.c3{gap:10px}
+  .card .body{padding:10px 12px 12px;gap:4px}
+  .card h3{font-size:13.5px;line-height:1.3}
+  .card .price{font-size:19px}
+  .sec,.sec2{padding-top:26px;padding-bottom:26px}
+  .sec-head{margin-bottom:12px}
+}
+
+/* 6. мягкое появление карточек и плиток (класс ставит effects.js) */
+.stagger{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.stagger.in{opacity:1;transform:none}
+
+/* 7. деликатный блик по металлу при наведении */
+.card .ph::after,.mega-tile::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:linear-gradient(115deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.35) 50%,rgba(255,255,255,0) 65%);
+  transform:translateX(-30%);transition:opacity .4s}
+.card:hover .ph::after,.mega-tile:hover::after{opacity:.5;animation:shine 1.1s var(--ease)}
+@keyframes shine{from{transform:translateX(-30%)}to{transform:translateX(30%)}}
+
+/* 8. плашка cookie компактнее */
+.cookie-bar{padding:12px 16px}
+.cookie-bar p{font-size:12.5px}
+.cookie-bar .btn{padding:9px 16px;font-size:13px}
+
+@media (prefers-reduced-motion: reduce){
+  .card:hover .ph img,.bnr:hover img,.mini-banner:hover img,.act-banner:hover img{transform:none}
+  .card:hover .ph::after,.mega-tile:hover::after{animation:none;opacity:0}
+  .stagger{opacity:1;transform:none;transition:none}
+}

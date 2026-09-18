@@ -100,7 +100,7 @@
 
   function init() {
     initCity();
-    initCookie();
+    setTimeout(initCookie, 2200);   /* не перекрываем баннер в первые секунды */
     initAsk();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
