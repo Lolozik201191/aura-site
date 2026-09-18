@@ -1258,3 +1258,25 @@ body.buybar-on .mobbar{box-shadow:0 -14px 30px -22px rgba(0,0,0,.35)}
 .bnr,.mini-banner,.promo,.act-banner,.sk-hero,.salonhero{background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important}
 /* Логотип в подвале: тёмный знак крупнее — золото на белом читалось плохо */
 .footer img[src*="logo-"]{height:56px!important;width:auto!important}
+
+/* ============================================================
+   Правки по отметкам пользователя:
+   — плитки категорий: меньше пустоты внутри, спокойнее подпись;
+   — номера шагов: убрана излишняя жирность, тексту больше воздуха;
+   — отступ до следующей секции у блока категорий.
+   ============================================================ */
+/* фото заполняет плитку плотнее — пустоты вокруг изделия меньше */
+.mcat a img.m-art{transform:scale(1.12)}
+.mcat a:hover img.m-art{transform:scale(1.16)}
+.mcat .m-name,.mcat .m-name span{font-family:var(--sans)!important;font-weight:600!important;font-size:17.5px!important;letter-spacing:0!important}
+.mcat .m-cnt{font-size:12px!important}
+.mcat a{padding:14px!important}
+.mcat .scrim{background:linear-gradient(180deg,rgba(14,11,8,.34) 0%,rgba(14,11,8,0) 24%,rgba(14,11,8,0) 42%,rgba(14,11,8,.72) 100%)!important}
+/* отступ перед следующей секцией */
+.sec:has(.mcat){padding-bottom:clamp(40px,4.6vw,68px)}
+/* номера шагов: спокойнее */
+.step .n{font-weight:600!important;font-size:36px!important;-webkit-text-stroke:1.2px var(--gold-2)!important}
+.plan-step{gap:14px!important;padding:18px 0!important}
+.plan-step .pn{font-weight:600!important;background:#F2F2F2!important;color:#111!important}
+.plan-step b{line-height:1.4!important}
+.plan-step p{line-height:1.65!important;margin-top:4px!important}
