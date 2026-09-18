@@ -10,19 +10,14 @@
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* 1. шапка при скролле */
+  /* 1. шапка при скролле: только тень, без изменения высоты —
+     иначе на старте прокрутки содержимое прыгает и выглядят артефакты */
   function initHeaderScroll() {
     var header = document.querySelector('.header');
     if (!header) return;
-    var last = 0;
     function onScroll() {
       var y = window.scrollY || window.pageYOffset;
-      var compact = y > 90;
-      if (compact !== (last > 90)) {
-        header.classList.toggle('is-compact', compact);
-        document.body.classList.toggle('head-compact', compact);
-      }
-      last = y;
+      header.classList.toggle('is-compact', y > 90);
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();

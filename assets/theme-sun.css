@@ -1280,3 +1280,13 @@ body.buybar-on .mobbar{box-shadow:0 -14px 30px -22px rgba(0,0,0,.35)}
 .plan-step .pn{font-weight:600!important;background:#F2F2F2!important;color:#111!important}
 .plan-step b{line-height:1.4!important}
 .plan-step p{line-height:1.65!important;margin-top:4px!important}
+
+/* ============================================================
+   Артефакты шапки на старте прокрутки: компактный режим убирал верхнюю строку
+   и уменьшал логотип — содержимое прыгало на её высоту. Теперь компактный
+   режим даёт только тень: высота шапки при прокрутке не меняется.
+   ============================================================ */
+body.head-compact .topline{display:block!important}
+@media (min-width:1081px){.header.is-compact .logo img{height:46px}}
+@media (max-width:1080px){.header.is-compact .logo img{height:36px}}
+.header.is-compact{box-shadow:0 12px 30px -22px rgba(0,0,0,.45)}
