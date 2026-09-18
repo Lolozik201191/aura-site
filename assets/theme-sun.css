@@ -802,3 +802,38 @@ input:focus,select:focus,textarea:focus{border-color:#000!important;outline:none
 .mini-banner:not(.mini-banner--light) b{color:#fff!important;text-shadow:0 2px 16px rgba(0,0,0,.6)!important}
 .mini-banner:not(.mini-banner--light) span{color:#DBDBDB!important}
 .mini-banner:not(.mini-banner--light) .btn-p{background:#fff!important;color:#000!important;border-color:#fff!important}
+/* ============================================================
+   СВЕТЛЫЕ ПЛИТКИ (под новые фото изделий на белом фоне)
+   ============================================================ */
+.mcat a,.hub-tile{
+  background-color:#FFFFFF!important;
+  background-image:none!important;
+  border:1px solid var(--border)!important}
+.mcat a:hover,.hub-tile:hover{border-color:#000!important}
+/* затемнение только под подписью, чтобы текст читался на светлом фото */
+.mcat .scrim,.hub-tile .scrim{
+  background:linear-gradient(180deg,rgba(255,255,255,0) 34%,rgba(255,255,255,.86) 76%,rgba(255,255,255,.97) 100%)!important}
+.mcat .m-name,.hub-tile b{color:#000!important;text-shadow:none!important}
+.mcat .m-cnt,.hub-tile span:not(.scrim):not(.tg-badge){color:#5C5C5C!important;text-shadow:none!important}
+.mcat .m-badge,.hub-tile .tg-badge{background:#000!important;color:#fff!important}
+/* фото внутри плиток — как у Sunlight: объект целиком, без обрезки */
+.mcat a img.m-art,.hub-tile img{object-fit:cover;object-position:center}
+
+/* ============================================================
+   ФОНЫ БАННЕРОВ: только «живые» фото (студийные — в карточках)
+   ============================================================ */
+.hs-s1{background-image:linear-gradient(90deg,rgba(6,6,6,.95) 0%,rgba(6,6,6,.9) 36%,rgba(6,6,6,.6) 62%,rgba(6,6,6,.28) 100%),url(pics/lifestyle/morning-ring.webp)!important}
+.bnr-dark img{object-position:center}
+.act-hero{background-image:linear-gradient(90deg,rgba(6,6,6,.95) 0%,rgba(6,6,6,.88) 44%,rgba(6,6,6,.6) 70%,rgba(6,6,6,.42) 100%),url(pics/lifestyle/morning-ring.webp)!important}
+.mini-banner{background-image:linear-gradient(90deg,rgba(6,6,6,.96) 0%,rgba(6,6,6,.9) 55%,rgba(6,6,6,.72) 100%),url(pics/lifestyle/earrings-on.webp)!important}
+.mini-banner--light{background-image:linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.93) 50%,rgba(255,255,255,.55) 100%),url(pics/lifestyle/couple-rings.webp)!important}
+.legend--passport{background-image:linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.94) 48%,rgba(255,255,255,.55) 100%),url(pics/lifestyle/earrings-on.webp)!important}
+/* плитки городов/журнала — светлые */
+.citypills a,.citypills button{background:#fff!important;color:#000!important}
+
+/* ============================================================
+   КАРТОЧКИ НА БЕЛОМ: область фото как у Sunlight
+   ============================================================ */
+.card .ph{background:#fff!important}
+.card .ph.pimg{border-bottom:1px solid var(--border-l)}
+.card .ph img.pimg{object-fit:cover;object-position:center}
