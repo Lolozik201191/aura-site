@@ -837,3 +837,22 @@ input:focus,select:focus,textarea:focus{border-color:#000!important;outline:none
 .card .ph{background:#fff!important}
 .card .ph.pimg{border-bottom:1px solid var(--border-l)}
 .card .ph img.pimg{object-fit:cover;object-position:center}
+
+/* ============================================================
+   ПОЛОСА ДОВЕРИЯ + ФАКТЫ В КАРТОЧКАХ (по внешнему ревью)
+   ============================================================ */
+.truststrip{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;justify-content:center;
+  padding:12px 24px;background:#FAFAFA;border-bottom:1px solid var(--border-l);font-size:12.5px;color:#4A4A4A}
+.truststrip span{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.truststrip svg{color:#000;opacity:.75}
+.hero-facts{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-size:12.5px;color:#D6D6D6}
+.hero-facts span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.hero-facts svg{color:#fff;opacity:.85}
+.hero-facts i{font-style:normal;opacity:.5}
+.card .save{display:block;width:100%;font-size:12px;color:#B03A2E;margin-top:2px}
+.card .rate{font-size:12px;color:#6E6E6E}
+@media (max-width:768px){
+  .truststrip{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding:10px 14px;scrollbar-width:none}
+  .truststrip::-webkit-scrollbar{display:none}
+  .hero-facts{gap:6px 14px;font-size:12px}
+}
