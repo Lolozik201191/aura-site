@@ -1233,3 +1233,22 @@ body.buybar-on .mobbar{box-shadow:0 -14px 30px -22px rgba(0,0,0,.35)}
   .pgrid.grid-in{animation:none}
   .pgrid.is-loading{opacity:1;filter:none}
 }
+
+/* ============================================================
+   Исправление наслоений плавающих элементов (проверено замером):
+   — панель покупки стояла на 62px и перекрывала нижнюю навигацию (71px);
+   — плашка cookie перекрывала панель покупки, нижнюю навигацию и кнопку вопроса;
+   — на мобильном плашка была слишком высокой.
+   Пока плашка cookie видна, нижние панели скрываются (иначе три полосы друг на друге),
+   а кнопка «Задать вопрос» поднимается над плашкой.
+   ============================================================ */
+@media (max-width:1080px){
+  .buybar{bottom:71px}
+  .cookie-bar{left:10px;right:10px;bottom:10px;padding:11px 14px;gap:8px}
+  .cookie-bar p{font-size:12px;line-height:1.45}
+  .cookie-bar .btn{padding:9px 14px;min-height:40px}
+  body.cookie-on .mobbar,body.cookie-on .buybar{display:none!important}
+}
+@media (min-width:1081px){
+  body.cookie-on .ask-btn{bottom:104px}
+}

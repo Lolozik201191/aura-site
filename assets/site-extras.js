@@ -78,9 +78,12 @@
       'Продолжая пользоваться сайтом, вы соглашаетесь с <a href="legal.html">политикой обработки данных</a>.</p>' +
       '<button type="button" class="btn btn-p">Понятно</button>';
     document.body.appendChild(bar);
+    /* пока плашка видна — нижние панели скрыты, иначе они накладываются друг на друга */
+    document.body.classList.add('cookie-on');
     bar.querySelector('button').addEventListener('click', function () {
       store('aura_cookie_ok', '1');
       bar.classList.add('hide');
+      document.body.classList.remove('cookie-on');
       setTimeout(function () { bar.remove(); }, 300);
     });
   }
