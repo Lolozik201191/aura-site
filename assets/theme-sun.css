@@ -1252,3 +1252,9 @@ body.buybar-on .mobbar{box-shadow:0 -14px 30px -22px rgba(0,0,0,.35)}
 @media (min-width:1081px){
   body.cookie-on .ask-btn{bottom:104px}
 }
+
+/* Фон баннеров всегда заполняет блок: у баннера скупки фон не растягивался,
+   и справа оставалась пустая область. */
+.bnr,.mini-banner,.promo,.act-banner,.sk-hero,.salonhero{background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important}
+/* Логотип в подвале: тёмный знак крупнее — золото на белом читалось плохо */
+.footer img[src*="logo-"]{height:56px!important;width:auto!important}
