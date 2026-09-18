@@ -975,3 +975,27 @@ img[src*="logo-au-ra"]{aspect-ratio:auto;object-fit:contain}
 .revsum div,.revsum b,.revstat b{font-family:var(--sans)!important;font-variant-numeric:tabular-nums!important}
 .revsum div:first-child{font-weight:800!important;letter-spacing:-.01em!important}
 .sm-item b{font-family:var(--sans)!important}
+
+/* ============================================================
+   Слайды 2 и 3 — в том же стиле, что и первый: фотография во всю
+   ширину + тёмное наложение слева под белый текст.
+   Слайд 2: пара обручальных колец (студийный кадр на ткани) вместо
+   прежнего коллажа. Слайд 3: руки пары с украшениями — живой кадр
+   про примерку; выдуманный интерьер «нашего салона» не используем.
+   ============================================================ */
+.hs-s2{background-image:linear-gradient(90deg,rgba(6,6,6,.95) 0%,rgba(6,6,6,.9) 36%,rgba(6,6,6,.6) 62%,rgba(6,6,6,.28) 100%),url(pics/lifestyle/couple-rings.webp)!important}
+.hs-s3{background-image:linear-gradient(90deg,rgba(6,6,6,.95) 0%,rgba(6,6,6,.9) 36%,rgba(6,6,6,.6) 62%,rgba(6,6,6,.28) 100%),url(pics/lifestyle/couple-hands.webp)!important}
+.hs-s2,.hs-s3{
+  background-size:cover,cover!important;
+  background-position:50% 50%,50% 50%!important;
+  background-repeat:no-repeat,no-repeat!important;
+  background-color:#0c0c0c!important}
+/* карточка-врезка на слайде 2 больше не нужна: фотография теперь на фоне */
+.hs-photo{display:none!important}
+
+/* ============================================================
+   Логотип в подвале был серым из-за правила
+   .footer img{filter:grayscale(1)} — оно делало знак серебристым.
+   Логотип из этого правила исключаем: в подвале он золотой.
+   ============================================================ */
+.footer img[src*="logo-"],.footer a img[src*="logo-"]{filter:none!important}
