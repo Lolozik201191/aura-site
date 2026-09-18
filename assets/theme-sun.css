@@ -1078,3 +1078,63 @@ img[src*="logo-au-ra"]{aspect-ratio:auto;object-fit:contain}
 .sk-out .hint,.panel .hint,.hint{font-size:12.5px}
 .sk-card .rate{color:#111}
 .sk-card.plus .rate{color:#14713C}
+
+/* ============================================================
+   Сетевые механики: выбор города, плашка cookie, кнопка вопроса.
+   ============================================================ */
+/* выбор города */
+.topline .city{position:relative}
+.city-pop{position:absolute;left:0;top:calc(100% + 6px);z-index:90;display:none;min-width:230px;
+  background:#fff;border:1px solid var(--border);box-shadow:0 22px 50px -24px rgba(0,0,0,.45);padding:12px}
+.city-pop.open{display:block}
+.city-pop-t{margin:0 0 8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.city-pop button{display:block;width:100%;text-align:left;background:none;border:0;padding:8px 10px;font:inherit;
+  font-size:14px;color:var(--ink);cursor:pointer}
+.city-pop button:hover{background:#F2F2F2}
+.city-pop button.on{font-weight:700;background:#F2F2F2}
+.city-pop-n{margin:8px 0 0;font-size:11.5px;line-height:1.45;color:var(--ink-3)}
+
+/* cookie */
+.cookie-bar{position:fixed;left:18px;right:18px;bottom:18px;z-index:110;display:flex;gap:16px;align-items:center;
+  justify-content:space-between;background:#111;color:#EDEDED;padding:14px 18px;box-shadow:0 24px 60px -24px rgba(0,0,0,.7);
+  transition:opacity .3s,transform .3s}
+.cookie-bar.hide{opacity:0;transform:translateY(12px)}
+.cookie-bar p{margin:0;font-size:13px;line-height:1.5;max-width:900px}
+.cookie-bar a{color:#E8C98F;text-decoration:underline}
+.cookie-bar .btn{flex:none;background:#fff;color:#111;border:1px solid #fff;font-weight:700;padding:11px 20px}
+.cookie-bar .btn:hover{background:#EDEDED}
+@media (max-width:640px){.cookie-bar{left:10px;right:10px;bottom:74px;flex-direction:column;align-items:stretch;gap:10px}
+  .cookie-bar .btn{width:100%}}
+
+/* кнопка «Задать вопрос» */
+.ask-btn{position:fixed;right:18px;bottom:18px;z-index:105;display:inline-flex;align-items:center;gap:9px;
+  background:#111;color:#fff;text-decoration:none;padding:13px 18px;font-size:14px;font-weight:600;
+  box-shadow:0 20px 40px -18px rgba(0,0,0,.6);transition:transform .2s,background .2s}
+.ask-btn:hover{background:#2A2A2A;transform:translateY(-2px);color:#fff}
+.ask-btn .ask-ic{display:inline-flex;color:#E8C98F}
+@media (max-width:1080px){.ask-btn{display:none}}
+
+/* ============================================================
+   Эффекты: компактная шапка при скролле, плавные подъёмы плиток,
+   анимация подчёркивания, уважение к reduce-motion.
+   ============================================================ */
+.header{transition:box-shadow .25s,border-color .25s}
+.header.is-compact{box-shadow:0 12px 30px -22px rgba(0,0,0,.45)}
+.header.is-compact .logo img{height:32px;transition:height .25s}
+.logo img{transition:height .25s}
+.topline{transition:height .25s}
+body.head-compact .topline{display:none}
+@media (max-width:1080px){body.head-compact .topline{display:none}}
+
+.hub-tile,.mega-tile,.card,.actcard,.sk-card{transition:transform .28s var(--ease),box-shadow .28s,border-color .28s}
+.hub-tile:hover,.mega-tile:hover{transform:translateY(-4px);box-shadow:0 26px 50px -30px rgba(0,0,0,.5)}
+.sk-card:hover{transform:translateY(-3px);box-shadow:0 24px 46px -30px rgba(0,0,0,.4)}
+
+.footer a,.mega-col a,.breadcrumbs a{background-image:linear-gradient(currentColor,currentColor);
+  background-size:0% 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .25s}
+.footer a:hover,.mega-col a:hover,.breadcrumbs a:hover{background-size:100% 1px;text-decoration:none}
+
+@media (prefers-reduced-motion: reduce){
+  .hub-tile,.mega-tile,.card,.actcard,.sk-card,.header,.logo img{transition:none!important}
+  .hub-tile:hover,.mega-tile:hover,.sk-card:hover{transform:none!important}
+}

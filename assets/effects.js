@@ -1,0 +1,98 @@
+/* ============================================================
+   Визуальные эффекты «как у сетей»: мягкие, производительные,
+   с уважением к prefers-reduced-motion.
+   1) шапка при скролле — компактнее + тень,
+   2) счётчики чисел (категории, факты) — плавный набор,
+   3) лёгкий параллакс фонов баннеров,
+   4) анимация подчёркивания ссылок и лёгкий подъём плиток.
+   ============================================================ */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 1. шапка при скролле */
+  function initHeaderScroll() {
+    var header = document.querySelector('.header');
+    if (!header) return;
+    var last = 0;
+    function onScroll() {
+      var y = window.scrollY || window.pageYOffset;
+      var compact = y > 90;
+      if (compact !== (last > 90)) {
+        header.classList.toggle('is-compact', compact);
+        document.body.classList.toggle('head-compact', compact);
+      }
+      last = y;
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* 2. счётчики: «4 513 изделий» → плавный набор */
+  function initCounters() {
+    if (reduce || !('IntersectionObserver' in window)) return;
+    var targets = document.querySelectorAll('.stat b, .sk-facts b, .perk b, .mcat .m-name + span, [data-count]');
+    var list = [];
+    targets.forEach(function (el) {
+      var txt = (el.textContent || '');
+      var m = txt.replace(/\s|\u00a0/g, '').match(/^(\d{2,6})/);
+      if (!m) return;
+      var target = parseInt(m[1], 10);
+      if (!target || target < 20) return;
+      list.push({ el: el, target: target, tail: txt.slice(m[0].length) });
+    });
+    if (!list.length) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var item = list.filter(function (x) { return x.el === e.target; })[0];
+        io.unobserve(e.target);
+        if (!item) return;
+        var start = null, dur = 900;
+        function step(ts) {
+          if (!start) start = ts;
+          var p = Math.min(1, (ts - start) / dur);
+          var eased = 1 - Math.pow(1 - p, 3);
+          var val = Math.round(item.target * eased);
+          item.el.textContent = val.toLocaleString('ru-RU').replace(/,/g, ' ') + item.tail;
+          if (p < 1) requestAnimationFrame(step);
+          else item.el.textContent = item.target.toLocaleString('ru-RU').replace(/,/g, ' ') + item.tail;
+        }
+        requestAnimationFrame(step);
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    list.forEach(function (x) { io.observe(x.el); });
+  }
+
+  /* 3. параллакс фонов баннеров (только большие экраны) */
+  function initParallax() {
+    if (reduce || window.innerWidth < 900) return;
+    var layers = [].slice.call(document.querySelectorAll('.sk-hero, .mini-banner, .promo, .salonhero, .hslide'));
+    if (!layers.length) return;
+    var ticking = false;
+    function frame() {
+      var vh = window.innerHeight;
+      layers.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.bottom < -80 || r.top > vh + 80) return;
+        var shift = ((r.top + r.height / 2) - vh / 2) / vh;   /* -1..1 */
+        el.style.backgroundPosition = '50% calc(50% + ' + (-shift * 14).toFixed(1) + 'px)';
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(frame);
+    }, { passive: true });
+    frame();
+  }
+
+  function init() {
+    initHeaderScroll();
+    initCounters();
+    initParallax();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();

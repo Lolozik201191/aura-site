@@ -36,7 +36,9 @@
     if (it.metal) out += ', ' + it.metal.toLowerCase();
     return out.charAt(0).toUpperCase() + out.slice(1);
   }
-  var CITY = 'Раменское';
+  var CITY = (function () { try { return localStorage.getItem('aura_city') || 'Раменское'; } catch (e) { return 'Раменское'; } })();
+  /* смена города из шапки: обновляем подписи без перезагрузки */
+  window.__auraSetCity = function (c) { CITY = c; try { localStorage.setItem('aura_city', c); } catch (e) {} };
   var GEO = { 'Раменское': ['Раменского', 'в Раменском'], 'Ногинск': ['Ногинска', 'в Ногинске'],
     'Воскресенск': ['Воскресенска', 'в Воскресенске'], 'Егорьевск': ['Егорьевска', 'в Егорьевске'],
     'Луховицы': ['Луховиц', 'в Луховицах'], 'Озёры': ['Озёр', 'в Озёрах'],
@@ -355,7 +357,7 @@
 
   /* ---------- САЛОН: реальное наличие в городе ---------- */
   function liveSalon() {
-    var city = qs('city') || 'Раменское';
+    var city = qs('city') || CITY;
     var h = document.querySelector('.salonhero h1');
     if (h) h.innerHTML = 'AURA <span>' + prep(city) + '</span>';
     var kick = document.querySelector('.salonhero .kicker') || document.querySelector('.salonhero span');
