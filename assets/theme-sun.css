@@ -1334,3 +1334,7 @@ body.has-buybar .to-top{bottom:158px}
 
 /* кнопка телефона тоже не должна висеть поверх плашки cookie */
 body.cookie-on .callback-btn{display:none!important}
+
+/* Баннер скупки получил класс bnr-wide и вместе с ним чужое фоновое фото —
+   одно изображение стояло в двух баннерах. Даём ему собственную картинку. */
+.bnr-wide.bnr-skupka{background-image:linear-gradient(90deg,rgba(8,8,8,.95) 0%,rgba(8,8,8,.86) 44%,rgba(8,8,8,.55) 74%,rgba(8,8,8,.34) 100%),url(pics/categories/chain-venezia.webp)!important}
