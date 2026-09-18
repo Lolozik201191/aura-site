@@ -733,32 +733,56 @@
   }
 
 
-  /* ---------- 13. Мега-меню «Каталог» ---------- */
+  /* ---------- 13. Мега-меню «Каталог» ----------
+     Формат как у крупных сетей: слева фото-плитки категорий, в центре
+     текстовые подборки, справа промо-колонка. Открывается наведением,
+     кликом и с клавиатуры (Esc закрывает). */
   function initMegaMenu() {
     var trigger = document.querySelector('.nav a');           /* первая ссылка — «Каталог» */
     var header = document.querySelector('.header');
     if (!trigger || !header) return;
+    var tiles = [
+      ['Кольца', 'catalog.html?cat=Кольца', 'pics/catalog/ring-diamond.webp', '4 513 изделий'],
+      ['Обручальные', 'wedding.html', 'pics/catalog/wedding-pair.webp', '280 пар'],
+      ['Серьги', 'catalog.html?cat=Серьги', 'pics/categories/earrings-pusety.webp', '4 603 изделия'],
+      ['Браслеты', 'catalog.html?cat=Браслеты', 'pics/categories/bracelet-gold.webp', '1 098 изделий'],
+      ['Подвески и колье', 'catalog.html?cat=Подвески', 'pics/categories/pendant-emerald.webp', '2 320 изделий'],
+      ['Цепи', 'catalog.html?cat=Цепи', 'pics/categories/chain-venezia.webp', '862 изделия']
+    ];
     var cols = [
-      ['Украшения', [['Кольца', 'catalog.html'], ['Серьги', 'catalog.html'], ['Браслеты', 'catalog.html'], ['Колье и подвески', 'catalog.html'], ['Цепочки', 'catalog.html']]],
-      ['Поводы', [['Свадьба и обручальные', 'wedding.html'], ['Помолвка', 'catalog.html'], ['Подарки', 'giftcards.html'], ['Акции и скидки', 'promotions.html'], ['Мужские печатки', 'catalog.html']]],
+      ['Поводы', [['Свадьба и обручальные', 'wedding.html'], ['Помолвка', 'catalog.html'], ['Подарки', 'giftcards.html'], ['Иконы и крестики', 'catalog.html'], ['Мужские печатки', 'catalog.html']]],
       ['Металл и камни', [['Золото 585', 'catalog.html'], ['Золото 750', 'catalog.html'], ['Серебро 925', 'catalog.html'], ['Бриллианты', 'catalog.html'], ['Изумруды и сапфиры', 'catalog.html']]],
-      ['Помощь', [['Как узнать размер', 'catalog.html#sizeguide'], ['Паспорт изделия', 'passport.html'], ['Доставка и оплата', 'delivery.html'], ['Возврат и обмен', 'return.html'], ['Гарантия и уход', 'service.html']]]
+      ['Помощь', [['Как узнать размер', 'catalog.html#sizeguide'], ['Паспорт изделия', 'passport.html'], ['Доставка и оплата', 'delivery.html'], ['Обмен и возврат', 'return.html'], ['Гарантия и уход', 'service.html']]]
     ];
     var menu = document.createElement('div');
     menu.className = 'megamenu';
     menu.id = 'megaMenu';
     menu.setAttribute('role', 'region');
     menu.setAttribute('aria-label', 'Каталог: категории');
+
     var html = '<div class="mega-inner">';
+    html += '<div class="mega-tiles">';
+    tiles.forEach(function (t) {
+      html += '<a class="mega-tile" href="' + t[1] + '">' +
+        '<img src="assets/' + t[2] + '" alt="" width="1000" height="1000" loading="lazy" decoding="async">' +
+        '<span class="mega-tile-in"><b>' + t[0] + '</b><i>' + t[3] + '</i></span></a>';
+    });
+    html += '</div><div class="mega-cols">';
     cols.forEach(function (c) {
       html += '<div class="mega-col"><p class="mega-t">' + c[0] + '</p><ul>';
       c[1].forEach(function (l) { html += '<li><a href="' + l[1] + '">' + l[0] + '</a></li>'; });
       html += '</ul></div>';
     });
-    html += '<a class="mega-promo" href="promotions.html"><span class="mega-promo-t">Скидки до 80%</span>' +
+    html += '</div>';
+    html += '<div class="mega-promos">' +
+      '<a class="mega-promo mega-promo--hot" href="skupka.html"><span class="mega-promo-t">Скупка и обмен</span>' +
+      '<span class="mega-promo-s">Оценка по прейскуранту: скупка от 3 900 ₽/г, при обмене — до 9 500 ₽/г</span>' +
+      '<span class="mega-promo-b">Рассчитать оценку →</span></a>' +
+      '<a class="mega-promo" href="promotions.html"><span class="mega-promo-t">Скидки до −80%</span>' +
       '<span class="mega-promo-s">По карте AURA и на выделенный ассортимент</span><span class="mega-promo-b">Смотреть акции →</span></a>' +
-      '<a class="mega-promo mega-promo-2" href="wedding.html"><span class="mega-promo-t">Обручальные пары −42%</span>' +
-      '<span class="mega-promo-s">Примерка в салоне рядом и гравировка имён</span><span class="mega-promo-b">Выбрать пару →</span></a>';
+      '<a class="mega-promo" href="certificates.html"><span class="mega-promo-t">Сертификаты</span>' +
+      '<span class="mega-promo-s">Паспорт изделия, сертификаты на камни, подарочные карты</span><span class="mega-promo-b">Подробнее →</span></a>' +
+      '</div>';
     html += '</div>';
     menu.innerHTML = html;
     header.appendChild(menu);
@@ -779,6 +803,21 @@
     }
     trigger.addEventListener('click', function (e) {
       if (window.matchMedia('(min-width:1081px)').matches) { e.preventDefault(); open(!menu.classList.contains('open')); }
+    });
+    /* клавиатура: открыть по стрелке вниз и уйти в первое подменю */
+    trigger.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault(); open(true);
+        var first = menu.querySelector('a'); if (first) first.focus();
+      }
+    });
+    menu.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        var items = [].slice.call(menu.querySelectorAll('a'));
+        var i = items.indexOf(document.activeElement);
+        var next = e.key === 'ArrowDown' ? i + 1 : i - 1;
+        if (items[next]) { e.preventDefault(); items[next].focus(); }
+      }
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') open(false); });
     document.addEventListener('click', function (e) {

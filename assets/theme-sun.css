@@ -999,3 +999,82 @@ img[src*="logo-au-ra"]{aspect-ratio:auto;object-fit:contain}
    Логотип из этого правила исключаем: в подвале он золотой.
    ============================================================ */
 .footer img[src*="logo-"],.footer a img[src*="logo-"]{filter:none!important}
+
+/* ============================================================
+   Шапка: акцент на «Скупка и обмен» в верхней строке и аккуратная
+   адаптация пяти пунктов меню. Верхняя строка повторяет набор Sunlight:
+   Сертификаты · Обмен и возврат · Магазины · Скупка и обмен + телефон.
+   ============================================================ */
+.topline .tl-hot{font-weight:700;color:#000!important}
+.topline .tl-hot:hover{color:#000!important;text-decoration:underline;text-underline-offset:3px}
+.topline .tl-hot::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--red-bg);display:inline-block;margin-right:6px}
+.topline .tl-phone{font-weight:600;color:#000!important}
+@media (max-width:1280px){.topline .tl-optional{display:none}}
+@media (max-width:1080px){.topline .city{display:none}}
+@media (max-width:1150px){.nav a{padding:10px 8px;font-size:14px}}
+
+/* ============================================================
+   Мега-меню «Каталог» в формате крупных сетей:
+   фото-плитки категорий + текстовые подборки + промо-колонка.
+   ============================================================ */
+.megamenu .mega-inner{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) minmax(0,.85fr);gap:26px;
+  max-width:1320px;margin:0 auto;padding:26px 24px 28px}
+@media (max-width:1200px){.megamenu .mega-inner{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px}
+  .megamenu .mega-promos{grid-column:1 / -1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}}
+
+.mega-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.mega-tile{position:relative;display:block;overflow:hidden;background:#F2F2F2;aspect-ratio:1/1;text-decoration:none}
+.mega-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease)}
+.mega-tile:hover img{transform:scale(1.04)}
+.mega-tile-in{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;color:#fff;
+  background:linear-gradient(180deg,rgba(8,8,8,0) 0%,rgba(8,8,8,.72) 60%,rgba(8,8,8,.9) 100%)}
+.mega-tile-in b{display:block;font-size:14.5px;font-weight:700;color:#fff}
+.mega-tile-in i{display:block;font-style:normal;font-size:12px;color:rgba(255,255,255,.82);margin-top:2px}
+
+.mega-cols{display:grid;grid-template-columns:1fr;gap:14px}
+.mega-col ul{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+.mega-col a{font-size:14px;color:var(--ink);text-decoration:none}
+.mega-col a:hover{color:#000;text-decoration:underline;text-underline-offset:3px}
+
+.mega-promos{display:grid;gap:12px;align-content:start}
+.mega-promo{border:1px solid var(--border);padding:16px 18px;text-decoration:none;display:block;background:#fff;transition:border-color .2s,box-shadow .2s}
+.mega-promo:hover{border-color:#000;box-shadow:0 14px 30px -22px rgba(0,0,0,.5)}
+.mega-promo--hot{background:linear-gradient(150deg,#141414,#2b2418);border-color:#2b2418}
+.mega-promo--hot .mega-promo-t,.mega-promo--hot .mega-promo-s,.mega-promo--hot .mega-promo-b{color:#fff}
+.mega-promo--hot .mega-promo-s{color:rgba(255,255,255,.82)}
+.mega-promo--hot .mega-promo-b{color:#E8C98F}
+@media (max-width:820px){.megamenu .mega-inner{padding:18px 16px 22px;gap:16px}
+  .mega-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .megamenu .mega-promos{grid-template-columns:1fr}}
+
+/* ============================================================
+   Промо-карточки мега-меню: старые правила задавали белый текст
+   для тёмной карточки, а новые карточки на белом фоне — из-за этого
+   текст был белым на белом. Явно разделяем обычную и «горячую» карточку.
+   ============================================================ */
+.mega-promo{background:#fff!important;color:#111!important;display:grid;gap:8px;align-content:start;padding:18px 20px;min-height:0}
+.mega-promo .mega-promo-t{color:#111!important;font-family:var(--sans)!important;font-size:17px!important;font-weight:700!important;line-height:1.25!important}
+.mega-promo .mega-promo-s{color:#4A4A4A!important;font-size:13px;line-height:1.5}
+.mega-promo .mega-promo-b{color:#111!important;font-weight:700}
+.mega-promo--hot{background:linear-gradient(150deg,#141414,#2b2418)!important;border-color:#2b2418!important}
+.mega-promo--hot .mega-promo-t{color:#fff!important}
+.mega-promo--hot .mega-promo-s{color:#D8D8D8!important}
+.mega-promo--hot .mega-promo-b{color:#E8C98F!important}
+
+/* ============================================================
+   Доработка баннера и калькулятора «Скупка и обмен» по замечаниям
+   визуального ревью: контраст заголовка, заметность главного действия,
+   понятность разницы «скупка / обмен», читаемость мелких пояснений.
+   ============================================================ */
+.sk-hero::before{background:linear-gradient(90deg,rgba(6,6,6,.92) 0%,rgba(6,6,6,.84) 34%,rgba(6,6,6,.5) 66%,rgba(6,6,6,.22) 100%)}
+.sk-hero h1{color:#fff;font-weight:600;text-shadow:0 4px 26px rgba(0,0,0,.85),0 1px 3px rgba(0,0,0,.9)}
+.sk-hero p{color:#F2F2F2;text-shadow:0 2px 14px rgba(0,0,0,.7)}
+.sk-hero .sk-facts{color:#EDEDED}
+.sk-hero .sk-facts span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);padding:7px 12px}
+.sk-hero .btn-gold{box-shadow:0 14px 34px -14px rgba(0,0,0,.8);font-weight:700}
+.sk-out .row span:first-child{color:var(--ink-soft)}
+.sk-out .row.big span:first-child{font-weight:600;color:var(--ink)}
+.sk-out .gain{background:#E8F5EC;border:1px solid #CBE6D5;padding:3px 10px;font-size:14px}
+.sk-out .hint,.panel .hint,.hint{font-size:12.5px}
+.sk-card .rate{color:#111}
+.sk-card.plus .rate{color:#14713C}

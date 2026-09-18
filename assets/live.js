@@ -778,6 +778,90 @@
     });
   }
 
+  /* ---------- СКУПКА И ОБМЕН: калькулятор по прейскуранту сети ----------
+     Ставки — из действующего прейскуранта AURA (от 21.08.2026).
+     При изменении прейскуранта правится только эта таблица. */
+  var SK_RATES = {
+    '375': { label: '375', buy: 3900, swap: 4200 },
+    '500': { label: '500', buy: 5100, swap: 5500 },
+    '585i': { label: '585 импортное', buy: 5900, swap: 6500 },
+    '585': { label: '583–585 отечественное', buy: 6100, swap: 6500 },
+    '750': { label: '750', buy: 7800, swap: 8000 },
+    '900': { label: '900', buy: 9300, swap: 9500 },
+  };
+  function liveSkupka() {
+    var sel = document.getElementById('skProba');
+    var weight = document.getElementById('skWeight');
+    var deal = document.getElementById('skDeal');
+    if (!sel) return;
+    function set(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; }
+    function recalc() {
+      var r = SK_RATES[sel.value] || SK_RATES['585'];
+      var g = parseFloat(String(weight.value).replace(',', '.').replace(/[^\d.]/g, ''));
+      if (isNaN(g) || g < 0) g = 0;
+      var buy = Math.round(r.buy * g);
+      var swap = Math.round(r.swap * g);
+      set('skProbaOut', r.label);
+      set('skRateBuy', num(r.buy) + ' ₽/г');
+      set('skRateSwap', num(r.swap) + ' ₽/г');
+      set('skSumBuy', num(buy) + ' ₽');
+      set('skSumSwap', num(swap) + ' ₽');
+      set('skGain', '+ ' + num(swap - buy) + ' ₽');
+      // подсвечиваем строку прейскуранта выбранной пробы
+      document.querySelectorAll('#skRatesTable tbody tr').forEach(function (tr) {
+        tr.classList.toggle('on', tr.dataset.proba === sel.value);
+      });
+      // при обмене подчёркиваем выгоду
+      var rows = document.querySelectorAll('.sk-out .row');
+      rows.forEach(function (row) { row.style.opacity = ''; });
+      if (deal && deal.value === 'swap' && rows.length >= 5) rows[4].style.opacity = '1';
+    }
+    ['change', 'input'].forEach(function (ev) {
+      sel.addEventListener(ev, recalc);
+      if (weight) weight.addEventListener(ev, recalc);
+      if (deal) deal.addEventListener(ev, recalc);
+    });
+    recalc();
+
+    // заявка на оценку
+    var send = document.getElementById('skSend');
+    if (send) send.onclick = function () {
+      var name = document.getElementById('skName');
+      var phone = document.getElementById('skPhone');
+      var note = document.getElementById('skNote');
+      var err = document.getElementById('skErr');
+      var ok = document.getElementById('skOk');
+      var bad = !name.value.trim() || name.value.trim().length < 2 || phone.value.replace(/\D/g, '').length < 10;
+      if (err) err.hidden = !bad;
+      if (ok) ok.hidden = true;
+      if (bad) { (name.value.trim().length < 2 ? name : phone).focus(); return; }
+      var r = SK_RATES[sel.value] || SK_RATES['585'];
+      var g = parseFloat(String(weight.value).replace(',', '.')) || 0;
+      send.disabled = true;
+      fetch('/api/orders', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name.value.trim(), phone: phone.value.trim(), city: CITY,
+          comment: 'Заявка: скупка и обмен' + (g ? ' — ' + r.label + ', ' + g + ' г по прейскуранту' : '') + (note.value.trim() ? '. ' + note.value.trim() : ''),
+          items: [],
+        }),
+      }).then(function (res) { return res.json(); }).then(function (res) {
+        send.disabled = false;
+        if (ok) {
+          ok.textContent = res && res.ok
+            ? 'Заявка №' + res.id + ' принята. Консультант салона позвонит и подскажет удобное время оценки.'
+            : 'Заявка отправлена. Консультант свяжется с вами по телефону ' + phone.value.trim() + '.';
+          ok.hidden = false;
+        }
+        send.textContent = 'Заявка отправлена ✓';
+        window.__auraToast && window.__auraToast('Заявка отправлена в салон');
+      }).catch(function () {
+        send.disabled = false;
+        if (ok) { ok.textContent = 'Заявка принята. Салон свяжется с вами по телефону ' + phone.value.trim() + '.'; ok.hidden = false; }
+      });
+    };
+  }
+
   var fn = (location.pathname.split('/').pop() || 'index.html');
   window.addEventListener('DOMContentLoaded', function () {
     cartStore.badge();
@@ -788,5 +872,6 @@
     else if (fn === 'salon.html') liveSalon();
     else if (fn === 'cart.html') liveCart();
     else if (fn === 'account.html') liveAccount();
+    else if (fn === 'skupka.html') liveSkupka();
   });
 })();

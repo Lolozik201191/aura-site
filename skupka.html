@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/favicon.svg">
+<meta name="theme-color" content="#000000">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Скупка золота по прейскуранту сети AURA: 375–900 проба, оценка по весу и пробе, деньги в день обращения. Обмен «Старое на новое» с повышенной оценкой — до 9 500 ₽ за грамм.">
+<link rel="canonical" href="https://lolozik201191.github.io/aura-site/skupka.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ювелирный дом AURA">
+<meta property="og:title" content="Скупка и обмен золота — прейскурант, оценка в салоне | AURA">
+<meta property="og:description" content="Скупка золота по прейскуранту сети AURA: 375–900 проба, оценка по весу и пробе, деньги в день обращения. Обмен «Старое на новое» с повышенной оценкой — до 9 500 ₽ за грамм.">
+<meta property="og:url" content="https://lolozik201191.github.io/aura-site/skupka.html">
+<meta property="og:image" content="https://lolozik201191.github.io/aura-site/assets/pics/catalog/ring-diamond.webp">
+<meta name="twitter:card" content="summary_large_image">
+<title>Скупка и обмен золота — прейскурант, оценка в салоне | AURA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap"></noscript>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/aura.css">
+<link rel="stylesheet" href="assets/theme-sun.css">
+<style>
+
+/* ============================================================
+   Страница «Скупка и обмен»: баннер, калькулятор, сценарии, салоны.
+   Цифры — из действующего прейскуранта AURA (от 21.08.2026).
+   ============================================================ */
+.sk-hero{position:relative;color:#fff;background:#111 url(pics/lifestyle/couple-hands.webp) center/cover no-repeat;
+  padding:clamp(28px,4vw,64px) clamp(20px,4vw,56px);margin-top:18px;overflow:hidden}
+.sk-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,6,6,.95) 0%,rgba(6,6,6,.88) 38%,rgba(6,6,6,.6) 66%,rgba(6,6,6,.3) 100%)}
+.sk-hero > *{position:relative;z-index:2}
+.sk-hero h1{font-family:var(--head);font-weight:500;font-size:clamp(30px,4.4vw,58px);line-height:1.06;letter-spacing:.005em;max-width:760px;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+.sk-hero p{max-width:600px;color:#E9E9E9;font-size:clamp(14.5px,1.3vw,17px);margin-top:14px;text-shadow:0 1px 12px rgba(0,0,0,.55)}
+.sk-hero .sk-facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:18px;font-size:13.5px;color:#DADADA}
+.sk-hero .sk-facts b{color:#fff}
+.sk-hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+
+.sk-calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:20px;align-items:start}
+@media (max-width:900px){.sk-calc{grid-template-columns:1fr}}
+.sk-field{display:grid;gap:6px;margin-bottom:14px}
+.sk-field span{font-size:13px;font-weight:600}
+.sk-field input,.sk-field select{width:100%;box-sizing:border-box}
+.sk-out{background:var(--bg-2);border:1px solid var(--line-2);padding:20px}
+.sk-out .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line-2)}
+.sk-out .row:last-of-type{border-bottom:0}
+.sk-out .row b{font-size:20px;font-variant-numeric:tabular-nums}
+.sk-out .row.big b{font-size:28px;font-weight:800}
+.sk-out .gain{color:var(--emerald,#14713C);font-weight:700;font-variant-numeric:tabular-nums}
+.sk-out .hint{margin-top:12px;font-size:12px;color:var(--ink-3);line-height:1.5}
+.sk-tbl{width:100%;border-collapse:collapse;font-size:14px}
+.sk-tbl th,.sk-tbl td{border-bottom:1px solid var(--line-2);padding:10px 12px;text-align:left}
+.sk-tbl th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-weight:700}
+.sk-tbl td:last-child,.sk-tbl th:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.sk-tbl tr.on td{background:#FFF8E6;font-weight:700}
+.sk-two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:820px){.sk-two{grid-template-columns:1fr}}
+.sk-card{border:1px solid var(--border);background:#fff;padding:22px}
+.sk-card.plus{border-color:var(--emerald,#14713C);box-shadow:0 16px 40px -30px rgba(20,113,60,.6)}
+.sk-card h3{margin:0 0 8px;font-size:19px;font-weight:700}
+.sk-card .rate{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;margin:6px 0 10px}
+.sk-card ul{margin:0;padding-left:18px;color:var(--ink-2);font-size:13.5px;line-height:1.65}
+.sk-no{background:#FFF4F4;border:1px solid #F0D2D2;padding:18px 20px}
+.sk-no ul{margin:8px 0 0;padding-left:18px;color:var(--ink-2);font-size:13.5px;line-height:1.6}
+.sk-salons td b{white-space:nowrap}
+@media (max-width:640px){.sk-tbl thead{display:none}.sk-tbl td{display:block;text-align:left!important;border:0;padding:4px 0}
+  .sk-tbl tr{display:block;border-bottom:1px solid var(--line-2);padding:10px 0}}
+
+</style>
+<script type="application/ld+json" data-aura-schema>{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"Ювелирный дом AURA","alternateName":"AURA","url":"https://lolozik201191.github.io/aura-site/","logo":{"@type":"ImageObject","url":"https://lolozik201191.github.io/aura-site/assets/logo-gold.png"},"telephone":"+7-496-464-03-07","areaServed":["Раменское","Ногинск","Воскресенск","Егорьевск","Луховицы","Озёры","Электрогорск"],"address":{"@type":"PostalAddress","addressRegion":"Московская область","addressCountry":"RU"},"sameAs":["http://vk.com/jewelry_aura","https://www.instagram.com/juvelirnyiaura/"],"contactPoint":{"@type":"ContactPoint","telephone":"+7-496-464-03-07","contactType":"customer service","areaServed":"RU","availableLanguage":"ru"}},{"@type":"WebSite","url":"https://lolozik201191.github.io/aura-site/","name":"Ювелирный дом AURA","inLanguage":"ru-RU","publisher":{"@id":"https://lolozik201191.github.io/aura-site/#org"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://lolozik201191.github.io/aura-site/catalog.html?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"Service","name":"Скупка и обмен золота","serviceType":"Скупка и обмен ювелирных изделий","description":"Оценка и выкуп золотых изделий по прейскуранту сети AURA, обмен «Старое на новое» с повышенной оценкой. Оценка по пробе и весу, выплата в день обращения.","provider":{"@type":"Organization","name":"Ювелирный дом AURA","url":"https://lolozik201191.github.io/aura-site/"},"areaServed":["Раменское","Ногинск","Воскресенск","Егорьевск","Луховицы","Озёры","Электрогорск"],"availableChannel":{"@type":"ServiceChannel","serviceLocation":{"@type":"Place","name":"Салоны AURA в Московской области"},"servicePhone":{"@type":"ContactPoint","telephone":"+7-496-464-03-07","contactType":"customer service"}},"offers":{"@type":"Offer","priceCurrency":"RUB","description":"Скупка золота от 3 900 ₽ за грамм, при обмене на новое изделие — до 9 500 ₽ за грамм (прейскурант от 21.08.2026)"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Приходите в любой салон с изделием и паспортом","acceptedAnswer":{"@type":"Answer","text":"Записываться заранее не обязательно: эксперт принимает в порядке очереди."}},{"@type":"Question","name":"Проверяем пробу и взвешиваем","acceptedAnswer":{"@type":"Answer","text":"10–15 минут. Если проба нечитаемая — определяем на месте."}},{"@type":"Question","name":"Называем оценку по прейскуранту","acceptedAnswer":{"@type":"Answer","text":"Цифра финальная для этого веса и пробы: без «уточнений после», как в перекупке."}},{"@type":"Question","name":"Вы выбираете: деньги или обмен","acceptedAnswer":{"@type":"Answer","text":"При обмене ставка выше — разницу зачитываем в новое украшение."}},{"@type":"Question","name":"Получаете деньги или новое изделие","acceptedAnswer":{"@type":"Answer","text":"На новое украшение сразу оформляем паспорт: гарантия и чистка по нему — без чека."}},{"@type":"Question","name":"Чем скупка отличается от залога и ломбарда?","acceptedAnswer":{"@type":"Answer","text":"Мы не работаем как ломбард: деньги под залог украшения не выдаём. Есть два варианта — скупка (вы продаёте изделие нам) и обмен «Старое на новое» (стоимость зачитываем в новую покупку)."}},{"@type":"Question","name":"Какие документы нужны для скупки?","acceptedAnswer":{"@type":"Answer","text":"Паспорт. Паспорт изделия и чек не обязательны: пробу и вес определяем на месте."}},{"@type":"Question","name":"Оцениваете ли камни?","acceptedAnswer":{"@type":"Answer","text":"Нет. Оценка идёт по металлу — пробе и весу. Камни не оплачиваем, но по вашему желанию можем вернуть их владельцу."}},{"@type":"Question","name":"Принимаете ли серебро?","acceptedAnswer":{"@type":"Answer","text":"Скупка серебра не ведётся — прейскурант только по золоту. Серебряные украшения можно обменять в рамках акций сети и по программе «1=3 на серебро»."}},{"@type":"Question","name":"Что выгоднее: скупка или обмен?","acceptedAnswer":{"@type":"Answer","text":"Обмен: ставка выше на 300–500 ₽ за грамм. Если нужно новое украшение — выгоднее обмен, если нужны деньги — скупка."}},{"@type":"Question","name":"Сколько занимает оценка и когда выплата?","acceptedAnswer":{"@type":"Answer","text":"Оценка 10–15 минут, деньги выдаём в день обращения — наличными или переводом на карту."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://lolozik201191.github.io/aura-site/index.html"},{"@type":"ListItem","position":2,"name":"Услуги","item":"https://lolozik201191.github.io/aura-site/skupka.html"},{"@type":"ListItem","position":3,"name":"Скупка и обмен","item":"https://lolozik201191.github.io/aura-site/skupka.html"}]}]}</script>
+</head>
+<body>
+<header class="sitehead">
+<div class="topline">
+  <div class="wrap">
+    <span class="city" data-ic="pin"><span>Ваш салон: <b>Раменское</b></span></span>
+    <span class="spacer"></span>
+    <a class="tl-link" href="certificates.html">Сертификаты</a>
+    <a class="tl-link tl-optional" href="return.html">Обмен и возврат</a>
+    <a class="tl-link" href="salon.html">Магазины</a>
+    <a class="tl-link tl-hot" href="skupka.html">Скупка и обмен</a>
+    <a class="tl-link tl-phone" data-ic="phone" href="tel:+74964640307">+7 (496) 464-03-07</a>
+  </div>
+</div>
+
+<div class="header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><img src="assets/logo-gold.png" alt="Ювелирный дом AURA" width="144" height="69"></a>
+    <nav class="nav" aria-label="Основное меню">
+      <a href="catalog.html">Каталог</a>
+      <a href="promotions.html">Акции</a>
+      <a href="uslugi.html">Услуги</a>
+      <a href="salon.html">Салоны</a>
+      <a href="about.html">О нас</a>
+    </nav>
+    <div class="search">
+      <input placeholder="Поиск: кольцо с бриллиантом, 16 размер" aria-label="Поиск">
+      <button class="s-btn" data-ic="search" aria-label="Найти"><span class="sr-only">Найти</span></button>
+    </div>
+    <div class="icons">
+      <a class="ic" data-ic="user" href="account.html" aria-label="Войти в кабинет"><span class="sr-only">Войти в кабинет</span></a>
+      <button class="ic" data-ic="heart" aria-label="Избранное"><span class="sr-only">Избранное</span></button>
+      <a class="ic" data-ic="bag" href="cart.html" aria-label="Корзина"><span class="sr-only">Корзина</span><span class="cnt">2</span></a>
+    </div>
+  </div>
+</div></div>
+
+</header><main class="wrap">
+  <!-- Баннер услуги -->
+  <section class="sk-hero">
+    <span class="kicker" style="color:#E8C98F">Услуга сети AURA</span>
+    <h1>Скупка и обмен золота</h1>
+    <p>Выкупаем золото по прейскуранту сети или меняем старое на новое с повышенной оценкой. Оценка и деньги — в день обращения, в любом из наших салонов.</p>
+    <div class="sk-facts">
+      <span><b>8 салонов</b> в 7 городах области</span>
+      <span>Скупка <b>от 3 900 ₽/г</b></span>
+      <span>При обмене оценка <b>выше на 300–500 ₽/г</b></span>
+      <span>Прейскурант от <b>21.08.2026</b></span>
+    </div>
+    <div class="cta">
+      <a class="btn btn-gold" href="#calc">Рассчитать оценку</a>
+      <a class="btn btn-p" href="#zapis">Записаться в салон</a>
+      <a class="cta-plain" href="#rates">Прейскурант и условия →</a>
+    </div>
+  </section>
+
+  <!-- Калькулятор -->
+  <section class="sec" id="calc">
+    <div class="sec-head">
+      <div><span class="kicker">Калькулятор</span>
+        <h2>Сколько получите за грамм</h2>
+        <p class="sub">Выберите пробу и укажите вес — покажем оценку при скупке и при обмене на новое украшение. Расчёт по действующему прейскуранту сети.</p></div>
+    </div>
+    <div class="sk-calc">
+      <div class="panel" id="skupkaCalc">
+        <label class="sk-field"><span>Проба золота</span>
+          <select class="fsearch" id="skProba">
+            <option value="375">375 — золото 375 пробы</option>
+            <option value="500">500 — золото 500 пробы</option>
+            <option value="585i">585 — импортное</option>
+            <option value="585" selected>583–585 — отечественное</option>
+            <option value="750">750 — золото 750 пробы</option>
+            <option value="900">900 — золото 900 пробы</option>
+          </select>
+        </label>
+        <label class="sk-field"><span>Вес изделия, граммов</span>
+          <input class="fsearch" id="skWeight" type="number" min="0.1" max="1000" step="0.1" inputmode="decimal" placeholder="Например, 4,5" value="4">
+        </label>
+        <label class="sk-field"><span>Сценарий</span>
+          <select class="fsearch" id="skDeal">
+            <option value="buy" selected>Скупка — нужны деньги</option>
+            <option value="swap">Обмен — беру новое украшение</option>
+          </select>
+        </label>
+        <p class="hint" style="color:var(--ink-3);font-size:12.5px;line-height:1.55;margin:0">Серебро в скупку не принимаем — прейскурант только по золоту. Камни в оценку не входят.</p>
+      </div>
+      <div class="sk-out">
+        <div class="row"><span>Проба</span><b id="skProbaOut">583–585 отечественное</b></div>
+        <div class="row"><span>Ставка при скупке</span><b id="skRateBuy">6 100 ₽/г</b></div>
+        <div class="row"><span>Ставка при обмене</span><b id="skRateSwap">6 500 ₽/г</b></div>
+        <div class="row big"><span>Скупка: получите</span><b id="skSumBuy">24 400 ₽</b></div>
+        <div class="row big"><span>Обмен: зачтём</span><b id="skSumSwap">26 000 ₽</b></div>
+        <div class="row"><span>Выгода при обмене</span><span class="gain" id="skGain">+1 600 ₽</span></div>
+        <p class="hint">Прейскурант от 21.08.2026. Расчёт предварительный: окончательную оценку называет эксперт в салоне после проверки пробы и взвешивания. Ставка обмена действует при одновременной покупке изделия в магазине.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Прейскурант -->
+  <section class="sec2" id="rates">
+    <div class="sec-head" style="margin-bottom:14px">
+      <div><span class="kicker">Прейскурант</span><h2>Цены за грамм</h2></div>
+    </div>
+    <div class="panel" style="padding:0;overflow:hidden">
+      <table class="sk-tbl" id="skRatesTable">
+        <thead><tr><th>Проба</th><th>Скупка, ₽ за грамм</th><th>При покупке в магазине, ₽ за грамм</th></tr></thead>
+        <tbody>
+          <tr data-proba="375"><td>Золото 375</td><td>3 900 ₽</td><td>4 200 ₽</td></tr>
+          <tr data-proba="500"><td>Золото 500</td><td>5 100 ₽</td><td>5 500 ₽</td></tr>
+          <tr data-proba="585i"><td>Золото 585 (импортное)</td><td>5 900 ₽</td><td>6 500 ₽</td></tr>
+          <tr data-proba="585"><td>Золото 583–585 (отечественное)</td><td>6 100 ₽</td><td>6 500 ₽</td></tr>
+          <tr data-proba="750"><td>Золото 750</td><td>7 800 ₽</td><td>8 000 ₽</td></tr>
+          <tr data-proba="900"><td>Золото 900</td><td>9 300 ₽</td><td>9 500 ₽</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint" style="margin-top:10px;color:var(--ink-3)">Ставки указаны для лома и изделий из драгоценных металлов. Вторая колонка — при одновременной покупке изделия в магазине (акция «Старое на новое»).</p>
+  </section>
+
+  <!-- Два сценария -->
+  <section class="sec2">
+    <div class="sec-head" style="margin-bottom:14px"><div><span class="kicker">Что выбрать</span><h2>Скупка или обмен</h2></div></div>
+    <div class="sk-two">
+      <div class="sk-card">
+        <h3>Скупка — деньги сразу</h3>
+        <div class="rate">от 3 900 до 9 300 ₽/г</div>
+        <ul>
+          <li>Наличными или переводом на карту</li>
+          <li>Выплата в день обращения</li>
+          <li>Документы: паспорт</li>
+          <li>Камни не оцениваем — можем вернуть владельцу</li>
+        </ul>
+      </div>
+      <div class="sk-card plus">
+        <h3>Обмен «Старое на новое»</h3>
+        <div class="rate">от 4 200 до 9 500 ₽/г</div>
+        <ul>
+          <li>Оценка выше на 300–500 ₽ за грамм</li>
+          <li>Стоимость зачитываем в новое украшение</li>
+          <li>Разницу можно доплатить картой или в рассрочку 0-0-6</li>
+          <li>Паспорт на новое изделие оформляем на месте</li>
+        </ul>
+        <div style="margin-top:14px"><a class="btn btn-p" href="#zapis">Записаться на обмен</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Что принимаем -->
+  <section class="sec2">
+    <div class="sec-head" style="margin-bottom:14px"><div><span class="kicker">Условия</span><h2>Что принимаем и что нет</h2></div></div>
+    <div class="sk-two">
+      <div class="panel">
+        <h3 style="font-size:18px;font-weight:700;margin:0 0 10px">Принимаем</h3>
+        <ul style="margin:0;padding-left:18px;color:var(--ink-2);font-size:14px;line-height:1.7">
+          <li>Золотые изделия 375, 500, 583–585, 750 и 900 пробы</li>
+          <li>Кольца, серьги, цепочки, браслеты, подвески</li>
+          <li>Изделия с дефектами, потёртости, порванные цепочки</li>
+          <li>Зубопротезные коронки и диски</li>
+          <li>Изделия без паспорта и без чека — оценка по пробе и весу</li>
+        </ul>
+      </div>
+      <div class="sk-no">
+        <h3 style="font-size:18px;font-weight:700;margin:0 0 6px">Не подлежат скупке</h3>
+        <ul>
+          <li>золото в самородном и аффинированном виде, в сырье, сплавах, полуфабрикатах, промышленных продуктах, химических соединениях и отходах производства и потребления;</li>
+          <li>полуфабрикаты ювелирного и зубопротезного производства (кроме коронок и дисков);</li>
+          <li>изделия производственно-технического назначения из золота (пластины, проволока, контакты, лабораторная посуда и другое);</li>
+          <li>ордена и медали, кроме памятных и юбилейных (именных), содержащие драгоценные металлы;</li>
+          <li>изделия, содержащие драгоценные металлы, изъятые из гражданского оборота или ограниченные в обороте (холодное и огнестрельное оружие с отделкой и другое);</li>
+          <li>драгоценные и полудрагоценные камни и природный жемчуг — как в необработанном, так и в обработанном виде.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Как проходит -->
+  <section class="sec2 sec--grey">
+    <div class="sec-head" style="margin-bottom:14px"><div><span class="kicker">Порядок</span><h2>Как проходит оценка</h2></div></div>
+    <div class="panel">
+      <div class="plan-step"><span class="pn">1</span><div><b>Приходите в любой салон с изделием и паспортом</b><p>Записываться заранее не обязательно: эксперт принимает в порядке очереди.</p></div></div>
+      <div class="plan-step"><span class="pn">2</span><div><b>Проверяем пробу и взвешиваем</b><p>10–15 минут. Если проба нечитаемая — определяем на месте.</p></div></div>
+      <div class="plan-step"><span class="pn">3</span><div><b>Называем оценку по прейскуранту</b><p>Цифра финальная для этого веса и пробы: без «уточнений после», как в перекупке.</p></div></div>
+      <div class="plan-step"><span class="pn">4</span><div><b>Вы выбираете: деньги или обмен</b><p>При обмене ставка выше — разницу зачитываем в новое украшение.</p></div></div>
+      <div class="plan-step"><span class="pn">5</span><div><b>Получаете деньги или новое изделие</b><p>На новое украшение сразу оформляем паспорт: гарантия и чистка по нему — без чека.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Салоны -->
+  <section class="sec2">
+    <div class="sec-head" style="margin-bottom:14px"><div><span class="kicker">Где</span><h2>Салоны, где принимаем золото</h2></div>
+      <a class="more" href="salon.html">Все салоны и карта →</a></div>
+    <div class="panel" style="padding:0;overflow:hidden">
+      <table class="sk-tbl sk-salons">
+        <thead><tr><th>Город</th><th>Адрес</th><th>Телефон</th></tr></thead>
+        <tbody>
+          <tr><td><b>Раменское</b></td><td>ул. Михалевича, д. 5</td><td>+7 (916) 760-91-42</td></tr>
+          <tr><td><b>Раменское</b></td><td>ул. Ногина, д. 3</td><td>+7 (916) 760-91-41</td></tr>
+          <tr><td><b>Ногинск</b></td><td>ул. Комсомольская, д. 26, ТД «Ногинский», пав. №107</td><td>+7 (916) 760-91-51</td></tr>
+          <tr><td><b>Воскресенск</b></td><td>ул. Менделеева, д. 20, пом. 40</td><td>+7 (916) 760-91-52</td></tr>
+          <tr><td><b>Егорьевск</b></td><td>Касимовское ш., д. 1а, ТЦ «Панорама»</td><td>+7 (916) 766-77-73</td></tr>
+          <tr><td><b>Луховицы</b></td><td>ул. Жуковского, д. 21</td><td>+7 (916) 760-91-44</td></tr>
+          <tr><td><b>Озёры</b></td><td>ул. Ленина, д. 14</td><td>+7 (916) 760-91-45</td></tr>
+          <tr><td><b>Электрогорск</b></td><td>пл. Советская, д. 10</td><td>+7 (916) 766-77-72</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint" style="margin-top:10px;color:var(--ink-3)">Салоны работают ежедневно 10:00–20:00. Оценку делает эксперт — уточните по телефону, что он на месте.</p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec2">
+    <div class="sec-head" style="margin-bottom:14px"><div><span class="kicker">Вопросы</span><h2>Частые вопросы</h2></div></div>
+    <div class="panel">
+      <div class="plan-step"><span class="pn">?</span><div><b>Чем скупка отличается от залога и ломбарда?</b><p>Мы не работаем как ломбард: деньги под залог украшения не выдаём. Есть два варианта — скупка (вы продаёте изделие нам) и обмен «Старое на новое» (стоимость зачитываем в новую покупку).</p></div></div>
+      <div class="plan-step"><span class="pn">?</span><div><b>Какие документы нужны для скупки?</b><p>Паспорт. Паспорт изделия и чек не обязательны: пробу и вес определяем на месте.</p></div></div>
+      <div class="plan-step"><span class="pn">?</span><div><b>Оцениваете ли камни?</b><p>Нет. Оценка идёт по металлу — пробе и весу. Камни не оплачиваем, но по вашему желанию можем вернуть их владельцу.</p></div></div>
+      <div class="plan-step"><span class="pn">?</span><div><b>Принимаете ли серебро?</b><p>Скупка серебра не ведётся — прейскурант только по золоту. Серебряные украшения можно обменять в рамках акций сети и по программе «1=3 на серебро».</p></div></div>
+      <div class="plan-step"><span class="pn">?</span><div><b>Что выгоднее: скупка или обмен?</b><p>Обмен: ставка выше на 300–500 ₽ за грамм. Если нужно новое украшение — выгоднее обмен, если нужны деньги — скупка.</p></div></div>
+      <div class="plan-step"><span class="pn">?</span><div><b>Сколько занимает оценка и когда выплата?</b><p>Оценка 10–15 минут, деньги выдаём в день обращения — наличными или переводом на карту.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Заявка -->
+  <section class="sec2 sec--grey" id="zapis">
+    <div class="sec-head" style="margin-bottom:14px"><div><span class="kicker">Заявка</span><h2>Записаться на оценку</h2>
+      <p class="sub">Оставьте телефон — консультант подскажет, когда удобнее прийти, и сориентирует по предварительной сумме.</p></div></div>
+    <div class="panel" style="max-width:560px">
+      <label class="sk-field"><span>Имя</span><input class="fsearch" id="skName" autocomplete="name" placeholder="Как к вам обращаться"></label>
+      <label class="sk-field"><span>Телефон</span><input class="fsearch" id="skPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__"></label>
+      <label class="sk-field"><span>Что сдаёте <span style="font-weight:400;color:var(--ink-3)">— необязательно</span></span><input class="fsearch" id="skNote" placeholder="Например: цепочка 585, около 6 грамм"></label>
+      <p class="hint" id="skErr" hidden style="color:#D90000;margin:0 0 10px">Укажите имя и телефон — иначе не сможем перезвонить.</p>
+      <p class="hint" id="skOk" hidden style="color:#14713C;margin:0 0 10px"></p>
+      <button type="button" class="btn btn-p btn-l" id="skSend" style="width:100%">Отправить заявку</button>
+      <p class="hint" style="color:var(--ink-3);margin-top:10px">Или позвоните в салон: <a href="tel:+74964640307" style="color:var(--emerald);font-weight:700">+7 (496) 464-03-07</a> — офис сети.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div>
+      <div style="margin-bottom:6px"><a href="index.html"><img src="assets/logo-gold.png" alt="Ювелирный дом AURA" width="123" height="46" style="height:46px;width:auto"></a></div>
+      <p style="font-size:13.5px;color:#C7C7C7;margin:14px 0">Ювелирный дом AURA — салоны в городах Московской области. Честные украшения, живой сервис.</p>
+      <a class="fbtn" href="tel:+74964640307">+7 (496) 464-03-07 · офис</a>
+      <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+        <a class="fbtn" href="http://vk.com/jewelry_aura">VK</a>
+        <a class="fbtn" href="https://www.instagram.com/juvelirnyiaura/">Instagram</a></div><div class="social-note">Instagram принадлежит Meta, признанной экстремистской организацией в РФ</div><div style="display:none">
+      </div>
+    </div>
+    <div><p class="fh">Каталог</p><ul>
+      <li><a href="catalog.html">Кольца</a></li>
+      <li><a href="catalog.html">Серьги</a></li>
+      <li><a href="catalog.html">Браслеты</a></li>
+      <li><a href="catalog.html">Колье и подвески</a></li>
+      <li><a href="wedding.html">Обручальные</a></li>
+    </ul></div>
+    <div><p class="fh">Покупателям</p><ul>
+      <li><a href="uslugi.html">Услуги AURA</a></li>
+      <li><a href="passport.html">Паспорт украшения</a></li>
+      <li><a href="delivery.html">Доставка и оплата</a></li>
+      <li><a href="return.html">Возврат и обмен</a></li>
+      <li><a href="service.html">Гарантия и уход</a></li>
+      <li><a href="skupka.html">Скупка и обмен</a></li>
+      <li><a href="certificates.html">Сертификаты</a></li>
+      <li><a href="delivery.html#credit">Рассрочка</a></li>
+    </ul></div>
+    <div><p class="fh">Салоны</p><ul>
+      <li><a href="salon.html">Раменское · 2 салона</a></li>
+      <li><a href="salon.html">Ногинск · Воскресенск</a></li>
+      <li><a href="salon.html">Егорьевск · Луховицы</a></li>
+      <li><a href="salon.html">Озёры · Электрогорск</a></li>
+    </ul></div>
+    <div><p class="fh">AURA</p><ul>
+      <li><a href="account.html">Личный кабинет</a></li>
+      <li><a href="about.html">О компании</a></li>
+      <li><a href="about.html#guide">Журнал: как выбрать</a></li>
+      <li><a href="giftcards.html">Подарочные сертификаты</a></li>
+      <li><a href="faq.html">Вопросы и ответы</a></li>
+      <li><a href="contacts.html">Контакты</a></li>
+    </ul></div>
+    <div class="bottom">
+      <span>© 2010–2026 AURA. Ювелирный дом · Московская область</span>
+      <span><a href="legal.html#privacy">Политика конфиденциальности</a> · <a href="legal.html#oferta">Публичная оферта</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/icons.js"></script>
+<script src="assets/ui.js"></script>
+<script src="assets/fx.js"></script>
+<script src="assets/live.js"></script>
+</body>
+</html>
