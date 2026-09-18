@@ -5,8 +5,14 @@ AURA — сервер витрины: JSON API каталога + статиче
 Заказы: data/orders.json (заявки на самовывоз; в 1С ничего не создаётся).
 Запуск: python api.py   (порт: AURA_API_PORT или 8138)
 """
-import json, os, re, sqlite3, sys, urllib.parse, datetime, mimetypes
+import json, os, re, sqlite3, sys, urllib.parse, datetime, mimetypes, gzip
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    import loyalty
+except Exception:                     # слой лояльности не обязателен для витрины
+    loyalty = None
 
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -69,6 +75,19 @@ class H(BaseHTTPRequestHandler):
         ctype = MIME.get(ext) or mimetypes.guess_type(full)[0] or 'application/octet-stream'
         with open(full, 'rb') as f:
             body = f.read()
+        # сжатие текстовых файлов: страница отдаётся в 3-4 раза быстрее
+        textual = ctype.startswith('text/') or 'javascript' in ctype or 'json' in ctype or 'svg' in ctype
+        if textual and len(body) > 1024 and 'gzip' in (self.headers.get('Accept-Encoding') or ''):
+            body = gzip.compress(body, 6)
+            self.send_response(200)
+            self.send_header('Content-Type', ctype)
+            self.send_header('Content-Encoding', 'gzip')
+            self.send_header('Vary', 'Accept-Encoding')
+            self.send_header('Content-Length', str(len(body)))
+            self.send_header('Cache-Control', 'no-cache')
+            self.end_headers()
+            self.wfile.write(body)
+            return
         self.send_response(200)
         self.send_header('Content-Type', ctype)
         self.send_header('Content-Length', str(len(body)))
@@ -167,16 +186,48 @@ class H(BaseHTTPRequestHandler):
             orders = load_orders()
             orders = sorted(orders, key=lambda o: o.get('created', ''), reverse=True)
             return self._send_json({'orders': orders})
+        if path == '/api/account':
+            # кабинет: профиль по токену из /api/auth/verify
+            if not loyalty:
+                return self._send_json({'error': 'loyalty module unavailable'}, 503)
+            phone = loyalty.phone_from_token(p('token'))
+            if not phone:
+                return self._send_json({'error': 'auth'}, 403)
+            return self._send_json(loyalty.profile(phone))
         return self._send_json({'error': 'unknown api path', 'path': path}, 404)
 
     def do_POST(self):
         try:
             parsed = urllib.parse.urlparse(self.path)
-            if parsed.path.rstrip('/') != '/api/orders':
-                return self._send_json({'error': 'unknown'}, 404)
+            route = parsed.path.rstrip('/')
             ln = int(self.headers.get('Content-Length') or 0)
             raw = self.rfile.read(ln) if ln else b'{}'
             data = json.loads(raw.decode('utf-8') or '{}')
+
+            # --- вход в кабинет: код на телефон ---
+            if route == '/api/auth/start':
+                if not loyalty:
+                    return self._send_json({'error': 'loyalty module unavailable'}, 503)
+                ok, demo, code = loyalty.start_auth(str(data.get('phone') or ''))
+                if not ok:
+                    return self._send_json({'error': 'bad phone'}, 400)
+                res = {'ok': True, 'demo': demo}
+                if demo:
+                    # SMS-шлюз не подключён: код показываем на странице (локальная витрина)
+                    res['code'] = code
+                    res['note'] = 'SMS-шлюз не подключён — код показан на странице. Подключите провайдера и задайте AURA_SMS_PROVIDER.'
+                return self._send_json(res)
+            if route == '/api/auth/verify':
+                if not loyalty:
+                    return self._send_json({'error': 'loyalty module unavailable'}, 503)
+                token = loyalty.verify(str(data.get('phone') or ''), str(data.get('code') or ''))
+                if not token:
+                    return self._send_json({'error': 'bad code'}, 400)
+                prof = loyalty.profile(str(data.get('phone') or ''))
+                return self._send_json({'ok': True, 'token': token, 'name': prof.get('name') or ''})
+
+            if route != '/api/orders':
+                return self._send_json({'error': 'unknown'}, 404)
             phone = str(data.get('phone') or '').strip()
             if not re.match(r'^\+?[\d\s()-]{10,18}$', phone):
                 return self._send_json({'error': 'bad phone'}, 400)

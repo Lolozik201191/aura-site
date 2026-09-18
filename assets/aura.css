@@ -3,42 +3,7 @@
    айвори #F6F3EC · изумруд #1E5C49 · золото-шампань #C4A06A ·
    терракота #B4553B · тёплый графит #2A2622. Адаптивно: моб/планшет/десктоп.
    ============================================================ */
-:root{
-  /* ===== AURA · дизайн-система «Тёплое сияние» ===== */
-  --bg:#F6F3EC;            /* фон — тёплый айвори */
-  --bg-grey:#F0EBDF;       /* чередование секций — глубже айвори */
-  --bg-soft:#FBF9F4;
-  --card:#FFFFFF;          /* поверхности карточек — белые */
-  --ink:#2A2622;           /* заголовки/цены — тёплый графит */
-  --ink-2:#5A534A;         /* вторичный текст */
-  --ink-3:#8B8579;         /* приглушённый текст/старая цена */
-  --border:#E2DCD0;
-  --border-l:#EBE6DA;
-  --gold:#C4A06A;          /* акцент — золото-шампань */
-  --gold-2:#AF8B53;        /* шампань темнее (hover/элементы) */
-  --gold-d:#8F743F;        /* тёмное золото для текста на светлом */
-  --gold-soft:#EFE7D8;     /* светлая шампань-подложка */
-  --sale:#B4553B;          /* скидки/бейджи — терракота */
-  --ok:#1E5C49;            /* «в наличии» — изумруд */
-  --emerald:#1E5C49;       /* фирменный изумруд (главные кнопки) */
-  --emerald-d:#17493A;     /* изумруд тёмный (hover) */
-  --emerald-soft:#E7EFEA;  /* светлая изумрудная подложка */
-  --line-gold:rgba(196,160,106,.5);
-  --shadow-sm:0 1px 3px rgba(42,38,34,.06),0 6px 16px rgba(42,38,34,.08);
-  --shadow:0 10px 24px rgba(42,38,34,.12),0 2px 8px rgba(42,38,34,.08);
-  --shadow-lg:0 24px 48px rgba(42,38,34,.16);
-  --r:12px;               /* 8–12px как в требованиях */
-  --r-sm:8px;
-  --r-lg:16px;
-  --head:"Cormorant Garamond",Georgia,serif;
-  --sans:"Manrope","Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
-  --ease:cubic-bezier(.22,.61,.36,1);
-  --dur:.22s;
-  /* алиасы (совместимость разметки) */
-  --ivory:#F6F3EC; --white:#FFFFFF; --mint:#E7EFEA; --grey:#8B8579;
-  --emerald-soft2:#E7EFEA; --ink-soft:#5A534A; --line2:#EBE6DA; --serif:var(--head);
-  --terra:var(--sale); --line:var(--border);
-}
+/* токены перенесены в assets/tokens.css (единый слой) */
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
@@ -838,13 +803,7 @@ table.tbl a{color:var(--emerald);font-weight:700}
    PREMIUM v5 · «AURA GLOW» — дорогой бутик
    Плейфэр-дисплей + интер, свечение камней, воздух, микроанимации
    ============================================================ */
-:root{
-  --head:"Cormorant Garamond","Georgia",serif;   /* заголовки — сериф */
-  --sans:"Manrope","Inter","Segoe UI",system-ui,Arial,sans-serif;
-  --ease:cubic-bezier(.22,.61,.36,1);
-  --dur:.3s;
-  --hairline:linear-gradient(90deg,transparent,rgba(196,160,106,.6),transparent);
-}
+/* токены перенесены в assets/tokens.css (единый слой) */
 html{background:var(--bg)}
 html{overflow-x:clip}
 
@@ -1104,7 +1063,7 @@ body.has-buybar .callback-btn{bottom:92px}
 /* ============================================================
    ЧИТАЕМОСТЬ (аудит контраста и типографики)
    ============================================================ */
-:root{--ink-3:#6E675C;--gold-d:#755A2C}
+/* токены перенесены в assets/tokens.css (единый слой) */
 .mcat .scrim{background:linear-gradient(180deg,rgba(14,11,8,.44) 0%,rgba(14,11,8,0) 24%,rgba(14,11,8,0) 40%,rgba(14,11,8,.8) 100%)}
 .live::before{background:linear-gradient(180deg,rgba(0,0,0,0) 34%,rgba(16,13,10,.86))}
 .actcard.grad-e::before,.actcard.grad-t::before,.actcard.grad-br::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,9,7,.74) 0%,rgba(12,9,7,.4) 42%,rgba(12,9,7,0) 70%);z-index:1;pointer-events:none}

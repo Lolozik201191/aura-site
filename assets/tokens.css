@@ -1,0 +1,58 @@
+/* ============================================================
+   AURA · ЕДИНЫЙ СЛОЙ ТОКЕНОВ (единственный источник правды)
+   Подключается ПЕРВЫМ, до aura.css и theme-sun.css.
+   Значения перенесены из прежних блоков :root без изменения вида.
+   ============================================================ */
+:root{
+
+  /* Цвета: поверхности */
+  --bg:#FFFFFF;
+  --bg-2:#F2F2F2;
+  --card:#FFFFFF;
+
+  /* Цвета: текст */
+  --ink:#000000;
+  --ink-2:#4A4A4A;
+  --ink-3:#6E6E6E;
+  --ink-soft:#4A4A4A;
+  --grey:#8A8A8A;
+
+  /* Цвета: границы */
+  --border:#E6E6E6;
+  --border-l:#EFEFEF;
+  --line:#E6E6E6;
+  --line2:#EFEFEF;
+
+  /* Акценты бренда */
+  --gold:#000000;
+  --gold-2:#000000;
+  --gold-d:#4A4A4A;
+  --gold-soft:#F2F2F2;
+  --emerald:#000000;
+  --emerald-soft:#F2F2F2;
+  --emerald-soft2:#E7EFEA;
+  --red:#E00000;
+  --red-bg:#D90000;
+  --ok:#14713C;
+  --terra:var(--sale);
+  --mint:#F2F2F2;
+  --white:#FFFFFF;
+
+  /* Типографика */
+  --head:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Manrope","Inter",Arial,Helvetica,sans-serif;
+  --serif:var(--head);
+
+  /* Радиусы и тени */
+  --r:0px;
+  --r-sm:0px;
+  --r-lg:0px;
+  --shadow-sm:none;
+  --shadow:none;
+  --shadow-lg:0 12px 32px rgba(0,0,0,.12);
+
+  /* Движение */
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --dur:.3s;
+  --hairline:linear-gradient(90deg,transparent,rgba(196,160,106,.6),transparent);
+}

@@ -44,6 +44,17 @@
   function gen(c) { return (GEO[c] && GEO[c][0]) || ('салона ' + c); }
   function prep(c) { return (GEO[c] && GEO[c][1]) || ('в городе ' + c); }
 
+  /* ---------- «ФОТО СКОРО» ----------
+     В учётной выгрузке 1С фотографий товаров нет. Показываем честную заглушку,
+     а не чужое или демонстрационное изображение другого украшения. */
+  function noimg(mod) {
+    return '<div class="noimg' + (mod ? ' ' + mod : '') + '" role="img" aria-label="Фотография изделия скоро появится">' +
+      '<span class="noimg-i" data-ic="gem"></span>' +
+      '<span class="noimg-t">Фото скоро</span>' +
+      (mod === 'noimg--big' ? '<span class="noimg-n">Снимем изделие и добавим фотографии в ближайшее время</span>' : '') +
+      '</div>';
+  }
+
   /* ---------- КАТАЛОГ ---------- */
   function liveCatalog() {
     var grid = document.getElementById('grid');
@@ -51,24 +62,20 @@
     var h1 = document.querySelector('.pagetitle');
     if (!grid) return;
     var cat = qs('cat');
-    if (!cat && h1) {
+    var q = (qs('q') || '').trim();
+    if (!cat && !q && h1) {
       var t = (h1.textContent || '');
       for (var k in CATW) if (t.indexOf(k) === 0) { cat = k; break; }
     }
-    cat = cat || 'Кольца';
+    if (!q) cat = cat || 'Кольца';
     var cur = { metal: null, city: false, price: null };
 
-    function PICS(i) {
-      var set = ['ring', 'ring2', 'ring3', 'sol'];
-      var p = window.PICS && window.PICS[set[i % 4]];
-      return p || (window.PICS && window.PICS.ring) || '';
-    }
     function rcard(it, i) {
       var q = it.cities && it.cities[CITY];
       var av = q ? '<span class="avail">В салоне ' + gen(CITY) + ' · сегодня</span>'
                  : '<span class="avail no">Привезём в салон за 2 дня</span>';
       var tag = (it.sales >= 500) ? '<span class="tg new">Хит</span>' : '';
-      var ph = '<div class="ph">' + PICS(i) +
+      var ph = '<div class="ph">' + noimg() +
         '<div class="b1">' + tag + '</div>' +
         '<button class="fav" data-ic="heart" aria-label="В избранное"><span class="sr-only">В избранное</span></button>' +
         '<div class="buy"><a class="btn btn-p" href="product.html?id=' + it.id + '">В корзину</a></div></div>';
@@ -79,18 +86,25 @@
         '<div class="price-row"><span class="price">' + fmt(it.price) + '</span></div></div></div>';
     }
     function render(items, total) {
-      grid.innerHTML = items.map(rcard).join('');
-      if (info) info.textContent = 'Найдено: ' + items.length + ' · показаны 1–' + items.length;
-      if (h1) h1.innerHTML = (cat === 'Кольца' ? 'Кольца' : cat) + ' <span>' + (total || items.length) + ' изделий</span>';
-      document.title = 'AURA — Каталог: ' + (cat === 'Кольца' ? 'Кольца' : cat);
+      grid.innerHTML = items.map(rcard).join('') ||
+        '<p style="max-width:520px;color:var(--ink-2)">По запросу ничего не нашлось. Попробуйте другое слово ' +
+        'или посмотрите <a href="catalog.html">весь каталог</a> — в наличии 14 000+ изделий.</p>';
+      var n = total || items.length;
+      if (info) info.textContent = q ? 'По запросу «' + q + '»: ' + n : 'Найдено: ' + items.length + ' · показаны 1–' + items.length;
+      if (h1) {
+        h1.innerHTML = q ? 'Поиск: «' + q + '» <span>' + n + ' изделий</span>'
+                         : (cat === 'Кольца' ? 'Кольца' : cat) + ' <span>' + n + ' изделий</span>';
+      }
+      document.title = q ? 'AURA — поиск: ' + q : 'AURA — Каталог: ' + (cat === 'Кольца' ? 'Кольца' : cat);
       var crumb = document.querySelector('.breadcrumbs b');
-      if (crumb) crumb.textContent = cat;
+      if (crumb) crumb.textContent = q ? 'Поиск' : cat;
       window.__iconsApply && window.__iconsApply();
       document.querySelectorAll('.fav').forEach(function (b, i) { b.dataset.i = i; });
     }
     function load() {
       var p = new URLSearchParams();
-      p.set('category', cat); p.set('per', '60'); p.set('sort', 'popular');
+      if (q) p.set('q', q); else p.set('category', cat);
+      p.set('per', '60'); p.set('sort', 'popular');
       if (cur.metal) p.set('metal', cur.metal);
       if (cur.city) p.set('city', CITY);
       fetchJ('/api/products?' + p.toString()).then(function (d) {
@@ -147,8 +161,65 @@
       document.title = name + ' · AURA';
       var h1 = document.querySelector('.pinfo h1');
       if (h1) h1.textContent = name;
+      /* Фотографий изделий в 1С нет: убираем демонстрационный снимок
+         и ставим честную заглушку «Фото скоро». */
+      var gal = document.querySelector('.gallery');
+      if (gal) {
+        var thumbs = gal.querySelector('.thumbs');
+        if (thumbs) thumbs.innerHTML = '<div class="th on">' + noimg('noimg--thumb') + '</div>';
+        var big = gal.querySelector('.big');
+        if (big) {
+          Array.prototype.slice.call(big.querySelectorAll('img,.zoom,.badge')).forEach(function (el) {
+            el.parentNode.removeChild(el);
+          });
+          big.insertAdjacentHTML('afterbegin', noimg('noimg--big'));
+        }
+      }
+      /* Оценки и отзывы демо-карточки реальному изделию не подставляем. */
+      var top2 = document.querySelector('.pinfo .topline2');
+      if (top2) top2.style.display = 'none';
+      var rev = document.getElementById('revbox');
+      if (rev) {
+        var hsub = rev.querySelector('h2 span');
+        if (hsub) hsub.textContent = '· отзывы покупателей о сети AURA';
+        var sum = rev.querySelector('.revsum');
+        if (sum) {
+          sum.outerHTML = '<p style="color:var(--ink-2);background:var(--bg-2);border:1px solid var(--line-2);' +
+            'border-radius:var(--r);padding:16px 18px;margin:12px 0 16px">Об этом изделии отзывов пока нет. ' +
+            'Рейтинг считаем только по подтверждённым покупкам в салонах AURA — напишите отзыв, если украшение уже у вас.</p>';
+        }
+        Array.prototype.slice.call(rev.querySelectorAll('.review-item')).forEach(function (el) {
+          el.parentNode.removeChild(el);
+        });
+        var all = rev.querySelector('.revall');
+        if (all) {
+          all.innerHTML = 'Все отзывы о сети AURA <span data-ic="arrow"></span>';
+          window.__iconsApply && window.__iconsApply();
+        }
+      }
+      /* «Похожие» — реальные изделия той же категории (тоже с заглушкой). */
+      var sim = document.getElementById('sim');
+      if (sim && it.category) {
+        fetchJ('/api/products?category=' + encodeURIComponent(it.category) + '&per=10&sort=popular').then(function (d) {
+          if (!d || !d.items) return;
+          var list = d.items.filter(function (x) { return String(x.id) !== String(id); }).slice(0, 8);
+          if (!list.length) return;
+          sim.innerHTML = list.map(function (x, i) {
+            var q = x.cities && x.cities[CITY];
+            return '<div class="card" style="min-width:220px;flex:0 0 220px"><div class="ph">' + noimg() +
+              '<div class="buy"><a class="btn btn-p" href="product.html?id=' + x.id + '">Смотреть</a></div></div>' +
+              '<div class="body">' +
+              (q ? '<span class="avail">В салоне ' + gen(CITY) + ' · сегодня</span>' : '<span class="avail no">Привезём за 2 дня</span>') +
+              '<h3><a href="product.html?id=' + x.id + '">' + pretty(x) + '</a></h3>' +
+              '<span class="meta">' + (x.metal || '') + '</span>' +
+              '<div class="price-row"><span class="price">' + num(x.price) + ' ₽</span></div></div></div>';
+          }).join('');
+          window.__iconsApply && window.__iconsApply();
+        });
+      }
       var crumb = document.querySelector('.breadcrumbs b');
       if (crumb) crumb.textContent = name;
+      schemaProduct(it);
       var art = document.querySelector('.art b');
       if (art && it.codes && it.codes.length) art.textContent = (it.codes[0]);
       var now = document.querySelector('.pricebig .now');
@@ -181,9 +252,9 @@
           if (t.length > 25 || t.indexOf('ул.') >= 0 || /наличи|тел\./.test(t)) sn.textContent = st;
         });
       }
-      // кнопки «В корзину/резерв» ведут на заказ по телефону (без онлайн-оплаты)
-      document.querySelectorAll('.ctarow a, .salonpick .btn').forEach(function (a) {
-        a.href = 'tel:+74964640307';
+      // «Забрать в салоне» — звонок в салон; «В 1 клик» и «В корзину» работают формой и корзиной
+      document.querySelectorAll('.salonpick a.btn, .salonpick .btn').forEach(function (a) {
+        if (a.tagName === 'A' && /тел|позвон/i.test(a.textContent || '')) a.href = 'tel:+74964640307';
       });
     });
   }
@@ -194,13 +265,11 @@
       var tg = '';
       if (it.sales >= 500) tg = '<span class="tg hit">Хит</span>';
       else if (i === 0) tg = '<span class="tg new">Новинка</span>';
-      var pics = window.PICS || {};
-      var icn = pics[MARK_ICONS[i % MARK_ICONS.length]] || pics.ring || '';
+      var nm = pretty(it);
       var q = it.cities && it.cities[CITY];
       var av = q ? '<span class="avail">В салоне Раменского · сегодня</span>'
                  : '<span class="avail no">Привезём в салон за 2 дня</span>';
-      var nm = pretty(it);
-      return '<div class="card"><div class="ph">' + icn +
+      return '<div class="card"><div class="ph">' + noimg() +
         '<div class="b1">' + tg + '</div>' +
         '<button class="fav" data-ic="heart" aria-label="В избранное"><span class="sr-only">В избранное</span></button>' +
         '<div class="buy"><a class="btn btn-p" href="product.html?id=' + it.id + '">В корзину</a></div></div>' +
@@ -265,7 +334,8 @@
   function liveProductButtons() {
     var q = cartStore.get();
     document.querySelectorAll('.ctarow a').forEach(function (a) {
-      if (a.textContent.indexOf('1 клик') >= 0) { a.href = 'tel:+74964640307'; return; }
+      // «В 1 клик» открывает форму заявки (assets/ui.js), ссылку не трогаем
+      if (a.textContent.indexOf('1 клик') >= 0) return;
       if (a.textContent.indexOf('В корзину') >= 0) {
         a.href = 'javascript:void(0)';
         a.dataset.added = '0';
@@ -294,12 +364,10 @@
     fetchJ('/api/products?city=' + encodeURIComponent(city) + '&per=10&sort=qty').then(function (d) {
       var el = document.getElementById('today');
       if (!el || !d) return;
-      var pics = window.PICS || {};
-      var icn = pics.ring || '';
       el.innerHTML = (d.items || []).map(function (it, i) {
         var q = it.cities && it.cities[city];
         var nm = pretty(it);
-        return '<div class="card"><div class="ph">' + (pics[MARK_ICONS[i % MARK_ICONS.length]] || icn) +
+        return '<div class="card"><div class="ph">' + noimg() +
           '<div class="b1"><span class="tg new">' + (q || 0) + ' шт</span></div>' +
           '<div class="buy"><a class="btn btn-p" href="product.html?id=' + it.id + '">К товару</a></div></div>' +
           '<div class="body"><span class="avail">В салоне ' + gen(city) + '</span>' +
@@ -316,8 +384,7 @@
   }
 
   /* ---------- КОРЗИНА (страница cart.html) ---------- */
-  var gemSVG = '<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" style="color:#C4A06A;width:64px;height:64px;margin:auto"><path d="M7 3.5h10l4 5-9 12L3 8.5l4-5z"/><path d="M3 8.5h18M9.5 3.5L12 8.5l2.5-5M9 8.5l3 12 3-12"/></svg>';
-  function liveCart() {
+  var gemSVG = '<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" style="color:#C4A06A;width:64px;height:64px;margin:auto"><path d="M7 3.5h10l4 5-9 12L3 8.5l4-5z"/><path d="M3 8.5h18M9.5 3.5L12 8.5l2.5-5M9 8.5l3 12 3-12"/></svg>';  function liveCart() {
     var layout = document.querySelector('.catlayout');
     if (!layout) return;
     var h1 = document.querySelector('.pagetitle');
@@ -339,19 +406,19 @@
       var sum = items.reduce(function (s, p) { return s + (p.price || 0) * p._qty; }, 0);
       var rows = items.map(function (p, i) {
         var q = p.cities && p.cities[CITY];
-        return '<div class="card" style="flex-direction:row;align-items:center;padding:14px">' +
-          '<div class="ph" style="width:110px;aspect-ratio:1;flex:none;border-radius:12px;display:flex">' + gemSVG + '</div>' +
+        return '<div class="card" data-cart-row="' + p.id + '" style="flex-direction:row;align-items:center;padding:14px">' +
+          '<div class="ph" style="width:110px;aspect-ratio:1;flex:none;display:flex">' + noimg('noimg--thumb') + '</div>' +
           '<div style="flex:1;padding:0 16px">' +
           '<div style="font-weight:600"><a href="product.html?id=' + p.id + '">' + pretty(p) + '</a></div>' +
           '<div class="meta" style="font-size:12.5px;color:var(--ink-soft)">' + (p.metal || '') + ' · арт. ' + ((p.codes || [])[0] || '—') + '</div>' +
           (q ? '<div class="avail" style="margin-top:6px">В салоне Раменского — заберёте сегодня</div>'
              : '<div class="avail no" style="margin-top:6px">Привезём в салон за 2 дня</div>') +
           '</div>' +
-          '<div style="display:flex;align-items:center;gap:6px"><button class="sz" data-m="' + p.id + '" style="min-width:34px;height:34px">−</button>' +
-          '<span style="font-weight:700;min-width:22px;text-align:center">' + p._qty + '</span>' +
-          '<button class="sz" data-p="' + p.id + '" style="min-width:34px;height:34px">+</button></div>' +
+          '<div style="display:flex;align-items:center;gap:6px"><button class="sz js-minus" data-m="' + p.id + '" aria-label="Уменьшить количество" style="min-width:34px;height:34px">−</button>' +
+          '<span class="qty-n" data-qty="' + p.id + '" style="font-weight:700;min-width:22px;text-align:center">' + p._qty + '</span>' +
+          '<button class="sz js-plus" data-p="' + p.id + '" aria-label="Увеличить количество" style="min-width:34px;height:34px">+</button></div>' +
           '<div style="min-width:120px;text-align:right"><div class="price" style="font-size:18px">' + num((p.price || 0) * p._qty) + ' ₽</div>' +
-          '<a href="javascript:void(0)" data-d="' + p.id + '" style="font-size:12px;color:var(--ink-soft)">Удалить</a></div></div>';
+          '<a href="javascript:void(0)" class="js-remove" data-d="' + p.id + '" style="font-size:12px;color:var(--ink-soft)">Удалить</a></div></div>';
       }).join('');
       var aside =
         '<aside class="filters cart-sum" style="position:static;padding:20px">' +
@@ -407,13 +474,302 @@
     });
   }
 
+  /* ---------- Schema.org для реального товара ----------
+     Разметку строим по данным 1С, а не по демо-карточке: цена, артикул,
+     наличие и ссылка — настоящие. */
+  function schemaProduct(it) {
+    var q = it.cities && it.cities[CITY];
+    var node = {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: pretty(it),
+      sku: (it.codes || [])[0] || String(it.id),
+      category: it.category || undefined,
+      material: it.metal || undefined,
+      brand: { '@type': 'Brand', name: 'AURA' },
+      url: location.origin + location.pathname + '?id=' + it.id,
+      offers: {
+        '@type': 'Offer',
+        price: it.price || undefined,
+        priceCurrency: 'RUB',
+        availability: q ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
+        itemCondition: 'https://schema.org/NewCondition',
+        seller: { '@type': 'Organization', name: 'Ювелирный дом AURA' },
+        areaServed: Object.keys(it.cities || {}),
+        url: location.origin + location.pathname + '?id=' + it.id,
+      },
+    };
+    var old = document.getElementById('auraProductSchema');
+    if (old) old.parentNode.removeChild(old);
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.id = 'auraProductSchema';
+    s.textContent = JSON.stringify(node);
+    document.head.appendChild(s);
+  }
+
+  /* ---------- ЛИЧНЫЙ КАБИНЕТ: заказы, бонусы, резервы (данные салона) ---------- */
+  var STATUS = {
+    'новый': ['Принят · ждём подтверждения', 'gold'],
+    'подтверждён': ['Подтверждён салоном', 'gold'],
+    'готов': ['Готов к выдаче', 'g'],
+    'выдан': ['Забрали в салоне', 'g'],
+    'отменён': ['Отменён', ''],
+  };
+  function statusOf(o) {
+    var s = STATUS[o.status] || [o.status || 'В работе', ''];
+    return '<span class="st ' + s[1] + '">' + s[0] + '</span>';
+  }
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    var d = new Date(iso);
+    if (isNaN(d)) return iso;
+    return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+  function orderSum(o) {
+    return (o.items || []).reduce(function (s, i) { return s + (i.price || 0) * (i.qty || 1); }, 0);
+  }
+
+  function liveAccount() {
+    var login = document.getElementById('loginView');
+    var cab = document.getElementById('accView');
+    if (!login || !cab) return;
+    var token = localStorage.getItem('aura_token') || '';
+    var stage = document.getElementById('codeStage');
+    var hint = document.getElementById('codeHint');
+    var phoneIn = document.getElementById('inPhone');
+    var nameIn = document.getElementById('accName');
+
+    function showLogin(msg) {
+      login.style.display = '';
+      cab.style.display = 'none';
+      if (msg && hint) { hint.textContent = msg; stage.style.display = ''; }
+    }
+    function showCabinet(p) {
+      login.style.display = 'none';
+      cab.style.display = '';
+      var letter = (p.name || 'Г').trim().charAt(0).toUpperCase() || 'Г';
+      var av = document.getElementById('accAv'); if (av) av.textContent = letter;
+      if (nameIn) nameIn.textContent = p.name || 'Гость AURA';
+      var meta = document.getElementById('accMeta');
+      if (meta) meta.textContent = phoneIn.value.trim() + ' · ' + (p.city || 'Раменское') + ' · уровень «' + (p.level || 'Серебро') + '»';
+
+      var ord = p.orders || [];
+      var set = function (id, val) { var el = document.getElementById(id); if (el) el.textContent = val; };
+      set('stOrders', ord.length);
+      set('stBonus', num(p.bonuses || 0));
+      set('stPass', (p.passports || []).length);
+      set('stReserve', (p.reserves || []).length);
+
+      // заказы
+      var rows = ord.map(function (o) {
+        var names = (o.items || []).map(function (i) { return i.name || ('арт. ' + (i.code || '—')); }).join(', ');
+        return '<tr data-st="' + (o.status === 'выдан' ? 'done' : o.status === 'отменён' ? 'cancel' : 'active') + '">' +
+          '<td><b>AURA-' + o.id + '</b></td><td>' + fmtDate(o.created) + '</td>' +
+          '<td>' + (names || '—') + '</td><td><b>' + num(orderSum(o)) + ' ₽</b></td>' +
+          '<td>' + statusOf(o) + '</td></tr>';
+      }).join('') || '<tr><td colspan="5" style="color:var(--ink-2)">Заказов пока нет. Оформите самовывоз в каталоге — заказ появится здесь, а салон подтвердит его по телефону.</td></tr>';
+      var ordBody = document.querySelector('#pane-orders tbody');
+      if (ordBody) ordBody.innerHTML = rows;
+
+      // вкладки «все / в работе / завершённые»
+      var tabs = document.querySelectorAll('#ordTabs .a-tab');
+      function applyTab(mode) {
+        document.querySelectorAll('#pane-orders tbody tr[data-st]').forEach(function (tr) {
+          var st = tr.getAttribute('data-st');
+          tr.style.display = (mode === 'all' || (mode === 'active' && st === 'active') || (mode === 'done' && st === 'done')) ? '' : 'none';
+        });
+      }
+      tabs.forEach(function (t) {
+        t.onclick = function () {
+          tabs.forEach(function (x) { x.classList.remove('on'); });
+          t.classList.add('on');
+          applyTab(t.getAttribute('data-pp'));
+        };
+      });
+
+      // бонусы и история начислений
+      set('bnVal', num(p.bonuses || 0));
+      var bnNote = document.getElementById('bnNote');
+      if (bnNote) {
+        bnNote.textContent = p.bonuses
+          ? '1 бонус = 1 ₽. Начислено 2% от выданных заказов на ' + num(p.turnover) + ' ₽. Списать можно до 30% покупки.'
+          : '1 бонус = 1 ₽. Бонусы начислим после выдачи заказа в салоне (2% от суммы). Пока заказы не выданы — баланс 0.';
+      }
+      var bnBody = document.querySelector('#pane-bonus tbody');
+      if (bnBody) {
+        var paid = (p.orders || []).filter(function (o) { return o.status === 'выдан'; });
+        bnBody.innerHTML = paid.map(function (o) {
+          return '<tr><td>' + fmtDate(o.created) + '</td><td>Заказ AURA-' + o.id + '</td>' +
+            '<td style="text-align:right;color:var(--emerald);font-weight:700">+ ' + num(Math.round(orderSum(o) * (p.bonus_rate || 0.02))) + '</td></tr>';
+        }).join('') || '<tr><td colspan="3" style="color:var(--ink-2)">Начислений пока нет — бонусы появятся после выдачи заказа в салоне.</td></tr>';
+      }
+
+      // резервы = заявки в работе
+      var res = document.getElementById('resList');
+      if (res) {
+        res.innerHTML = (p.reserves || []).map(function (o) {
+          var names = (o.items || []).map(function (i) { return i.name || ('арт. ' + i.code); }).join(', ');
+          return '<div class="plan-step"><span class="pn" data-ic="calendar"></span><div><b>Заявка AURA-' + o.id + ' · ' + gen(o.city || CITY) + '</b>' +
+            '<p>' + fmtDate(o.created) + ' · ' + (names || 'изделия из заявки') + ' · сумма ' + num(orderSum(o)) + ' ₽</p></div>' +
+            '<span class="st gold" style="margin-left:auto">' + ((STATUS[o.status] || ['В работе'])[0]) + '</span></div>';
+        }).join('') || '<div class="plan-step"><span class="pn" data-ic="calendar"></span><div><b>Активных заявок нет</b>' +
+          '<p>Резерв и примерку можно оформить в карточке украшения — салон подтвердит по телефону.</p></div></div>';
+      }
+
+      // паспорта изделий из заказов
+      var pass = document.getElementById('passList');
+      if (pass) {
+        pass.innerHTML = (p.passports || []).map(function (i) {
+          return '<div class="pass-feat" style="border:1px solid var(--border);align-items:center">' +
+            '<span class="pf-ic" data-ic="gem"></span>' +
+            '<div style="flex:1"><b>' + (i.name || 'Изделие') + '</b>' +
+            '<span style="display:block;font-size:12.5px;color:var(--ink-3)">арт. ' + (i.code || '—') + ' · ' + (i.price ? num(i.price) + ' ₽' : 'цена в салоне') + '</span></div>' +
+            '<a href="passport.html" style="color:var(--emerald);font-weight:700;font-size:13px">Открыть паспорт</a></div>';
+        }).join('') || '<p style="color:var(--ink-2)">Паспорта появятся здесь после покупки: документ выдаётся на каждое изделие и хранится в кабинете.</p>';
+      }
+
+      // настройки
+      var sp = document.getElementById('setPhone'); if (sp) sp.value = phoneIn.value.trim();
+      var sn = document.getElementById('setName'); if (sn) sn.value = p.name || '';
+      var sc = document.getElementById('setCity'); if (sc && p.city) sc.value = p.city;
+
+      var src = document.getElementById('accSrc');
+      if (src) src.textContent = 'Данные кабинета — из учёта сети: ' + (p.source_note || '') + (p.next_level ? ' До уровня «' + p.next_level + '» осталось ' + num(p.next_level_at - p.turnover) + ' ₽ покупок.' : '');
+
+      window.__iconsApply && window.__iconsApply();
+      loadFavorites();
+    }
+
+    function loadFavorites() {
+      var box = document.getElementById('favList');
+      if (!box) return;
+      var ids = [];
+      try { ids = JSON.parse(localStorage.getItem('aura_fav') || '[]'); } catch (e) { ids = []; }
+      if (!ids.length) {
+        box.innerHTML = '<p style="color:var(--ink-2)">В избранном пусто. Нажмите на сердце в каталоге — украшение появится здесь.</p>';
+        return;
+      }
+      Promise.all(ids.slice(0, 12).map(function (id) {
+        return fetchJ('/api/products/' + id);
+      })).then(function (list) {
+        var items = list.filter(Boolean);
+        box.innerHTML = items.map(function (x) {
+          var q = x.cities && x.cities[CITY];
+          return '<div class="cartitem" style="cursor:default">' +
+            '<div class="ph" style="width:96px;height:96px;flex:none;position:relative">' + noimg('noimg--thumb') + '</div>' +
+            '<div style="flex:1"><b><a href="product.html?id=' + x.id + '">' + pretty(x) + '</a></b>' +
+            '<div class="meta">' + (x.metal || '') + (q ? ' · в салоне ' + gen(CITY) : ' · привезём за 2 дня') + '</div>' +
+            '<b>' + num(x.price) + ' ₽</b></div>' +
+            '<div style="display:flex;gap:8px"><a class="btn btn-p" style="padding:10px 16px;min-height:42px" href="product.html?id=' + x.id + '">Смотреть</a>' +
+            '<button class="fav on js-unfav" data-id="' + x.id + '" data-ic="heart" aria-label="Убрать из избранного"><span class="sr-only">Убрать</span></button></div></div>';
+        }).join('') || '<p style="color:var(--ink-2)">Товары из избранного больше не в каталоге.</p>';
+        window.__iconsApply && window.__iconsApply();
+        box.querySelectorAll('.js-unfav').forEach(function (b) {
+          b.onclick = function () {
+            var arr = [];
+            try { arr = JSON.parse(localStorage.getItem('aura_fav') || '[]'); } catch (e) { arr = []; }
+            localStorage.setItem('aura_fav', JSON.stringify(arr.filter(function (x) { return String(x) !== b.dataset.id; })));
+            loadFavorites();
+          };
+        });
+      });
+    }
+
+    function enter(p) { localStorage.setItem('aura_token', token); showCabinet(p); }
+    function loadProfile() {
+      if (!token) { showLogin(); return; }
+      fetchJ('/api/account?token=' + encodeURIComponent(token)).then(function (p) {
+        if (!p || p.error) { localStorage.removeItem('aura_token'); token = ''; showLogin(); return; }
+        showCabinet(p);
+      });
+    }
+
+    // вход: код на телефон
+    var goCode = document.getElementById('goCode');
+    if (goCode) goCode.onclick = function () {
+      var phone = phoneIn.value.trim();
+      if (!/^\+?[\d\s()-]{10,18}$/.test(phone)) { hint.textContent = 'Проверьте номер телефона.'; stage.style.display = ''; return; }
+      goCode.disabled = true;
+      fetch('/api/auth/start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ phone: phone }) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          goCode.disabled = false;
+          stage.style.display = '';
+          if (!res || !res.ok) { hint.textContent = 'Не получилось отправить код — проверьте номер.'; return; }
+          hint.textContent = res.demo
+            ? 'SMS-шлюз не подключён, поэтому код показан здесь: ' + res.code + '. На боевом сайте он приходит сообщением.'
+            : 'Код отправлен по СМС на ' + phone + '.';
+          var box = stage.querySelectorAll('.codebox input');
+          box.forEach(function (i) { i.value = ''; });
+          if (res.demo && box[0]) { res.code.split('').forEach(function (c, i) { if (box[i]) box[i].value = c; }); }
+          box.forEach(function (i) {
+            i.oninput = function () {
+              if (i.value && i.nextElementSibling) i.nextElementSibling.focus();
+              if (box[box.length - 1].value) enterCode();
+            };
+          });
+          (box[0] || {}).focus && box[0].focus();
+        });
+    };
+    function enterCode() {
+      var code = Array.prototype.map.call(document.querySelectorAll('#codeStage .codebox input'), function (i) { return i.value; }).join('');
+      fetch('/api/auth/verify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ phone: phoneIn.value.trim(), code: code }) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (!res || !res.ok) { hint.textContent = 'Код не подошёл. Запросите новый.'; return; }
+          token = res.token;
+          fetchJ('/api/account?token=' + encodeURIComponent(token)).then(function (p) {
+            if (p && !p.error) enter(p); else showLogin('Не удалось загрузить кабинет.');
+          });
+        });
+    }
+    var goEnter = document.getElementById('goEnter');
+    if (goEnter) goEnter.onclick = enterCode;
+
+    var out = document.getElementById('logout');
+    if (out) out.onclick = function (e) {
+      e.preventDefault();
+      localStorage.removeItem('aura_token');
+      token = '';
+      stage.style.display = 'none';
+      showLogin();
+    };
+
+    /* избранное: сердце в карточках каталога и на главной */
+    loadProfile();
+  }
+
+  /* Избранное работает на всех страницах: сердце → localStorage → кабинет */
+  function initFavButtons() {
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('.fav');
+      if (!b || b.classList.contains('js-unfav') || b.id === 'logout') return;
+      var card = b.closest('.card');
+      var link = card && card.querySelector('h3 a');
+      var id = null;
+      if (link) { var m = /id=(\d+)/.exec(link.getAttribute('href') || ''); if (m) id = m[1]; }
+      if (!id) return;                        // демо-карточка макета
+      e.preventDefault();
+      var arr = [];
+      try { arr = JSON.parse(localStorage.getItem('aura_fav') || '[]'); } catch (err) { arr = []; }
+      var has = arr.some(function (x) { return String(x) === id; });
+      arr = has ? arr.filter(function (x) { return String(x) !== id; }) : arr.concat([Number(id)]);
+      localStorage.setItem('aura_fav', JSON.stringify(arr));
+      b.classList.toggle('on', !has);
+      if (window.__auraToast) window.__auraToast(has ? 'Убрали из избранного' : 'Добавили в избранное — список в кабинете');
+    });
+  }
+
   var fn = (location.pathname.split('/').pop() || 'index.html');
   window.addEventListener('DOMContentLoaded', function () {
     cartStore.badge();
+    initFavButtons();
     if (fn === 'index.html') liveIndex();
     else if (fn === 'catalog.html') liveCatalog();
     else if (fn === 'product.html') { liveProduct(); liveProductButtons(); }
     else if (fn === 'salon.html') liveSalon();
     else if (fn === 'cart.html') liveCart();
+    else if (fn === 'account.html') liveAccount();
   });
 })();

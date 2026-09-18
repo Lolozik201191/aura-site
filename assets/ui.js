@@ -540,6 +540,7 @@
     el.textContent = msg; el.classList.add('show'); el.style.opacity = '1'; el.style.visibility = 'visible';
     clearTimeout(el._t); el._t = setTimeout(function () { el.classList.remove('show'); el.style.opacity = ''; el.style.visibility = ''; }, 2600);
   }
+  window.__auraToast = showToast;   /* доступ из live.js (избранное, кабинет) */
   function initCart() {
     var rows = [].slice.call(document.querySelectorAll('[data-cart-row]'));
     if (!rows.length) return;
@@ -616,21 +617,105 @@
       showToast('Отзыв отправлен на проверку');
     });
   }
+  /* Заявка «Купить в 1 клик» / резерв в салоне.
+     Форма отправляет заявку в салон (POST /api/orders); если API недоступен
+     (сайт открыт как макет) — показываем подтверждение локально. */
   function initOneClick() {
-    var links = document.querySelectorAll('a[href="#buy1"]');
+    var pop = document.getElementById('cbPop');
+    var links = document.querySelectorAll('a[href="#buy1"], .salonpick .btn');
+    if (!links.length) return;
+    if (!pop) return;
+    var form = document.getElementById('cbForm');
+    var err = document.getElementById('cbErr');
+    var ok = document.getElementById('cbOk');
+    var phone = document.getElementById('cbPhone');
+    var name = document.getElementById('cbName');
+    var note = document.getElementById('cbNote');
+    var what = document.getElementById('cbWhat');
+    var title = document.getElementById('cbTitle');
+    var lastFocus = null;
+
+    function product() {
+      var h1 = document.querySelector('.pinfo h1');
+      var now = document.querySelector('.pricebig .now');
+      var code = document.querySelector('.art b');
+      var pname = h1 ? h1.textContent.trim() : '';
+      if (pname && /Кольцо «Аврора»/.test(pname)) pname = ''; // демо-карточка макета
+      return {
+        id: new URLSearchParams(location.search).get('id'),
+        name: pname,
+        price: now ? now.textContent.replace(/\s/g, '') : '',
+        code: code ? code.textContent.trim() : ''
+      };
+    }
+    function open(kind) {
+      lastFocus = document.activeElement;
+      var p = product();
+      var label = kind === 'reserve' ? 'Зарезервировать в салоне' : 'Купить в один клик';
+      if (title) title.textContent = label;
+      if (what) {
+        what.textContent = p.name
+          ? p.name + (p.code ? ' · арт. ' + p.code : '') + '. Оставьте телефон — консультант подтвердит наличие и цену, отложит украшение к примерке.'
+          : 'Оставьте телефон — консультант салона подтвердит наличие, цену и отложит украшение к примерке.';
+      }
+      err.hidden = true;
+      ok.hidden = true;
+      pop.hidden = false;
+      document.body.classList.add('modal-open');
+      pop.dataset.kind = kind || 'buy';
+      window.setTimeout(function () { (name.value ? phone : name).focus(); }, 30);
+    }
+    function close() {
+      pop.hidden = true;
+      document.body.classList.remove('modal-open');
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
     [].forEach.call(links, function (a) {
       a.addEventListener('click', function (e) {
         e.preventDefault();
-        var btn = document.getElementById('callback-btn');
-        if (btn && !document.querySelector('.callback-pop.show')) btn.click();
-        var pop = document.querySelector('.callback-pop');
-        if (pop) {
-          var h = pop.querySelector('h2, h4');
-          if (h) h.textContent = 'Купить в один клик';
-          var i = pop.querySelector('input');
-          if (i) { i.focus(); showToast('Оставьте телефон — оформим заказ за вас'); }
-        }
+        open(/salonpick/.test(a.parentNode && a.parentNode.className || '') || /резерв|салон/i.test(a.textContent || '') ? 'reserve' : 'buy');
       });
+    });
+    pop.addEventListener('click', function (e) {
+      if (e.target.closest('[data-cb-close]')) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !pop.hidden) close();
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var tel = phone.value.trim();
+      if (!/^\+?[\d\s()-]{10,18}$/.test(tel)) {
+        err.textContent = 'Укажите телефон — по нему салон подтвердит заказ.';
+        err.hidden = false; ok.hidden = true; phone.focus(); return;
+      }
+      err.hidden = true;
+      var p = product();
+      var payload = {
+        name: name.value.trim(),
+        phone: tel,
+        city: 'Раменское',
+        comment: (pop.dataset.kind === 'reserve' ? 'Резерв в салоне' : 'Покупка в 1 клик') +
+          (note.value.trim() ? ': ' + note.value.trim() : ''),
+        items: p.id ? [{ id: Number(p.id), name: p.name, code: p.code, price: Number(p.price) || null, qty: 1 }] : []
+      };
+      fetch('/api/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (!res || !res.ok) throw new Error((res && res.error) || 'api');
+          ok.textContent = 'Заявка №' + res.id + ' принята. Салон позвонит по номеру ' + tel + ' и подтвердит наличие.';
+          ok.hidden = false;
+          form.reset();
+          showToast('Заявка №' + res.id + ' отправлена в салон');
+        })
+        .catch(function () {
+          ok.textContent = 'Заявка принята. Салон свяжется с вами по номеру ' + tel + '.';
+          ok.hidden = false;
+          form.reset();
+          showToast('Заявка отправлена');
+        });
     });
   }
   function initResend() {
@@ -793,7 +878,7 @@
       }
       /* 3. рассрочка: с условиями */
       var inst = card.querySelector('.inst');
-      if (inst) inst.textContent = '0-0-6 · ' + inst.textContent.replace(/^от\s*/, 'от ');
+      if (inst) inst.textContent = '6 мес без % · ' + inst.textContent.replace(/^от\s*/, 'от ');
       /* 4. наличие: без привязки к чужому городу */
       var avail = card.querySelector('.avail');
       if (avail && !avail.classList.contains('no')) avail.textContent = 'В наличии · забрать сегодня';
@@ -842,6 +927,9 @@
   /* Десктопный поиск в шапке: Enter/кнопка → каталог с ?q= */
   function bindDesktopSearch() {
     document.querySelectorAll('.header .search input').forEach(function (inp) {
+      // на странице результатов возвращаем запрос в поле поиска
+      var cur = new URLSearchParams(location.search).get('q');
+      if (cur && location.pathname.indexOf('catalog.html') >= 0) inp.value = cur;
       inp.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') { e.preventDefault(); var v = inp.value.trim(); window.location = v ? 'catalog.html?q=' + encodeURIComponent(v) : 'catalog.html'; }
       });

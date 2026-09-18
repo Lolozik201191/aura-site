@@ -17,9 +17,15 @@
 <meta name="twitter:card" content="summary_large_image">
 <title>Личный кабинет — AURA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap"></noscript>
+<link rel="stylesheet" href="assets/tokens.css">
 <link rel="stylesheet" href="assets/aura.css">
 <link rel="stylesheet" href="assets/theme-sun.css">
+<script type="application/ld+json" data-aura-schema>{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"Ювелирный дом AURA","alternateName":"AURA","url":"https://lolozik201191.github.io/aura-site/","logo":{"@type":"ImageObject","url":"https://lolozik201191.github.io/aura-site/assets/logo-au-ra.png"},"telephone":"+7-496-464-03-07","areaServed":["Раменское","Ногинск","Воскресенск","Егорьевск","Луховицы","Озёры","Электрогорск"],"address":{"@type":"PostalAddress","addressRegion":"Московская область","addressCountry":"RU"},"sameAs":["http://vk.com/jewelry_aura","https://www.instagram.com/juvelirnyiaura/","https://www.facebook.com/juvelirnyiaura"],"contactPoint":{"@type":"ContactPoint","telephone":"+7-496-464-03-07","contactType":"customer service","areaServed":"RU","availableLanguage":"ru"}},{"@type":"WebSite","url":"https://lolozik201191.github.io/aura-site/","name":"Ювелирный дом AURA","inLanguage":"ru-RU","publisher":{"@id":"https://lolozik201191.github.io/aura-site/#org"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://lolozik201191.github.io/aura-site/catalog.html?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://lolozik201191.github.io/aura-site/index.html"},{"@type":"ListItem","position":2,"name":"Личный кабинет","item":"https://lolozik201191.github.io/aura-site/account.html"}]}]}</script>
 </head>
 <body>
 <header class="sitehead">
@@ -37,7 +43,7 @@
 
 <div class="header">
   <div class="wrap">
-    <a class="logo" href="index.html"><img src="assets/logo-au-ra.png" alt="Ювелирный дом AURA"></a>
+    <a class="logo" href="index.html"><img src="assets/logo-au-ra.png" alt="Ювелирный дом AURA" width="144" height="69"></a>
     <nav class="nav" aria-label="Основное меню">
       <a href="catalog.html">Каталог</a>
     </nav>
@@ -67,6 +73,7 @@
       </div>
       <button type="button" class="btn btn-p btn-l" id="goCode">Получить код</button>
       <div id="codeStage" style="display:none;margin-top:14px">
+        <p class="p-sub" id="codeHint" style="margin:0 0 8px"></p>
         <label style="font-weight:700;font-size:13px;display:block;margin-bottom:8px">Код из СМС</label>
         <div class="codebox">
           <input maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code"><input maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code"><input maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code"><input maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code">
@@ -74,6 +81,7 @@
         <button type="button" class="btn btn-p btn-l" style="margin-top:12px" id="goEnter">Войти</button>
         <div style="font-size:12px;color:var(--ink-2);margin-top:10px;text-align:center">Не пришло? <a href="#" class="js-resend" style="color:var(--emerald);font-weight:700">Отправить ещё раз</a></div>
       </div>
+      <p class="p-sub" id="accSrc" style="margin:10px 0 0"></p>
       <div style="display:flex;gap:10px;align-items:center;margin-top:16px;color:var(--ink-2);font-size:13px">
         <span data-ic="shield" style="color:var(--emerald)"></span> Продолжая, вы соглашаетесь с условиями использования сервиса
       </div>
@@ -85,7 +93,7 @@
     <h1 class="pagetitle">Личный кабинет</h1>
     <div class="acc-layout">
       <aside class="acc-side">
-        <div class="acc-user"><span class="au">А</span><div><b>Анна</b><span>+7 (916) 123-45-67 · Раменское</span></div></div>
+        <div class="acc-user"><span class="au" id="accAv">A</span><div><b id="accName">—</b><span id="accMeta">—</span></div></div>
         <nav class="acc-menu">
           <a href="#pane-orders" class="on" data-tab="orders"><span data-ic="bag"></span> Мои заказы</a>
           <a href="#pane-favs" data-tab="favs"><span data-ic="heart"></span> Избранное</a>
@@ -99,33 +107,22 @@
       <div class="acc-body">
 
         <div class="stat-grid">
-          <div class="stat"><b>2</b><span>активных заказа</span></div>
-          <div class="stat"><b>1 240</b><span>бонусов AURA</span></div>
-          <div class="stat"><b>2</b><span>украшения с паспортом</span></div>
-          <div class="stat"><b>1</b><span>резерв в салоне</span></div>
+          <div class="stat"><b id="stOrders">0</b><span>заказов на сайте</span></div>
+          <div class="stat"><b id="stBonus">0</b><span>бонусов AURA</span></div>
+          <div class="stat"><b id="stPass">0</b><span>украшений в заказах</span></div>
+          <div class="stat"><b id="stReserve">0</b><span>заявок в работе</span></div>
         </div>
 
         <!-- Заказы -->
         <div class="tab-pane" id="pane-orders">
-          <div class="a-tabs">
+          <div class="a-tabs" id="ordTabs">
             <span class="a-tab on" data-pp="all">Все</span><span class="a-tab" data-pp="active">В работе</span><span class="a-tab" data-pp="done">Завершённые</span>
           </div>
           <div class="panel">
             <table class="tbl">
               <thead><tr><th>Заказ</th><th>Дата</th><th>Состав</th><th>Сумма</th><th>Статус</th></tr></thead>
               <tbody>
-                <tr>
-                  <td><b>AURA-12841</b></td><td>сегодня</td><td>Кольцо «Аврора», серьги «Искра»</td><td><b>30 300 ₽</b></td>
-                  <td><span class="st gold">Собираем в салоне</span></td>
-                </tr>
-                <tr>
-                  <td><b>AURA-12705</b></td><td>12 мая 2026</td><td>Подвеска «Капля»</td><td><b>22 400 ₽</b></td>
-                  <td><span class="st g">Доставлен · паспорт в кабинете</span></td>
-                </tr>
-                <tr>
-                  <td><b>AURA-12402</b></td><td>2 апр 2026</td><td>Кольцо «Рассвет»</td><td><b>9 950 ₽</b></td>
-                  <td><span class="st g">Забрали в салоне</span></td>
-                </tr>
+              <tr><td colspan="5" style="color:var(--ink-2)">Загрузка…</td></tr>
               </tbody>
             </table>
             <div style="font-size:12.5px;color:var(--ink-2);margin-top:12px">Паспорт каждого купленного изделия — в разделе «Мои украшения». По нему доступны чистка и гарантия без чека.</div>
@@ -135,11 +132,10 @@
         <!-- Избранное -->
         <div class="tab-pane" id="pane-favs" style="display:none">
           <div class="panel">
-            <div style="display:grid;gap:12px">
-              <div class="cartitem" style="cursor:default">
-                <span class="s-ph" style="flex:none"><svg viewBox="0 0 200 200" width="64" height="64" fill="none" stroke="#C4A06A" stroke-width="4" stroke-linecap="round"><circle cx="100" cy="118" r="50"/><path d="M100 118V68M100 68l16 8-7 22-19 4M100 68l-16 8 7 22 19 4"/></svg></span>
-                <div style="flex:1"><b>Кольцо с изумрудом «Капля»</b><div class="meta">золото 585 · изумруд 0,9 карата</div><b>38 200 ₽</b></div>
-                <div style="display:flex;gap:8px"><a class="btn btn-p" style="padding:10px 16px;min-height:42px" href="product.html">В корзину</a><button class="fav on" data-ic="heart" aria-label="Убрать"><span class="sr-only">Убрать</span></button></div>
+          <h2>Избранное</h2>
+          <p class="p-sub">Украшения, которые вы отметили сердцем в каталоге. Они не резервируются — наличие подтвердит салон.</p>
+          <div id="favList" style="display:grid;gap:12px"></div>
+        </div>
               </div>
               <div class="cartitem" style="cursor:default">
                 <span class="s-ph" style="flex:none"><svg viewBox="0 0 200 200" width="64" height="64" fill="none" stroke="#C4A06A" stroke-width="4" stroke-linecap="round"><circle cx="78" cy="118" r="34"/><circle cx="122" cy="118" r="34"/><path d="M78 84V70M78 70l5 4M78 70l-5 4M122 84V70M122 70l5 4M122 70l-5 4"/></svg></span>
@@ -155,25 +151,15 @@
           <div class="panel">
             <h2>Мои украшения</h2>
             <p class="p-sub">Цифровые паспорта всех покупок. По паспорту доступна бесплатная чистка и гарантия — чек не нужен.</p>
-            <div style="display:grid;gap:12px">
-              <div class="pass-feat" style="border:1px solid var(--border);align-items:center">
-                <span class="pf-ic" data-ic="gem"></span>
-                <div style="flex:1"><b>Кольцо с бриллиантом «Аврора»</b><span style="display:block;font-size:12.5px;color:var(--ink-3)">золото 585 · бриллиант 0,15 карата · вес 2,84 г · арт. AR-2156-585</span></div>
-                <a href="passport.html" style="color:var(--emerald);font-weight:700;font-size:13px">Открыть паспорт</a>
-              </div>
-              <div class="pass-feat" style="border:1px solid var(--border);align-items:center">
-                <span class="pf-ic" data-ic="gem"></span>
-                <div style="flex:1"><b>Подвеска «Капля»</b><span style="display:block;font-size:12.5px;color:var(--ink-3)">золото 585 · изумруд 0,9 карата · арт. AR-4110-585</span></div>
-                <a href="contacts.html" style="color:var(--emerald);font-weight:700;font-size:13px">Сервисная заявка</a>
-              </div>
-            </div>
+            <div id="passList" style="display:grid;gap:12px"></div>
           </div>
+        </div>
         </div>
 
         <!-- Бонусы -->
         <div class="tab-pane" id="pane-bonus" style="display:none">
           <div class="bonuscard">
-            <div><div class="b-val">1 240 <small>бонусов AURA</small></div><p style="margin-top:6px">1 бонус = 1 ₽. Списать можно при следующей покупке, накопить — за каждый заказ и отзыв.</p></div>
+            <div><div class="b-val"><span id="bnVal">0</span> <small>бонусов AURA</small></div><p style="margin-top:6px" id="bnNote">1 бонус = 1 ₽. Начисляем 2% от суммы заказа после выдачи в салоне; списывать можно до 30% покупки.</p></div>
             <a class="btn btn-gold" href="catalog.html">Потратить бонусы</a>
           </div>
           <div class="panel">
@@ -181,9 +167,7 @@
             <table class="tbl">
               <thead><tr><th>Дата</th><th>Описание</th><th style="text-align:right">Изменение</th></tr></thead>
               <tbody>
-                <tr><td>сегодня</td><td>Заказ AURA-12841</td><td style="text-align:right;color:var(--emerald);font-weight:700">+ 606</td></tr>
-                <tr><td>12 мая 2026</td><td>Заказ AURA-12705</td><td style="text-align:right;color:var(--emerald);font-weight:700">+ 448</td></tr>
-                <tr><td>1 мая 2026</td><td>Списание за подвеску</td><td style="text-align:right;color:var(--sale);font-weight:700">− 1 000</td></tr>
+                <tr><td colspan="3" style="color:var(--ink-2)">Загрузка…</td></tr>
               </tbody>
             </table>
           </div>
@@ -193,7 +177,7 @@
         <div class="tab-pane" id="pane-reserve" style="display:none">
           <div class="panel">
             <h2>Резервы и записи на примерку</h2>
-            <div class="plan-step"><span class="pn" data-ic="calendar"></span><div><b>Примерка обручальных колец · салон в Раменском</b><p>Суббота, 28 мая · 12:00 · консультант Ирина</p></div><span class="st g" style="margin-left:auto">Подтверждено</span></div>
+            <div id="resList" style="display:grid;gap:10px"></div>
             <div style="font-size:12.5px;color:var(--ink-2);margin-top:10px">Отменить или перенести можно в любой момент до начала.</div>
           </div>
         </div>
@@ -205,11 +189,17 @@
             <p class="p-sub">Город, контакты и уведомления — то же, что у консультанта в салоне.</p>
             <div style="display:grid;gap:14px;max-width:560px">
               <label style="display:grid;gap:6px"><b style="font-size:13px">Ваш город</b>
-                <select class="fsearch" style="padding:11px 12px">
-                  <option selected>Раменское</option><option>Жуковский</option><option>Ногинск</option><option>Воскресенск</option><option>Егорьевск</option><option>Луховицы</option><option>Озёры</option><option>Электрогорск</option>
+                <select class="fsearch" id="setCity" style="padding:11px 12px">
+                  <option>Раменское</option>
+                  <option>Ногинск</option>
+                  <option>Воскресенск</option>
+                  <option>Егорьевск</option>
+                  <option>Луховицы</option>
+                  <option>Озёры</option>
+                  <option>Электрогорск</option>
                 </select></label>
-              <label style="display:grid;gap:6px"><b style="font-size:13px">Телефон</b><input class="fsearch" style="padding:11px 12px" value="+7 (916) 123-45-67"></label>
-              <label style="display:grid;gap:6px"><b style="font-size:13px">Имя</b><input class="fsearch" style="padding:11px 12px" value="Анна"></label>
+              <label style="display:grid;gap:6px"><b style="font-size:13px">Телефон</b><input class="fsearch" id="setPhone" style="padding:11px 12px" value=""></label>
+              <label style="display:grid;gap:6px"><b style="font-size:13px">Имя</b><input class="fsearch" id="setName" style="padding:11px 12px" value=""></label>
               <div style="display:grid;gap:8px;font-size:13.5px">
                 <b style="font-size:13px">Уведомления</b>
                 <label style="display:flex;gap:10px;align-items:center"><input type="checkbox" checked> СМС о статусах заказа и готовности в салоне</label>
@@ -229,7 +219,7 @@
 <footer class="footer">
   <div class="wrap">
     <div>
-      <div style="margin-bottom:6px"><a href="index.html"><img src="assets/logo-au-ra.png" alt="Ювелирный дом AURA" style="height:46px;width:auto"></a></div>
+      <div style="margin-bottom:6px"><a href="index.html"><img src="assets/logo-au-ra.png" alt="Ювелирный дом AURA" width="123" height="46" style="height:46px;width:auto"></a></div>
       <p style="font-size:13.5px;color:#C7C7C7;margin:14px 0">Ювелирный дом AURA — салоны в городах Московской области. Честные украшения, живой сервис.</p>
       <a class="fbtn" href="tel:+74964640307">+7 (496) 464-03-07 · офис</a>
       <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
@@ -297,5 +287,6 @@
 })();
 </script>
 <script src="assets/fx.js"></script>
+<script src="assets/live.js"></script>
 </body>
 </html>
