@@ -283,7 +283,7 @@
       return '<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.5 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg>';
     }
     function fill(el, items) {
-      if (el) el.innerHTML = items.map(cardReal).join('');
+      if (el) fillCarousel(el, items.map(cardReal).join(''));
     }
     fetchJ('/api/products?per=8&sort=popular').then(function (d) {
       if (d) fill(document.getElementById('hitsGrid'), d.items);
@@ -364,7 +364,7 @@
     fetchJ('/api/products?city=' + encodeURIComponent(city) + '&per=10&sort=qty').then(function (d) {
       var el = document.getElementById('today');
       if (!el || !d) return;
-      el.innerHTML = (d.items || []).map(function (it, i) {
+      fillCarousel(el, (d.items || []).map(function (it, i) {
         var q = it.cities && it.cities[city];
         var nm = pretty(it);
         return '<div class="card"><div class="ph">' + noimg() +
@@ -374,7 +374,7 @@
           '<h3><a href="product.html?id=' + it.id + '">' + nm + '</a></h3>' +
           '<span class="meta">' + (it.metal || '') + '</span>' +
           '<div class="price-row"><span class="price">' + num(it.price) + ' ₽</span></div></div></div>';
-      }).join('') || '<p>Сейчас товаров в этом городе нет — привезём за 2 дня.</p>';
+      }).join('') || '<p>Сейчас товаров в этом городе нет — привезём за 2 дня.</p>');
     });
     // ссылки городов -> эта же страница с городом
     document.querySelectorAll('.sec a, .svcgrid a').forEach(function (a) {
@@ -506,6 +506,23 @@
     s.id = 'auraProductSchema';
     s.textContent = JSON.stringify(node);
     document.head.appendChild(s);
+  }
+
+  /* Карточки в каруселях: ui.js строит .crl-view/.crl-track при загрузке,
+     поэтому живой рендер обязан попадать в дорожку, иначе карточки встают
+     в столбик и секция вырастает на тысячи пикселей. */
+  function fillCarousel(el, html) {
+    if (!el) return;
+    var track = el.querySelector('.crl-track');
+    if (track) { track.innerHTML = html; return; }
+    Array.prototype.slice.call(el.querySelectorAll('.crl-view,.crl-a,.crl-dots')).forEach(function (n) {
+      n.parentNode.removeChild(n);
+    });
+    el.innerHTML = html;
+    if (window.__auraCarousels) {
+      el.classList.remove('crl-built');
+      window.__auraCarousels();
+    }
   }
 
   /* ---------- ЛИЧНЫЙ КАБИНЕТ: заказы, бонусы, резервы (данные салона) ---------- */

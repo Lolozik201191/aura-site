@@ -272,6 +272,7 @@
       refreshDots();
     });
   }
+  window.__auraCarousels = buildCarousels;   /* live.js перестраивает карусель после подстановки данных */
 
   /* ---------- 5. Fade-in секций ---------- */
   function initFade() {

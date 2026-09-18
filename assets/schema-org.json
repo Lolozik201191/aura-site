@@ -9,7 +9,7 @@
       "url": "https://lolozik201191.github.io/aura-site/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://lolozik201191.github.io/aura-site/assets/logo-au-ra.png"
+        "url": "https://lolozik201191.github.io/aura-site/assets/logo-dark.png"
       },
       "telephone": "+7-496-464-03-07",
       "areaServed": ["Раменское", "Ногинск", "Воскресенск", "Егорьевск", "Луховицы", "Озёры", "Электрогорск"],
@@ -20,8 +20,7 @@
       },
       "sameAs": [
         "http://vk.com/jewelry_aura",
-        "https://www.instagram.com/juvelirnyiaura/",
-        "https://www.facebook.com/juvelirnyiaura"
+        "https://www.instagram.com/juvelirnyiaura/"
       ],
       "contactPoint": {
         "@type": "ContactPoint",

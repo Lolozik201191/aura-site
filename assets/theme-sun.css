@@ -925,3 +925,53 @@ body.modal-open{overflow:hidden}
 /* логотип: место под картинку резервируем, чтобы не было сдвига вёрстки */
 .header .logo img,.footer img{aspect-ratio:auto}
 img[src*="logo-au-ra"]{aspect-ratio:auto;object-fit:contain}
+
+/* ============================================================
+   Типографика: убираем «жирную антикву» (синтетический bold Cormorant).
+   В карточках акций и на цифрах стоял display-антиква с weight 700–800:
+   такого начертания в шрифте нет, браузер «дорисовывал» его сам — отсюда
+   разная высота и неровный вид. Цифры и заголовки карточек — в Manrope.
+   ============================================================ */
+.kicker{font-family:var(--sans)!important;font-weight:700!important;letter-spacing:1.8px!important}
+.actcard h3,.act-banner h3{
+  font-family:var(--sans)!important;font-weight:700!important;letter-spacing:-.01em!important;line-height:1.2!important}
+.actcard .a-pct,.act-banner .a-pct2,.act-hero .a-big .pct,.act-big-pct,.a-hero-media .a-pill .pct,.bnr-big{
+  font-family:var(--sans)!important;font-weight:800!important;letter-spacing:-.01em!important;line-height:1;
+  font-variant-numeric:tabular-nums}
+.actcard .a-note{font-weight:700!important;letter-spacing:1.2px!important}
+.step .n,.ordersum .os-h,.infocard h3,.svcgrid a b{font-family:var(--sans)!important;font-weight:700!important}
+.step .n{font-weight:800!important}
+.b-val,.bonuscard .b-val{font-variant-numeric:tabular-nums}
+/* цены и проценты — ровные цифры одинаковой высоты */
+.price,.price-row .price,.pgrid .price,.tbl td b{font-variant-numeric:tabular-nums}
+
+/* ============================================================
+   Слайды главного баннера без выдуманных фотографий.
+   Слайд 2: вместо коллажа из сгенерированных колец — один чистый
+   снимок пары на белом, оформленный карточкой справа.
+   Слайд 3: вместо «салона, которого нет» — брендовая подложка
+   с силуэтом знака AURA.
+   ============================================================ */
+.hs-s2{background-image:linear-gradient(100deg,#0b0b0b 0%,#15130f 46%,#241d14 100%)!important}
+.hs-s3{
+  background-image:linear-gradient(100deg,#0c0c0c 0%,#141414 48%,#1b1918 100%),url(logo-watermark.png)!important;
+  background-size:cover,min(38%,520px) auto!important;
+  background-position:center,right 4% center!important;
+  background-repeat:no-repeat,no-repeat!important}
+.hs-photo{
+  position:absolute;right:5%;top:50%;transform:translateY(-50%);
+  width:min(30%,330px);padding:12px;background:#fff;z-index:2;
+  box-shadow:0 30px 70px -24px rgba(0,0,0,.65)}
+.hs-photo img{display:block;width:100%;height:auto}
+@media (max-width:1100px){.hs-photo{width:min(34%,290px);right:3%}}
+@media (max-width:900px){
+  .hs-photo{position:static;transform:none;width:min(58%,260px);margin:16px 0 0;box-shadow:0 18px 40px -18px rgba(0,0,0,.5)}
+  .hs-s3{background-size:cover,min(70%,320px) auto!important;background-position:center,right -6% bottom 10%!important}
+}
+
+/* карточка товара: заголовок, паспорт, наличие, рейтинг — тоже без синтетического жирного */
+.pinfo h1{font-family:var(--sans)!important;font-weight:700!important;letter-spacing:-.01em!important;line-height:1.15!important}
+.passport .ph,.sp-t b,.sp-t span b,.pinfo h3,.sec2 h3{font-family:var(--sans)!important;font-weight:700!important}
+.revsum div,.revsum b,.revstat b{font-family:var(--sans)!important;font-variant-numeric:tabular-nums!important}
+.revsum div:first-child{font-weight:800!important;letter-spacing:-.01em!important}
+.sm-item b{font-family:var(--sans)!important}
